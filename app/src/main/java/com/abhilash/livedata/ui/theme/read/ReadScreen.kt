@@ -13,8 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -31,10 +29,9 @@ import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -49,23 +46,16 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.abhilash.livedata.R
 import com.abhilash.livedata.ui.theme.database.OriginalData
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
 @Composable
 fun ReadScreen(navController: NavController) {
     var busType by rememberSaveable { mutableStateOf("") }
     var depoNo by rememberSaveable { mutableStateOf("") }
     var scheduleNo by rememberSaveable { mutableStateOf("") }
+    var flag by remember { mutableStateOf(false) }
     Surface(color = Color(0xFFC2D6F7)) {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -90,8 +80,6 @@ fun ReadScreen(navController: NavController) {
                     fontWeight = FontWeight.SemiBold,
                 )
             }
-
-
             //Rest of heading
             Divider(color = Color.White, thickness = 3.dp)
             Spacer(modifier = Modifier.height(10.dp))
@@ -104,7 +92,6 @@ fun ReadScreen(navController: NavController) {
                     OutlinedTextField(
                         value = depoNo,
                         singleLine = true,
-                        // shape = RoundedCornerShape(80),
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                         onValueChange = { newValue ->
                             val textFieldValue =
@@ -113,7 +100,6 @@ fun ReadScreen(navController: NavController) {
                                 depoNo = textFieldValue.text
                             }
                         },
-                        //modifier = Modifier.fillMaxWidth(0.23f),
                         placeholder = {
                             Text(
                                 text = "Enter Depo NO:",
@@ -172,10 +158,9 @@ fun ReadScreen(navController: NavController) {
             //Enter Schedule Information
             Spacer(modifier = Modifier.height(5.dp))
             Text(
-                text = "Enter each trip of a schedule and press INSERT button below(Scroll down). After completing the schedule , change schedule number you want to save further...(need not change depo number or schedule every time when entering trip)",
+                text = "Enter each trip of a schedule and press UPLOAD button below(Scroll right). After completing the schedule , change schedule number you want to save further...(need not change depo number or schedule every time when entering trip)",
                 textAlign = TextAlign.Start, modifier = Modifier.padding(10.dp)
             )
-            //Spacer(modifier = Modifier.height(10.dp))
             Card(
                 modifier = Modifier
                     .fillMaxSize()
@@ -185,25 +170,24 @@ fun ReadScreen(navController: NavController) {
                 contentColor = Color.Black,
                 backgroundColor = Color.White
             ) {
-
                 Spacer(modifier = Modifier.height(10.dp))
                 val scrollState = rememberScrollState()
                 Box(modifier = Modifier.verticalScroll(scrollState)) {
                     Column {
                         Text("TripNo  Departure Time From  Via  To ArrivalTime Kilometer ETM_Root_No")
-                        //UploadedScheduleList(depoNumber = depoNo, bustype =busType , scheduleno =scheduleNo )
                         Spacer(modifier = Modifier.height(10.dp))
-                            RepeatRead(
-                                //trip="1",
-                                depoNumber = depoNo,
-                                bustype = busType,
-                                scheduleno = scheduleNo
-                            )
-                        }
+                          if (!flag)  {
+                               RepeatRead(
+                                   //trip="1",
+                                   depoNumber = depoNo,
+                                   bustype = busType,
+                                   scheduleno = scheduleNo
+                               )
+                               flag= readUserInput()
+                           }
+                    }
                     }
                 }
-
-
             }
         }
     }
@@ -212,9 +196,26 @@ fun isValidText(text: TextFieldValue): Boolean {
     val allowedChars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     return text.text.all { allowedChars.contains(it) }
 }
+@Composable
+fun readUserInput(): Boolean {
+    var flag by remember { mutableStateOf(false) }
+    Column {
+        Text("Do you want to continue", fontSize = 19.sp, color = Color.Red)
+        Row {
+                TextButton(onClick = { flag=false }) {
+                Text("Y")
+                }
+                TextButton(onClick = { flag=true })
+                {
+                    Text("N")
+                }
+             }
+    }
+    return flag
+}
 
 @Composable
-fun RepeatRead(trip:String="",depoNumber:String="",bustype:String="",scheduleno:String="") {
+fun RepeatRead(depoNumber:String="",bustype:String="",scheduleno:String="") {
     var etm by rememberSaveable { mutableStateOf("") }
     var busType by rememberSaveable { mutableStateOf("") }
     var kilometer by rememberSaveable { mutableStateOf("") }
@@ -237,7 +238,6 @@ fun RepeatRead(trip:String="",depoNumber:String="",bustype:String="",scheduleno:
             modifier = Modifier.horizontalScroll(scroll),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-
             OutlinedTextField(
                 value = tripNo,
                 singleLine = true,
@@ -254,7 +254,6 @@ fun RepeatRead(trip:String="",depoNumber:String="",bustype:String="",scheduleno:
                     .width(85.dp)
                     .height(50.dp)
             )
-
             OutlinedTextField(
                 value = departureTime,
                 singleLine = true,
@@ -292,7 +291,6 @@ fun RepeatRead(trip:String="",depoNumber:String="",bustype:String="",scheduleno:
                     .width(120.dp)
                     .height(50.dp)
             )
-
             OutlinedTextField(
                 value = via,
                 singleLine = true,
@@ -311,7 +309,6 @@ fun RepeatRead(trip:String="",depoNumber:String="",bustype:String="",scheduleno:
                     .width(120.dp)
                     .height(50.dp)
             )
-
             OutlinedTextField(
                 value = destination,
                 singleLine = true,
@@ -332,7 +329,6 @@ fun RepeatRead(trip:String="",depoNumber:String="",bustype:String="",scheduleno:
                     .width(125.dp)
                     .height(50.dp)
             )
-
             OutlinedTextField(
                 value = arrivalTime,
                 singleLine = true,
@@ -350,10 +346,7 @@ fun RepeatRead(trip:String="",depoNumber:String="",bustype:String="",scheduleno:
                 modifier = Modifier
                     .width(130.dp)
                     .height(50.dp)
-
-
             )
-
             OutlinedTextField(
                 value = kilometer,
                 singleLine = true,
@@ -372,7 +365,6 @@ fun RepeatRead(trip:String="",depoNumber:String="",bustype:String="",scheduleno:
                     .width(100.dp)
                     .height(50.dp)
             )
-
             OutlinedTextField(
                 value = etm,
                 singleLine = true,
@@ -389,7 +381,6 @@ fun RepeatRead(trip:String="",depoNumber:String="",bustype:String="",scheduleno:
                     .width(100.dp)
                     .height(50.dp)
             )
-
             val originalDatabase = OriginalData(
                 startPlace = stPlace,
                 via = via,
@@ -428,11 +419,9 @@ fun RepeatRead(trip:String="",depoNumber:String="",bustype:String="",scheduleno:
                                 Toast.makeText(context, it.toString(), Toast.LENGTH_LONG)
                                     .show()
                             }
-
                     } else {
                         Toast.makeText(context, "field empty", Toast.LENGTH_LONG).show()
                     }
-
                 },
                 modifier = Modifier
                     .fillMaxSize(0.5f)
@@ -440,7 +429,6 @@ fun RepeatRead(trip:String="",depoNumber:String="",bustype:String="",scheduleno:
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor =Color(0xff2e4f24),
                     contentColor = Color.Blue
-
                 )
             ) {
                 Surface(color =Color(0xff2e4f24) ) {
@@ -449,88 +437,9 @@ fun RepeatRead(trip:String="",depoNumber:String="",bustype:String="",scheduleno:
                         fontSize = 18.sp,
                         color = Color.White
                     )
-                    Icon(
-                        imageVector = R.drawable.yellow_arrow,
-                        contentDescription = "Arrow"
-                    )
                 }
             }
         }
-
     }
 }
-
-fun Icon(imageVector: Int, contentDescription: String) {
-
-}
-
-
-@Composable
-fun UploadedScheduleList(depoNumber: String, bustype: String, scheduleno: String) {
-    val viewModel: ScheduleViewModel = viewModel()
-    val uploadedScheduleList: List<OriginalData> by viewModel.getUploadedScheduleLiveData().observeAsState(emptyList())
-
-    // Fetch the data when the composable is first created
-    LaunchedEffect(key1 = Unit) {
-        viewModel.getUploadedScheduleList(depoNumber, bustype, scheduleno)
-    }
-
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        items(uploadedScheduleList) { schedule ->
-            // Display the schedule details here
-            Text("Time${schedule.departureTime}")
-            Text("From${schedule.startPlace}")
-            Text("Via${schedule.via}")
-            Text("To${schedule.destinationPlace}")
-            Text(text = "Arrival${schedule.arrivalTime}")
-
-        }
-    }
-}
-
-class ScheduleViewModel : ViewModel() {
-    private val uploadedScheduleList = MutableLiveData<List<OriginalData>>()
-
-    fun getUploadedScheduleList(depoNumber: String, bustype: String, scheduleno: String) {
-        val dataBase = FirebaseDatabase.getInstance()
-        val myRef = dataBase.getReference(depoNumber)
-        val query = myRef.child(bustype).child(scheduleno)
-
-        query.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val dataList = mutableListOf<OriginalData>()
-                for (dataSnapshot in snapshot.children) {
-                    val originalData = dataSnapshot.getValue(OriginalData::class.java)
-                    originalData?.let { dataList.add(it) }
-                }
-                uploadedScheduleList.value = dataList
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Handle database read error if needed
-            }
-        })
-    }
-
-    fun getUploadedScheduleLiveData(): LiveData<List<OriginalData>> {
-        return uploadedScheduleList
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
 
