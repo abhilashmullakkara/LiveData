@@ -19,7 +19,7 @@ import androidx.navigation.NavController
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun MenuScreen(navController: NavController) {
-
+    //navController.popBackStack()
     Surface(modifier = Modifier.fillMaxSize(), color = Color(0xff90918a)) {
         val scroll = rememberScrollState()
         Column {
@@ -178,6 +178,22 @@ fun MenuScreen(navController: NavController) {
                         navController.navigate("DeleteAllRecordScreen")
                     }) {
                         Text("DELETE ALL", color = Color.White, fontSize = 20.sp)
+                    }
+                }
+
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp)
+                        .height(100.dp), // Adjust the height as needed
+                    backgroundColor = Color(0xFF448AFF),
+                    shape= CircleShape,
+                    elevation = 5.dp
+                ) {
+                    TextButton(onClick = {
+                        navController.navigate("CurrencyCountScreen")
+                    }) {
+                        Text("CURRENCY COUNT", color = Color.White, fontSize = 20.sp)
                     }
                 }
 

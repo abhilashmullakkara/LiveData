@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.abhilash.livedata.ui.theme.read.ReadScreen
 import com.abhilash.livedata.ui.theme.userdatabase.AddDutyDiaryScreen
+import com.abhilash.livedata.ui.theme.userdatabase.CurrencyCountScreen
 import com.abhilash.livedata.ui.theme.userdatabase.DeleteAllRecordScreen
 import com.abhilash.livedata.ui.theme.userdatabase.DeleteRecordScreen
 import com.abhilash.livedata.ui.theme.userdatabase.ViewDiaryScreen
@@ -54,6 +55,9 @@ fun ScreenManager(){
         }
         composable("DeleteAllRecordScreen"){
            DeleteAllRecordScreen(navController)
+        }
+        composable("CurrencyCountScreen"){
+            CurrencyCountScreen(navController)
         }
     }
 }

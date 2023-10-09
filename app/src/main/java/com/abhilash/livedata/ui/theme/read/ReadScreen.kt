@@ -2,7 +2,6 @@ package com.abhilash.livedata.ui.theme.read
 
 import android.widget.Toast
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,7 +32,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -65,29 +63,36 @@ fun ReadScreen(navController: NavController) {
     Surface(color = Color(0xFF85A2D2)) {
       Column(
        modifier = Modifier.fillMaxWidth(),
-       horizontalAlignment = Alignment.CenterHorizontally,
-       verticalArrangement = Arrangement.Top
+//       horizontalAlignment = Alignment.CenterHorizontally,
+//       verticalArrangement = Arrangement.Top
         )
       {
-       Text(
-        "Enter Schedule Information",
-        fontSize = 19.sp,
-        color = Color.Red,
-        fontWeight = FontWeight.SemiBold,
-         )
-          IconButton(onClick = {
-          navController.popBackStack()
-            })
-          {
-          Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow")
-           }
+          Row{
+              IconButton(onClick = {
+                 navController.popBackStack("MenuScreen", inclusive = false)
+                 // navController.navigate("MenuScreen")
+              })
+              {
+                  Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow")
+              }
+              Text(
+                  "  Enter Schedule Information...    ",
+                  fontSize = 19.sp,
+                  color = Color.Red,
+                  fontWeight = FontWeight.SemiBold,
+              )
+          }
+
+
             Divider(color = Color.White, thickness = 3.dp)
-            Spacer(modifier = Modifier.height(10.dp))
+           // Spacer(modifier = Modifier.height(10.dp))
             Row {
+                Spacer(modifier = Modifier.width(7.dp))
                 OutlinedTextField(
                     value = depoNo,
                     singleLine = true,
-                    shape = RoundedCornerShape(80),
+
+                   // shape = RoundedCornerShape(80),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                     onValueChange = { newValue ->
                         val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
@@ -95,19 +100,20 @@ fun ReadScreen(navController: NavController) {
                             depoNo = textFieldValue.text
                         }
                     },
-                    modifier = Modifier.fillMaxWidth(0.23f),
+                    modifier = Modifier.fillMaxWidth(0.25f),
                     placeholder = {
                         Text(
-                            text = "Depo NO:",
+                            text = "DepoNO",
                             color = Color.Black,
                             fontSize = 14.sp
                         )
                     }
                 )
+                Spacer(modifier = Modifier.width(7.dp))
                 OutlinedTextField(
                     value = scheduleNo,
                     singleLine = true,
-                    shape = RoundedCornerShape(80),
+                    //shape = RoundedCornerShape(80),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
                     onValueChange = { newValue ->
                         val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
@@ -115,19 +121,20 @@ fun ReadScreen(navController: NavController) {
                             scheduleNo = textFieldValue.text
                         }
                     },
-                    modifier = Modifier.fillMaxWidth(0.37f),
+                    modifier = Modifier.fillMaxWidth(0.40f),
                     placeholder = {
                         Text(
-                            text = "Schedule NO:",
+                            text = "ScheduleNO",
                             color = Color.Black,
                             fontSize = 14.sp
                         )
                     }
                 )
+                Spacer(modifier = Modifier.width(7.dp))
                 OutlinedTextField(
                     value = busType,
                     singleLine = true,
-                    shape = RoundedCornerShape(80),
+                   // shape = RoundedCornerShape(80),
                     //keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
                     keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.Characters
@@ -138,21 +145,25 @@ fun ReadScreen(navController: NavController) {
                             busType = textFieldValue.text
                         }
                     },
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(0.90f),
                     placeholder = {
                         Text(
-                            text = "Type(FP,Ord,JNT):",
+                            text = "Type(FP,Ord,JNT)",
                             color = Color.Black,
                             fontSize = 14.sp
                         )
                     }
                 )
+                //Spacer(modifier = Modifier.width(5.dp))
             }
+          Text("Rotate the screen or scroll left and right ", fontSize = 17.sp,color=Color.LightGray)
            // Spacer(modifier = Modifier.height(5.dp))
 //            Text(
 //                text = "Enter each trip of a schedule and press INSERT button below(Scroll down). After completing the schedule , change schedule number you want to save further...(need not change depo number or schedule every time when entering trip)",
 //                textAlign = TextAlign.Start, modifier = Modifier.padding(10.dp)
 //            )
+          //git remote add origin https://github.com/abhilashmullakkara/JetNote1.git
+          //git push -u origin main
             Spacer(modifier = Modifier.height(30.dp))
 
             Card(
@@ -172,7 +183,7 @@ fun ReadScreen(navController: NavController) {
 
 
                         Spacer(modifier = Modifier.height(20.dp))
-                        Text("Trip NO   DepartureTime  SatartPlace  Via Destination  Arr_Time Kilometer  *ETM_No*")
+                      //  Text("Trip NO   DepartureTime  SatartPlace  Via Destination  Arr_Time Kilometer  *ETM_No*")
                         val scroll= rememberScrollState()
                         Row(modifier=Modifier.horizontalScroll(scroll)){
                             OutlinedTextField(value = tripNo,
@@ -285,7 +296,7 @@ fun ReadScreen(navController: NavController) {
                             OutlinedTextField(value = kilometer,
                                 singleLine = true,
                                 modifier= Modifier
-                                    .size(width = 75.dp, height = 51.dp),
+                                    .size(width = 95.dp, height = 51.dp),
                                 //shape = RoundedCornerShape(80),
                                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                                 onValueChange = { kilometer = it },
@@ -301,20 +312,20 @@ fun ReadScreen(navController: NavController) {
                             OutlinedTextField(value = etm,
                                 singleLine = true,
                                 modifier= Modifier
-                                    .size(width = 90.dp, height = 51.dp),
+                                    .size(width = 190.dp, height = 51.dp),
                                 // shape = RoundedCornerShape(80),
                                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                                 onValueChange = { etm = it },
                                 placeholder = {
                                     Text(
-                                        text = "Optional*",
-                                        color = Color(0xFFFFC107),
+                                        text = "ETM_root_NO(Optional)",
+                                        color = Color(0xFFFF4081),
                                         fontSize = 15.sp
                                     )
                                 }
                             )
 
-
+                            Spacer(modifier = Modifier.width(7.dp))
 
                         }
 
@@ -329,7 +340,7 @@ fun ReadScreen(navController: NavController) {
                             bustype = busType,
                             etmNo = etm
                         )
-                        Spacer(modifier = Modifier.height(20.dp))
+                        //Spacer(modifier = Modifier.height(20.dp))
                         TextButton(
                             onClick = {
                                 if (depoNo.isNotBlank() && scheduleNo.isNotBlank() &&
@@ -352,7 +363,7 @@ fun ReadScreen(navController: NavController) {
                                         arrivalTime = ""
                                         kilometer = ""
                                         etm = ""
-                                        Toast.makeText(context, "Data saved", Toast.LENGTH_SHORT)
+                                        Toast.makeText(context, "Data uploaded", Toast.LENGTH_SHORT)
                                             .show()
                                     }.addOnFailureListener {
                                         Toast.makeText(context, it.toString(), Toast.LENGTH_LONG)
@@ -368,15 +379,15 @@ fun ReadScreen(navController: NavController) {
                                 .fillMaxSize(0.5f)
                                 .padding(start = 50.dp),
                             colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Color.LightGray,
-                                contentColor = Color.Blue
+                                backgroundColor = Color(0xFF536DFE),
+                                contentColor = Color.White
 
                             )
                         ) {
                             Text(
-                                text = "INSERT",
+                                text = "UPLOAD",
                                 fontSize = 18.sp,
-                                color = Color.Red
+                                color = Color.White
                             )
 
 
