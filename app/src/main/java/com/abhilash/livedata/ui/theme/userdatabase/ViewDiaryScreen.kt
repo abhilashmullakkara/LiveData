@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,20 +44,20 @@ fun ViewDiaryScreen(navController: NavController) {
     val scroll = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
-    Surface(color = Color.White) {
+    Surface(color = Color(0xFF232C5F)) {
 
 
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            IconButton(onClick = {
-                navController.popBackStack()
-            })
-            {
-                Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow")
+        Column {
+            Row {
+                IconButton(onClick = {
+                    navController.popBackStack()
+                })
+                {
+                    Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow",tint= Color.White)
+                }
+                Text("For detailed view rotate the screen ", color = Color.LightGray, fontSize = 18.sp)
+
             }
-            Text("For detailed view rotate the screen ", color = Color.Gray, fontSize = 14.sp)
 
             Row {
 
@@ -113,33 +114,40 @@ fun ViewDiaryScreen(navController: NavController) {
 
             }
 
-            Text("Record    DutyNo      Performed on    Duty earned     W/B no  CrewName    Collection")
+            Text("Record    DutyNo      Performed on    Duty earned     W/B no  CrewName    Collection",color=Color.White,
+                modifier=Modifier.padding(start=5.dp), fontSize = 18.sp)
             Column(modifier = Modifier.verticalScroll(scroll)) {
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(10.dp)
                         .height(600.dp), // Adjust the height as needed
-                    backgroundColor = Color.White,
+                    backgroundColor = Color(0xFF686DA4),
                     shape = RoundedCornerShape(0.4f),
                     elevation = 5.dp
                 ) {
                     if (flag) {
                         Text(
                             text = result2,
-                            color = Color.Red,
+                            color = Color.White,
                             fontSize = 17.sp,
+                            fontWeight= FontWeight.SemiBold,
                             textAlign =TextAlign.Justify,
-                            modifier = Modifier.fillMaxSize().padding(start = 15.dp)
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(start = 15.dp)
                         )
                     } else {
                         //  Toast.makeText(context, "Record not found", Toast.LENGTH_SHORT).show()
                         Text(
                             text = result,
-                            color = Color.Red,
+                            color = Color.White,
+                            fontWeight= FontWeight.SemiBold,
                             fontSize = 17.sp,
                             textAlign =TextAlign.Justify,
-                            modifier = Modifier.fillMaxSize().padding(start = 15.dp)
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(start = 15.dp)
                         )
                     }
 

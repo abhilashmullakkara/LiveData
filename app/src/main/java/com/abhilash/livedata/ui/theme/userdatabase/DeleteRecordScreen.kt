@@ -4,10 +4,12 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedButton
@@ -37,17 +39,19 @@ fun DeleteRecordScreen(navController: NavController){
     var recNo by rememberSaveable { mutableStateOf("") }
     val context= LocalContext.current
     val coroutineScope= rememberCoroutineScope()
-    Surface(color = Color.White) {
+    Surface(color = Color(0xFF616BA1), modifier = Modifier.height(850.dp)) {
         Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+//            verticalArrangement = Arrangement.Center,
+//            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             IconButton(onClick = {
-                navController.popBackStack()
+                navController.popBackStack("MenuScreen",inclusive = false)
             })
             {
-                Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow")
+                Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow",tint=Color.White)
             }
+            Divider(thickness = 3.dp,color= Color.White)
+
             Text(text = "Enter Record Number to delete a single record from the database",color = Color.Gray, fontSize = 18.sp)
             OutlinedTextField(
                 value = recNo,
@@ -58,7 +62,7 @@ fun DeleteRecordScreen(navController: NavController){
                     recNo = it
                 },
                 modifier = Modifier
-                    .fillMaxWidth(0.44f)
+                    .fillMaxWidth(0.70f)
                     .padding(start = 10.dp),
                 placeholder = {
                     Text(

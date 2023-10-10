@@ -3,24 +3,25 @@ package com.abhilash.livedata.ui.theme.userdatabase
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.widget.DatePicker
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -29,13 +30,30 @@ import java.util.Date
 
 @Composable
 fun AddDutyDiaryScreen(navController: NavController){
-    Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-        IconButton(onClick = {
-            navController.popBackStack()
-        })
+    Surface(color=Color(0xFF6776CA)) {
+
+
+    Column(
+//        verticalArrangement = Arrangement.Center,
+//        horizontalAlignment = Alignment.CenterHorizontally
+    )
+    {
+        Row()
         {
-            Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow")
+            IconButton(onClick = {
+                navController.popBackStack()
+            })
+            {
+                Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow")
+            }
+            Text(
+                "Enter Information", fontSize = 19.sp,
+                color = Color(0xFFC8C8CE),
+                fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(10.dp)
+            )
+
         }
+
 //        var isLoading by remember {
 //            mutableStateOf(true) }
 //        LaunchedEffect(isLoading) {
@@ -57,6 +75,7 @@ fun AddDutyDiaryScreen(navController: NavController){
     }
 
     }
+}
 
 
 

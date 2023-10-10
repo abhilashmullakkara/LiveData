@@ -69,7 +69,7 @@ Surface(color = Color(0xFF071715)) {
     ) {
         IconButton(
             onClick = {
-                navController.popBackStack()
+                navController.popBackStack("MenuScreen", inclusive = false)
             },
             modifier = Modifier.size(48.dp)
         ) {
