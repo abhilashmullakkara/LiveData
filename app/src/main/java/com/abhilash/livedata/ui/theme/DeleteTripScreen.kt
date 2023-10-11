@@ -55,7 +55,7 @@ fun DeleteTripScreen(navController: NavController) {
         )
         {
             IconButton(onClick = {
-                navController.popBackStack()
+                navController.popBackStack("MenuScreen",inclusive = false)
             })
             {
                 Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow")

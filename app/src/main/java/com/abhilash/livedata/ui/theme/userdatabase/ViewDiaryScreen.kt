@@ -50,7 +50,7 @@ fun ViewDiaryScreen(navController: NavController) {
         Column {
             Row {
                 IconButton(onClick = {
-                    navController.popBackStack()
+                    navController.popBackStack("MenuScreen",inclusive = false)
                 })
                 {
                     Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow",tint= Color.White)

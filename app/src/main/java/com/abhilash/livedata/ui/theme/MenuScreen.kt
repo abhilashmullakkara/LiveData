@@ -196,6 +196,25 @@ fun MenuScreen(navController: NavController) {
                         Text("CURRENCY COUNT", color = Color.White, fontSize = 20.sp)
                     }
                 }
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp)
+                        .height(100.dp), // Adjust the height as needed
+                    backgroundColor = Color.White,
+                    shape = CircleShape,
+                    elevation = 5.dp
+                ) {
+
+                    TextButton(
+                        onClick = {
+                            navController.navigate("EditDutyDiaryScreen")
+                        },
+                        //colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
+                    ) {
+                        Text("Edit Diary", color = Color.Blue, fontSize = 20.sp)
+                    }
+                }
 
             }
 

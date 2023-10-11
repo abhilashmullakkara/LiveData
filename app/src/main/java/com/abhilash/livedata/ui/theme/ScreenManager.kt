@@ -12,6 +12,7 @@ import com.abhilash.livedata.ui.theme.userdatabase.AddDutyDiaryScreen
 import com.abhilash.livedata.ui.theme.userdatabase.CurrencyCountScreen
 import com.abhilash.livedata.ui.theme.userdatabase.DeleteAllRecordScreen
 import com.abhilash.livedata.ui.theme.userdatabase.DeleteRecordScreen
+import com.abhilash.livedata.ui.theme.userdatabase.EditDutyDiaryScreen
 import com.abhilash.livedata.ui.theme.userdatabase.ViewDiaryScreen
 
 @RequiresApi(Build.VERSION_CODES.M)
@@ -58,6 +59,9 @@ fun ScreenManager(){
         }
         composable("CurrencyCountScreen"){
             CurrencyCountScreen(navController)
+        }
+        composable("EditDutyDiaryScreen"){
+            EditDutyDiaryScreen(navController)
         }
     }
 }

@@ -41,7 +41,7 @@ fun AddDutyDiaryScreen(navController: NavController){
         Row()
         {
             IconButton(onClick = {
-                navController.popBackStack()
+                navController.popBackStack("MenuScreen",inclusive = false)
             })
             {
                 Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow")
@@ -113,6 +113,8 @@ fun MyCalendar():String {
 @Composable
 fun CircularLoadingIndicator(isLoading: Boolean) {
     if (isLoading) {
-        CircularProgressIndicator()
+        CircularProgressIndicator(color = Color.Red,
+            strokeWidth=5.dp,
+            backgroundColor = Color.Green)
     }
     }
