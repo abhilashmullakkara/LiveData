@@ -1,4 +1,4 @@
-package com.abhilash.livedata.ui.theme.userdatabase
+package com.abhilash.livedata.ui.theme.room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

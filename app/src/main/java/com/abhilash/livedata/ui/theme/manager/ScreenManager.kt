@@ -1,13 +1,17 @@
-package com.abhilash.livedata.ui.theme
+package com.abhilash.livedata.ui.theme.manager
 
-import DisplayScreen
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.abhilash.livedata.ui.theme.read.ReadScreen
+import com.abhilash.livedata.ui.theme.DepoListScreen
+import com.abhilash.livedata.ui.theme.schedule.AddScheduleScreen
+import com.abhilash.livedata.ui.theme.schedule.DeleteScheduleScreen
+import com.abhilash.livedata.ui.theme.schedule.DeleteTripScreen
+import com.abhilash.livedata.ui.theme.schedule.FindMyBusScreen
+import com.abhilash.livedata.ui.theme.schedule.ScheduleDisplayScreen
 import com.abhilash.livedata.ui.theme.userdatabase.AddDutyDiaryScreen
 import com.abhilash.livedata.ui.theme.userdatabase.CurrencyCountScreen
 import com.abhilash.livedata.ui.theme.userdatabase.DeleteAllRecordScreen
@@ -30,11 +34,11 @@ fun ScreenManager(){
         composable("MenuScreen"){
             MenuScreen(navController)
         }
-        composable("DisplayScreen"){
-            DisplayScreen(navController)
+        composable(" ScheduleDisplayScreen"){
+            ScheduleDisplayScreen(navController)
         }
-        composable("ReadScreen"){
-            ReadScreen(navController)
+        composable("AddScheduleScreen"){
+           AddScheduleScreen(navController)
         }
         composable("DeleteTripScreen"){
             DeleteTripScreen(navController)
@@ -62,6 +66,9 @@ fun ScreenManager(){
         }
         composable("EditDutyDiaryScreen"){
             EditDutyDiaryScreen(navController)
+        }
+        composable("FindMyBusScreen"){
+            FindMyBusScreen(navController)
         }
     }
 }

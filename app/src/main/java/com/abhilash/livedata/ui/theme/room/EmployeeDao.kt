@@ -1,4 +1,4 @@
-package com.abhilash.livedata.ui.theme.userdatabase
+package com.abhilash.livedata.ui.theme.room
 
 import androidx.room.Dao
 import androidx.room.Insert

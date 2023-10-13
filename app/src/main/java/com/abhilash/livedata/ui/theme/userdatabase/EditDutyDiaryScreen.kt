@@ -32,6 +32,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.abhilash.livedata.ui.theme.room.EditRoomData
+import com.abhilash.livedata.ui.theme.room.Employee
+import com.abhilash.livedata.ui.theme.room.EmployeeDB
 import kotlinx.coroutines.launch
 
 @Composable
@@ -104,6 +107,7 @@ fun EditDutyDiaryScreen(navController: NavController) {
                             } else {
                                 Toast.makeText(context, " Record not found !", Toast.LENGTH_SHORT)
                                     .show()
+                                flag=false
                             }
 
                         }

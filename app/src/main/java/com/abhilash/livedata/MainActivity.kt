@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.abhilash.livedata.ui.theme.LiveDataTheme
-import com.abhilash.livedata.ui.theme.MyApp
+import com.abhilash.livedata.ui.theme.manager.MyApp
 
 
 class MainActivity : ComponentActivity() {

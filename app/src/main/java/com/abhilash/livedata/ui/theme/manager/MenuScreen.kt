@@ -1,4 +1,4 @@
-package com.abhilash.livedata.ui.theme
+package com.abhilash.livedata.ui.theme.manager
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -48,7 +48,7 @@ fun MenuScreen(navController: NavController) {
 
                     TextButton(
                         onClick = {
-                            navController.navigate("ReadScreen")
+                            navController.navigate("AddScheduleScreen")
                         },
                         //colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
                     ) {
@@ -66,7 +66,7 @@ fun MenuScreen(navController: NavController) {
                 ) {
 
                     TextButton(onClick = {
-                        navController.navigate("DisplayScreen")
+                        navController.navigate(" SchedleDisplayScreen")
                     }) {
                         Text("View Schedule ", color = Color.Blue, fontSize = 20.sp)
 
@@ -102,6 +102,26 @@ fun MenuScreen(navController: NavController) {
                     }) {
                         Text("Delete Schedule", color = Color.Blue, fontSize = 20.sp)
                     }
+                }
+
+
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp)
+                        .height(100.dp), // Adjust the height as needed
+                    backgroundColor = Color.White,
+                    shape= CircleShape,
+                    elevation = 5.dp
+                ) {
+
+                    TextButton(onClick = {
+                        navController.navigate("FindMyBusScreen")
+                    }) {
+                        Text("Find My Bus ", color = Color.Blue, fontSize = 20.sp)
+
+                    }
+
                 }
                 Card(
                     modifier = Modifier

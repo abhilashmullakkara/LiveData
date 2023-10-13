@@ -33,7 +33,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.abhilash.livedata.ui.theme.read.isValidText
+import com.abhilash.livedata.ui.theme.schedule.isValidText
 
 @Composable
 fun CurrencyCountScreen(navController:NavController) {

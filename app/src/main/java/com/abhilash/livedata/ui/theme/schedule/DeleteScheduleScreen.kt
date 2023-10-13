@@ -1,4 +1,4 @@
-package com.abhilash.livedata.ui.theme
+package com.abhilash.livedata.ui.theme.schedule
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement

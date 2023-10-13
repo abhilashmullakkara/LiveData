@@ -1,3 +1,5 @@
+package com.abhilash.livedata.ui.theme.schedule
+
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -37,7 +39,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.abhilash.livedata.ui.theme.read.isValidText
 import com.abhilash.livedata.ui.theme.userdatabase.CircularLoadingIndicator
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
@@ -46,7 +47,7 @@ import kotlinx.coroutines.withContext
 
 
 @Composable
-fun  DisplayScreen(navController: NavController){
+fun  ScheduleDisplayScreen(navController: NavController){
 
     val context = LocalContext.current
     var depoNo by rememberSaveable { mutableStateOf("") }

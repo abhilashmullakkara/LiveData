@@ -1,4 +1,4 @@
-package com.abhilash.livedata.ui.theme.userdatabase
+package com.abhilash.livedata.ui.theme.room
 
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
@@ -31,16 +31,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.abhilash.livedata.ui.theme.read.isValidText
+import com.abhilash.livedata.ui.theme.schedule.isValidText
+import com.abhilash.livedata.ui.theme.userdatabase.MyCalendar
 import kotlinx.coroutines.launch
 
 @Composable
 fun RoomData() {
     Surface(color = Color(0xFF6776CA)) {
-
-
         val context = LocalContext.current
-
         val coroutineScope = rememberCoroutineScope()
         var scheduleNo by rememberSaveable { mutableStateOf("") }
         var dutyEearnt by rememberSaveable { mutableStateOf("") }
@@ -49,15 +47,11 @@ fun RoomData() {
         var wBillNo by rememberSaveable { mutableStateOf("") }
         var crewName by rememberSaveable { mutableStateOf("") }
         Column(modifier=Modifier.height(800.dp)) {
-
             Row {
-
-
             OutlinedTextField(
                 value = scheduleNo,
                 singleLine = true,
                 shape = RoundedCornerShape(80),
-                // keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                 onValueChange = { newValue ->
                     val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
@@ -82,20 +76,12 @@ fun RoomData() {
                 value = dutyEearnt,
                 singleLine = true,
                 shape = RoundedCornerShape(80),
-                //keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-
                 onValueChange = {
-//                    newValue ->
-//                val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
-//                if (isValidText(textFieldValue)) {
-//                    dutyEearnt = textFieldValue.text
-//                }
                     dutyEearnt = it
                 },
                 modifier = Modifier
                     .fillMaxWidth(0.8f),
-                    //.padding(start = 10.dp),
                 placeholder = {
                     Text(
                         text = "No of duty earned:",
@@ -106,7 +92,6 @@ fun RoomData() {
             )
         }
             Spacer(modifier = Modifier.height(10.dp))
-            // Text("Select Date ")
             permedDate = MyCalendar()
             Spacer(modifier = Modifier.height(10.dp))
             Text(
@@ -119,13 +104,11 @@ fun RoomData() {
             Spacer(modifier = Modifier.height(10.dp))
             Text("Collection",modifier=Modifier.padding(start=20.dp),
                 color=Color.White, fontSize = 14.sp)
-
             OutlinedTextField(
                 value = todayCollection,
                 singleLine = true,
                 shape = RoundedCornerShape(80),
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-
                 onValueChange = {
                     todayCollection = it
                 },
@@ -139,7 +122,6 @@ fun RoomData() {
                         fontSize = 14.sp
                     )
                 }
-
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text("Way Bill No",modifier=Modifier.padding(start=20.dp),color= Color.White, fontSize = 14.sp)
@@ -167,7 +149,6 @@ fun RoomData() {
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text("Name of the Crew",modifier=Modifier.padding(start=20.dp),color=Color.White, fontSize = 14.sp)
-//
             OutlinedTextField(
                 value = crewName,
                 singleLine = true,
@@ -187,7 +168,6 @@ fun RoomData() {
                     )
                 }
             )
-            // rec=(mYear1 + mMonth1 + mDay1+ scheduleNo)
             OutlinedButton(onClick = {
                 if (scheduleNo.isNotBlank() && dutyEearnt.isNotBlank() && permedDate.isNotBlank()) {
                     coroutineScope.launch {
@@ -201,7 +181,6 @@ fun RoomData() {
                             wayBillNo = wBillNo
                         )
                         EmployeeDB.getInstance(context).getEmployeeDao().insert(employee)
-
                         Toast.makeText(context, "Record inserted successfully", Toast.LENGTH_SHORT)
                             .show()
                         scheduleNo=" "
@@ -210,12 +189,10 @@ fun RoomData() {
                         todayCollection=""
                         crewName=""
                         wBillNo=""
-
                     }
                 } else {
                     Toast.makeText(context, "Input Record first", Toast.LENGTH_SHORT).show()
                 }
-
             },modifier=Modifier.padding(start=20.dp),colors=ButtonDefaults.buttonColors(Color(
                 0xFF0F0825
             )
@@ -223,19 +200,14 @@ fun RoomData() {
             ) {
                 Text("INSERT", fontSize = 17.sp,color=Color.White)
             }
-
-
         }
-        //MyCalendar()
     }
 }
 @Composable
-fun EditRoomData(database:Employee) {
+fun EditRoomData(database: Employee) {
     Surface(color = Color(0xFF6776CA)) {
 
-
         val context = LocalContext.current
-
         val coroutineScope = rememberCoroutineScope()
         var scheduleNo by rememberSaveable { mutableStateOf("") }
         var dutyEearnt by rememberSaveable { mutableStateOf("") }
@@ -244,22 +216,16 @@ fun EditRoomData(database:Employee) {
         var wBillNo by rememberSaveable { mutableStateOf("") }
         var crewName by rememberSaveable { mutableStateOf("") }
         Column(modifier=Modifier.height(800.dp)) {
+            Text("Schedule:${database.dutyNo} Duty:${database.dutyEarned} Date:${database.performedOn} " +
+                    "Collection:${database.collection} WayBill:${database.wayBillNo} " +
+                    " Crew: ${database.employeeName}",color= Color.White)
             Text(text = "Schedule No     No of duty earned  ", color=Color.White, fontSize = 19.sp,
                 modifier = Modifier.padding(start=10.dp,end=10.dp).fillMaxWidth())
-        scheduleNo=database.dutyNo
-            dutyEearnt=database.dutyEarned
-            permedDate=database.performedOn
-            todayCollection=database.collection
-            wBillNo=database.wayBillNo
-            crewName=database.employeeName
             Row {
-
-
                 OutlinedTextField(
                     value = scheduleNo,
                     singleLine = true,
                     shape = RoundedCornerShape(80),
-                    // keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                     onValueChange = { newValue ->
                         val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
@@ -272,7 +238,7 @@ fun EditRoomData(database:Employee) {
                         .padding(start = 10.dp),
                     placeholder = {
                         Text(
-                            text = "Schedule NO:",
+                            text = database.dutyNo,
                             color = Color.White,
                             fontSize = 17.sp
                         )
@@ -284,23 +250,15 @@ fun EditRoomData(database:Employee) {
                     value = dutyEearnt,
                     singleLine = true,
                     shape = RoundedCornerShape(80),
-                    //keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-
                     onValueChange = {
-//                    newValue ->
-//                val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
-//                if (isValidText(textFieldValue)) {
-//                    dutyEearnt = textFieldValue.text
-//                }
                         dutyEearnt = it
                     },
                     modifier = Modifier
                         .fillMaxWidth(0.8f),
-                    //.padding(start = 10.dp),
                     placeholder = {
                         Text(
-                            text = "No of duty earned:",
+                            text = database.dutyEarned,
                             color = Color.White,
                             fontSize = 16.sp
                         )
@@ -308,7 +266,6 @@ fun EditRoomData(database:Employee) {
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
-            // Text("Select Date ")
             permedDate = MyCalendar()
             Spacer(modifier = Modifier.height(10.dp))
             Text(
@@ -321,13 +278,11 @@ fun EditRoomData(database:Employee) {
             Spacer(modifier = Modifier.height(10.dp))
             Text("Collection",modifier=Modifier.padding(start=20.dp),
                 color=Color.White, fontSize = 14.sp)
-
             OutlinedTextField(
                 value = todayCollection,
                 singleLine = true,
                 shape = RoundedCornerShape(80),
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-
                 onValueChange = {
                     todayCollection = it
                 },
@@ -336,12 +291,11 @@ fun EditRoomData(database:Employee) {
                     .padding(start = 10.dp),
                 placeholder = {
                     Text(
-                        text = "Collection:",
+                        text = database.collection,
                         color = Color.Black,
                         fontSize = 14.sp
                     )
                 }
-
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text("Way Bill No",modifier=Modifier.padding(start=20.dp),color= Color.White, fontSize = 14.sp)
@@ -361,7 +315,7 @@ fun EditRoomData(database:Employee) {
                     .padding(start = 10.dp),
                 placeholder = {
                     Text(
-                        text = "Way Bill No",
+                        text =database.wayBillNo,
                         color = Color.Black,
                         fontSize = 14.sp
                     )
@@ -369,7 +323,6 @@ fun EditRoomData(database:Employee) {
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text("Name of the Crew",modifier=Modifier.padding(start=20.dp),color=Color.White, fontSize = 14.sp)
-//
             OutlinedTextField(
                 value = crewName,
                 singleLine = true,
@@ -383,18 +336,17 @@ fun EditRoomData(database:Employee) {
                     .padding(start = 10.dp),
                 placeholder = {
                     Text(
-                        text = "Name of the crew",
+                        text = database.employeeName,
                         color = Color.Black,
                         fontSize = 14.sp
                     )
                 }
             )
-            // rec=(mYear1 + mMonth1 + mDay1+ scheduleNo)
             OutlinedButton(onClick = {
                 if (scheduleNo.isNotBlank() && dutyEearnt.isNotBlank() && permedDate.isNotBlank()) {
                     coroutineScope.launch {
                         if (todayCollection.isBlank()) todayCollection = "--.--"
-                        val employee = Employee(
+                         val database1 = Employee(
                             dutyNo = scheduleNo,
                             performedOn = permedDate,
                             dutyEarned = dutyEearnt,
@@ -402,22 +354,20 @@ fun EditRoomData(database:Employee) {
                             employeeName  =crewName,
                             wayBillNo = wBillNo
                         )
-                        EmployeeDB.getInstance(context).getEmployeeDao().insert(employee)
-
+                        EmployeeDB.getInstance(context).getEmployeeDao().updateEmployee(database1)
                         Toast.makeText(context, "Record inserted successfully", Toast.LENGTH_SHORT)
                             .show()
-                        scheduleNo=" "
-                        permedDate= " "
-                        dutyEearnt= " "
+                        scheduleNo=""
+                        permedDate= ""
+                        todayCollection=""
+                        wBillNo=""
+                        dutyEearnt= ""
                         todayCollection=""
                         crewName=""
-                        wBillNo=""
-
                     }
                 } else {
                     Toast.makeText(context, "Input Record first", Toast.LENGTH_SHORT).show()
                 }
-
             },modifier=Modifier.padding(start=20.dp),colors=ButtonDefaults.buttonColors(Color(
                 0xFF0F0825
             )
@@ -425,9 +375,6 @@ fun EditRoomData(database:Employee) {
             ) {
                 Text("INSERT", fontSize = 17.sp,color=Color.White)
             }
-
-
         }
-        //MyCalendar()
     }
 }

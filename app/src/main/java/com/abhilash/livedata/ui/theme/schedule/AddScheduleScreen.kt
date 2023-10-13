@@ -1,5 +1,6 @@
-package com.abhilash.livedata.ui.theme.read
+package com.abhilash.livedata.ui.theme.schedule
 
+import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
@@ -46,8 +47,9 @@ import androidx.navigation.NavController
 import com.abhilash.livedata.ui.theme.database.OriginalData
 import com.google.firebase.database.FirebaseDatabase
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
-fun ReadScreen(navController: NavController) {
+fun AddScheduleScreen(navController: NavController) {
     var etm by rememberSaveable { mutableStateOf("") }
     var busType by rememberSaveable { mutableStateOf("") }
     var kilometer by rememberSaveable { mutableStateOf("") }
@@ -154,16 +156,9 @@ fun ReadScreen(navController: NavController) {
                         )
                     }
                 )
-                //Spacer(modifier = Modifier.width(5.dp))
             }
           Text("Rotate the screen or scroll left and right ", fontSize = 17.sp,color=Color.LightGray)
-           // Spacer(modifier = Modifier.height(5.dp))
-//            Text(
-//                text = "Enter each trip of a schedule and press INSERT button below(Scroll down). After completing the schedule , change schedule number you want to save further...(need not change depo number or schedule every time when entering trip)",
-//                textAlign = TextAlign.Start, modifier = Modifier.padding(10.dp)
-//            )
-          //git remote add origin https://github.com/abhilashmullakkara/JetNote1.git
-          //git push -u origin main
+
             Spacer(modifier = Modifier.height(30.dp))
 
             Card(
@@ -175,91 +170,50 @@ fun ReadScreen(navController: NavController) {
                 contentColor = Color.Black,
                 backgroundColor = Color(0xFFAEB2C7)
             ) {
-                val scrollState = rememberScrollState()
-                Box(modifier = Modifier.verticalScroll(scrollState)) {
-
-
-                    Column {
-
-
-                        Spacer(modifier = Modifier.height(20.dp))
-                      //  Text("Trip NO   DepartureTime  SatartPlace  Via Destination  Arr_Time Kilometer  *ETM_No*")
-                        val scroll= rememberScrollState()
-                        Row(modifier=Modifier.horizontalScroll(scroll)){
-                            OutlinedTextField(value = tripNo,
-                                singleLine = true,
-                                modifier= Modifier
-                                    .size(width = 70.dp, height = 51.dp),
-                                // shape = Card,
-                                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                                onValueChange = { tripNo = it },
-                                //modifier=Modifier.padding(start = 20.dp,end=250.dp),
-                                placeholder = {
-                                    Text(
-                                        text = "Trip ",
-                                        color = Color(0xFF10236B),
-                                        fontSize =14.sp
-                                    )
-                                }
-                            )
-                            Spacer(modifier = Modifier.width(7.dp))
-
-                            OutlinedTextField(value = departureTime,
-                            singleLine = true,
-                            modifier= Modifier
-                                .size(width = 75.dp, height = 51.dp),
-                            //shape = RoundedCornerShape(80),
-                            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                            onValueChange = { departureTime = it },
-                            placeholder = {
-                                Text(
-                                    text = "Time",
-                                    color = Color(0xFF10236B),
-                                    fontSize = 14.sp
-                                )
-                            }
-                            )
-                            Spacer(modifier = Modifier.width(7.dp))
-                            OutlinedTextField(value = stPlace,
-                                singleLine = true,
-                                modifier= Modifier
-                                    .size(width = 75.dp, height = 51.dp),
-                                // shape = RoundedCornerShape(80),
-                                // keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
-                                keyboardOptions = KeyboardOptions(
-                                    capitalization = KeyboardCapitalization.Characters
-                                ),
-                                onValueChange = { stPlace = it },
-                                //modifier=Modifier.padding(start = 20.dp,end=250.dp),
-                                placeholder = {
-                                    Text(
-                                        text = "Start",
-                                        color = Color(0xFF10236B),
-                                        fontSize = 14.sp
-                                    )
-                                }
-                            )
-                            Spacer(modifier = Modifier.width(7.dp))
-                            OutlinedTextField(value = via,
-                                singleLine = true,
-                                modifier= Modifier
-                                    .size(width = 75.dp, height = 51.dp),
-                                // shape = RoundedCornerShape(80),
-                                keyboardOptions = KeyboardOptions(
-                                    capitalization = KeyboardCapitalization.Characters
-                                ),
-                                onValueChange = { via = it },
-                                placeholder = {
-                                    Text(
-                                        text = "Via",
-                                        color = Color(0xFF10236B),
-                                        fontSize = 14.sp
-                                    )
-                                }
-                            )
-                            Spacer(modifier = Modifier.width(7.dp))
-
-                            OutlinedTextField(value = destination,
+     val scrollState = rememberScrollState()
+       Box(modifier = Modifier.verticalScroll(scrollState)) {
+         Column {
+         Spacer(modifier = Modifier.height(20.dp))
+          val scroll= rememberScrollState()
+          Row(modifier=Modifier.horizontalScroll(scroll)){
+           OutlinedTextField(value = tripNo,
+            singleLine = true,
+            modifier= Modifier.size(width = 70.dp, height = 51.dp),
+              keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+              onValueChange = { tripNo = it },
+                placeholder = {
+               Text( text = "Trip ", color = Color(0xFF10236B),
+                                        fontSize =14.sp)
+                                } )
+               Spacer(modifier = Modifier.width(7.dp))
+OutlinedTextField(value = departureTime,
+singleLine = true,
+modifier= Modifier.size(width = 75.dp, height = 51.dp),
+ keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+ onValueChange = { departureTime = it },
+  placeholder = {
+   Text(text = "Time", color = Color(0xFF10236B),fontSize = 14.sp)
+                            }  )
+      Spacer(modifier = Modifier.width(7.dp))
+OutlinedTextField(value = stPlace,
+ singleLine = true,
+  modifier= Modifier.size(width = 75.dp, height = 51.dp),
+   keyboardOptions = KeyboardOptions(
+    capitalization = KeyboardCapitalization.Characters),
+    onValueChange = { stPlace = it },
+    placeholder = { Text(text = "Start",
+       color = Color(0xFF10236B), fontSize = 14.sp) })
+Spacer(modifier = Modifier.width(7.dp))
+OutlinedTextField(value = via, singleLine = true,
+ modifier= Modifier.size(width = 75.dp, height = 51.dp),
+ keyboardOptions = KeyboardOptions(
+  capitalization = KeyboardCapitalization.Characters),
+   onValueChange = { via = it },
+    placeholder = { Text(text = "Via",
+     color = Color(0xFF10236B),
+     fontSize = 14.sp) })
+ Spacer(modifier = Modifier.width(7.dp))
+OutlinedTextField(value = destination,
                                 singleLine = true,
                                 modifier= Modifier
                                     .size(width = 85.dp, height = 51.dp),
@@ -324,73 +278,54 @@ fun ReadScreen(navController: NavController) {
                                     )
                                 }
                             )
-
-                            Spacer(modifier = Modifier.width(7.dp))
-
-                        }
+ Spacer(modifier = Modifier.width(7.dp)) }
 
 
-                        val originalDatabase = OriginalData(
-                            startPlace = stPlace,
-                            via = via,
-                            destinationPlace = destination,
-                            departureTime = departureTime,
-                            arrivalTime = arrivalTime,
-                            kilometer = kilometer,
-                            bustype = busType,
-                            etmNo = etm
-                        )
-                        //Spacer(modifier = Modifier.height(20.dp))
-                        TextButton(
-                            onClick = {
-                                if (depoNo.isNotBlank() && scheduleNo.isNotBlank() &&
-                                    tripNo.isNotBlank() && stPlace.isNotBlank() &&
-                                    departureTime.isNotBlank() &&
-                                    destination.isNotBlank() &&
-                                    arrivalTime.isNotBlank() &&
-                                    kilometer.isNotBlank() &&
-                                    busType.isNotBlank()
-                                ) {
-                                    val dataBase = FirebaseDatabase.getInstance()
-                                    val myRef = dataBase.getReference(depoNo)
-                                    myRef.child(busType).child(scheduleNo).child(tripNo)
-                                        .setValue(originalDatabase).addOnSuccessListener {
-                                        tripNo = ""
-                                        stPlace = ""
-                                        departureTime = ""
-                                        via = ""
-                                        destination = ""
-                                        arrivalTime = ""
-                                        kilometer = ""
-                                        etm = ""
-                                        Toast.makeText(context, "Data uploaded", Toast.LENGTH_SHORT)
-                                            .show()
+ val originalDatabase = OriginalData(
+  startPlace = stPlace,
+  via = via,
+  destinationPlace = destination,
+  departureTime = departureTime,
+  arrivalTime = arrivalTime,
+  kilometer = kilometer,
+  bustype = busType,
+  etmNo = etm )
+     TextButton(
+       onClick = {
+         if (depoNo.isNotBlank() && scheduleNo.isNotBlank() &&
+           tripNo.isNotBlank() && stPlace.isNotBlank() &&
+           departureTime.isNotBlank() &&
+           destination.isNotBlank() &&
+           arrivalTime.isNotBlank() &&
+           kilometer.isNotBlank() &&
+           busType.isNotBlank()
+            ) {
+             val dataBase = FirebaseDatabase.getInstance()
+             val myRef = dataBase.getReference(depoNo)
+             myRef.child(busType).child(scheduleNo).child(tripNo)
+                 .setValue(originalDatabase).addOnSuccessListener {
+                     tripNo = ""
+                     stPlace = ""
+                     departureTime = ""
+                     via = ""
+                     destination = ""
+                     arrivalTime = ""
+                     kilometer = ""
+                     etm = ""
+ Toast.makeText(context, "Data uploaded", Toast.LENGTH_SHORT).show()
                                     }.addOnFailureListener {
-                                        Toast.makeText(context, it.toString(), Toast.LENGTH_LONG)
-                                            .show()
+   Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
                                     }
-
                                 } else {
-                                    Toast.makeText(context, "field empty", Toast.LENGTH_LONG).show()
+Toast.makeText(context, "field empty", Toast.LENGTH_LONG).show()
                                 }
-
                             },
-                            modifier = Modifier
-                                .fillMaxSize(0.5f)
-                                .padding(start = 50.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Color(0xFF536DFE),
-                                contentColor = Color.White
-
-                            )
-                        ) {
-                            Text(
-                                text = "UPLOAD",
-                                fontSize = 18.sp,
-                                color = Color.White
-                            )
-
-
+ modifier = Modifier.fillMaxSize(0.5f).padding(start = 50.dp),
+  colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF536DFE),
+      contentColor = Color.White)
+                        )
+     {
+      Text(text = "UPLOAD", fontSize = 18.sp, color = Color.White)
                         }
                     }
                 }
@@ -398,7 +333,6 @@ fun ReadScreen(navController: NavController) {
         }
     }
 }
-
 
 
 fun isValidText(text: TextFieldValue): Boolean {
