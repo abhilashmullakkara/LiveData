@@ -28,7 +28,7 @@ fun MenuScreen(navController: NavController) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(2.dp)
-                        .height(150.dp), // Adjust the height as needed
+                        .height(120.dp), // Adjust the height as needed
                     backgroundColor = Color.White,
                     elevation = 5.dp
                 ) {
@@ -66,7 +66,7 @@ fun MenuScreen(navController: NavController) {
                 ) {
 
                     TextButton(onClick = {
-                        navController.navigate(" SchedleDisplayScreen")
+                        navController.navigate(" ScheduleDisplayScreen")
                     }) {
                         Text("View Schedule ", color = Color.Blue, fontSize = 20.sp)
 

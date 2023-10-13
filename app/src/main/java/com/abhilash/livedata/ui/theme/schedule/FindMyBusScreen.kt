@@ -161,15 +161,15 @@ fun fetchDatabaseValues(
 }
 
 
+
 @Composable
 fun searchAndStorePath(path: String = "", destination: String = ""): List<OriginalData> {
     val resultList = remember { mutableStateListOf<OriginalData>() }
     val errorMessage = remember { mutableStateOf("") }
 
-    val databaseRef = FirebaseDatabase.getInstance().reference
-    resultList.clear()
+    val databaseRef = FirebaseDatabase.getInstance().reference.child("")
     fetchDatabaseValues(databaseRef, path, destination, { results ->
-       //
+        resultList.clear()
         resultList.addAll(results)
         errorMessage.value = "" // Clear any previous error message
     }, { error ->
@@ -198,5 +198,6 @@ fun searchAndStorePath(path: String = "", destination: String = ""): List<Origin
 
     return resultList
 }
+
 
 
