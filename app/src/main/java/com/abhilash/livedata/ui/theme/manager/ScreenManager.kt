@@ -11,6 +11,7 @@ import com.abhilash.livedata.ui.theme.schedule.AddScheduleScreen
 import com.abhilash.livedata.ui.theme.schedule.DeleteScheduleScreen
 import com.abhilash.livedata.ui.theme.schedule.DeleteTripScreen
 import com.abhilash.livedata.ui.theme.schedule.FindMyBusScreen
+import com.abhilash.livedata.ui.theme.schedule.ListAllScheduleScreen
 import com.abhilash.livedata.ui.theme.schedule.ScheduleDisplayScreen
 import com.abhilash.livedata.ui.theme.userdatabase.AddDutyDiaryScreen
 import com.abhilash.livedata.ui.theme.userdatabase.CurrencyCountScreen
@@ -69,6 +70,9 @@ fun ScreenManager(){
         }
         composable("FindMyBusScreen"){
             FindMyBusScreen(navController)
+        }
+        composable("ListAllScheduleScreen"){
+            ListAllScheduleScreen(navController)
         }
     }
 }

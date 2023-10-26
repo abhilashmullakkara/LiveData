@@ -26,6 +26,7 @@ import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -53,8 +54,8 @@ fun  ScheduleDisplayScreen(navController: NavController){
     var depoNo by rememberSaveable { mutableStateOf("") }
     var scheduleNo by rememberSaveable { mutableStateOf("") }
     var busType by rememberSaveable { mutableStateOf("") }
-    var ti by rememberSaveable { mutableStateOf(0) }
-    var flag by rememberSaveable { mutableStateOf(0) }
+    var ti by rememberSaveable { mutableIntStateOf(0) }
+    var flag by rememberSaveable { mutableIntStateOf(0) }
     val dataBase = FirebaseDatabase.getInstance()
     val scroll= rememberScrollState()
     var result by rememberSaveable { mutableStateOf("") }
@@ -133,40 +134,34 @@ Surface(color = Color(0xFF071715)) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             Button(
-
-                onClick = {
-                    if (depoNo.isNotBlank() && busType.isNotBlank() && scheduleNo.isNotBlank()){
-                        val myRef = dataBase.getReference("$depoNo/$busType/$scheduleNo/")
-                        val data = StringBuffer()
-                        val etmKmr=StringBuffer()
-                        val kilo=StringBuffer()
-                        myRef.get()
-                            .addOnSuccessListener { dataSnapshot ->
-//                                data.append("\nNo  Time   From   Via   To   Arr:Time    Kmrs\n")
-//                                data.append("  ......................................\n")
-                                if (dataSnapshot != null) {
-                                    dataSnapshot.children.forEach { childSnapshot ->
-
-                                        data.append("\n"+ (ti+1).toString())
-                                        data.append("   "+childSnapshot.child("departureTime").value)
-                                        data.append("    "+childSnapshot.child("startPlace").value)
-                                        data.append("    "+childSnapshot.child("via").value)
-                                        data.append("    "+childSnapshot.child("destinationPlace").value)
-                                        data.append("     "+childSnapshot.child("arrivalTime").value)
-                                        data.append("     "+childSnapshot.child("kilometer").value)
-
-                                        kilo.append(","+childSnapshot.child("kilometer").value)
-                                        etmKmr.append(""+childSnapshot.child("etmNo").value+",")
-                                        ti += 1
-                                        flag=1
-                                    }
-                                    ti = 0
-                                    result=data.toString()
-                                    etmresult=etmKmr.toString()
-                                    kilomts=kilo.toString()
-                                } else { Toast.makeText(context, "Record not found", Toast.LENGTH_SHORT).show() }
-                            }
-                            .addOnFailureListener { Toast.makeText(context, "Record not found", Toast.LENGTH_SHORT).show() }
+    onClick = {
+       if (depoNo.isNotBlank() && busType.isNotBlank() && scheduleNo.isNotBlank()){
+        val myRef = dataBase.getReference("$depoNo/$busType/$scheduleNo/")
+         val data = StringBuffer()
+         val etmKmr=StringBuffer()
+          val kilo=StringBuffer()
+       myRef.get().addOnSuccessListener { dataSnapshot ->
+        if (dataSnapshot != null) {
+         dataSnapshot.children.forEach { childSnapshot ->
+             data.append("\n"+ (ti+1).toString())
+             data.append("   "+childSnapshot.child("departureTime").value)
+             data.append("    "+childSnapshot.child("startPlace").value)
+             data.append("    "+childSnapshot.child("via").value)
+             data.append("    "+childSnapshot.child("destinationPlace").value)
+             data.append("     "+childSnapshot.child("arrivalTime").value)
+             data.append("     "+childSnapshot.child("kilometer").value)
+             kilo.append(","+childSnapshot.child("kilometer").value)
+             etmKmr.append(""+childSnapshot.child("etmNo").value+",")
+             ti += 1
+             flag=1
+         }
+            ti = 0
+            result=data.toString()
+            etmresult=etmKmr.toString()
+            kilomts=kilo.toString()
+        } else { Toast.makeText(context, "Record not found", Toast.LENGTH_SHORT).show() }
+       }
+           .addOnFailureListener { Toast.makeText(context, "Record not found", Toast.LENGTH_SHORT).show() }
                     }
                     else
                     {
@@ -182,7 +177,6 @@ Surface(color = Color(0xFF071715)) {
         if(flag==1){
             var isLoading by rememberSaveable{
                 mutableStateOf(true) }
-
             LaunchedEffect(isLoading) {
                 if (isLoading) {
                     withContext(Dispatchers.Main) {
@@ -199,7 +193,6 @@ Surface(color = Color(0xFF071715)) {
             val number=kilomts.split(",")
             val sum = number.sumOf { it.trim().toDoubleOrNull() ?: 0.00 }
             Text("\nTotal Kilometers: $sum", color = Color.White)
-
             Divider(color = Color.Red)
             Text("\nETM Root Numbers: $etmresult", color = Color.White)
             Divider(color = Color.Red, thickness = 2.dp)
@@ -208,7 +201,6 @@ Surface(color = Color(0xFF071715)) {
         else
         {
             flag=0
-          //MyScreen()
         }
     }
 }

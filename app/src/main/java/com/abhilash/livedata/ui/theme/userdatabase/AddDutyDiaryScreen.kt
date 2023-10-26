@@ -11,6 +11,7 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -114,8 +115,6 @@ fun MyCalendar():String {
 @Composable
 fun CircularLoadingIndicator(isLoading: Boolean) {
     if (isLoading) {
-        CircularProgressIndicator(color = Color.Red,
-            strokeWidth=5.dp,
-            backgroundColor = Color.Green)
+        CircularProgressIndicator()
     }
     }

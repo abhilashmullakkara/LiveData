@@ -73,11 +73,16 @@ fun EditDutyDiaryScreen(navController: NavController) {
                     }
                     Text(text = "   Edit Duty Diary ",color=Color.White, fontSize = 22.sp, modifier = Modifier.padding(start=10.dp))
                 }
-               
+                Spacer(modifier=Modifier.height(10.dp))
                 Divider(thickness = 3.dp, color = Color.White)
+                Text("Enter Record number in the duty diary",
+                    fontSize=14.sp,
+                    modifier=Modifier.padding(start=10.dp),
+                    color=Color.White)
+                Spacer(modifier=Modifier.height(10.dp))
                 OutlinedTextField(value = recNo,
                     singleLine = true,
-                    modifier = Modifier
+                    modifier = Modifier.padding(start=15.dp)
                         .size(width = 190.dp, height = 51.dp),
                     // shape = RoundedCornerShape(80),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
@@ -91,7 +96,7 @@ fun EditDutyDiaryScreen(navController: NavController) {
                     }
                 )
                 recNumber = convert(num = recNo)
-
+                Spacer(modifier=Modifier.height(10.dp))
                 OutlinedButton(
                     onClick = {
                         flag = false

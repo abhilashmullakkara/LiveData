@@ -209,6 +209,7 @@ fun EditRoomData(database: Employee) {
 
         val context = LocalContext.current
         val coroutineScope = rememberCoroutineScope()
+        var flag by rememberSaveable { mutableStateOf(false) }
         var scheduleNo by rememberSaveable { mutableStateOf("") }
         var dutyEearnt by rememberSaveable { mutableStateOf("") }
         var permedDate by rememberSaveable { mutableStateOf("") }
@@ -343,6 +344,7 @@ fun EditRoomData(database: Employee) {
                 }
             )
             OutlinedButton(onClick = {
+                flag=true
                 if (scheduleNo.isNotBlank() && dutyEearnt.isNotBlank() && permedDate.isNotBlank()) {
                     coroutineScope.launch {
                         if (todayCollection.isBlank()) todayCollection = "--.--"
@@ -374,6 +376,20 @@ fun EditRoomData(database: Employee) {
             ), border = BorderStroke(width = 3.dp, color = Color(0xFF9889CA))
             ) {
                 Text("INSERT", fontSize = 17.sp,color=Color.White)
+            }
+            if(flag){
+                scheduleNo=""
+                permedDate= ""
+                todayCollection=""
+                wBillNo=""
+                dutyEearnt= ""
+                todayCollection=""
+                crewName=""
+                database.collection=""
+                database.dutyNo=""
+                database.dutyEarned=""
+                database.performedOn=""
+                database.wayBillNo=""
             }
         }
     }

@@ -21,7 +21,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -73,7 +72,7 @@ fun FindMyBusScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(2.dp))
             Divider(color = Color.White, thickness = 1.dp)
             Text(
-                "Enter depo number to limit search within a specified depo",
+                "Enter depot number to limit search within a specified depot",
                 modifier = Modifier.padding(start = 10.dp),
                 fontSize = 18.sp, color = Color.LightGray
             )
@@ -90,9 +89,8 @@ fun FindMyBusScreen(navController: NavController) {
                             depoNo = textFieldValue.text
                         }
                     },
-                    label = { Text("Depo NO") },
+                    label = { Text("Depot NO") },
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                    //modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.width(15.dp))
                 OutlinedTextField(
@@ -109,13 +107,9 @@ fun FindMyBusScreen(navController: NavController) {
                     },
                     label = { Text("Destination") },
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters),
-                    //modifier = Modifier.fillMaxWidth()
                 )
             }
-            searchAndStorePath(path=depoNo,destination=destination)
-
-
-
+               searchAndStorePath(path=depoNo,destination=destination)
         }
     }
 }
@@ -123,11 +117,10 @@ fun fetchDatabaseValues(
     databaseRef: DatabaseReference,
     path: String,
     destination: String,
-    onSuccess: (List<OriginalData>) -> Unit,
+    onSuccess: (List<Pair<String, OriginalData>>) -> Unit,
     onError: (Exception) -> Unit
 ) {
-    val resultList = mutableListOf<OriginalData>()
-
+    val resultList =  mutableListOf<Pair<String, OriginalData>>()
     databaseRef.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {
             snapshot.children.forEach { depoSnapshot ->
@@ -141,9 +134,10 @@ fun fetchDatabaseValues(
                             scheduleNoSnapshot.children.forEach { tripsSnapshot ->
                                 val trips = tripsSnapshot.getValue(OriginalData::class.java)
                                 // Check if trips is not null and destinationPlace matches the search destination
-                                if (trips != null && trips.destinationPlace == destination) {
+                                if (trips != null && (trips.destinationPlace == destination || trips.via==destination)
+                                    && (trips.destinationPlace.isNotBlank()|| trips.via.isNotBlank() )) {
                                     // Add the result to the resultList
-                                    resultList.add(trips)
+                                   resultList.add(scheduleNo to trips)
                                 }
                             }
                         }
@@ -160,44 +154,44 @@ fun fetchDatabaseValues(
     })
 }
 
-
-
 @Composable
-fun searchAndStorePath(path: String = "", destination: String = ""): List<OriginalData> {
-    val resultList = remember { mutableStateListOf<OriginalData>() }
+fun searchAndStorePath(path: String = "", destination: String = ""): List<Pair<String, OriginalData>> {
+    var resultList by remember { mutableStateOf<List<Pair<String, OriginalData>>>(emptyList()) }
     val errorMessage = remember { mutableStateOf("") }
-
     val databaseRef = FirebaseDatabase.getInstance().reference.child("")
     fetchDatabaseValues(databaseRef, path, destination, { results ->
-        resultList.clear()
-        resultList.addAll(results)
+        resultList = results
         errorMessage.value = "" // Clear any previous error message
     }, { error ->
         // Handle error here
         errorMessage.value = "Error: ${error.message}"
     })
-
     Column {
         if (errorMessage.value.isNotEmpty()) {
             Text(errorMessage.value)
         }
-
-        // Display the search results
-        if (resultList.isNotEmpty()) {
-            LazyColumn {
-                items(resultList) { result ->
-                    Text("Bus Type: ${result.bustype}")
-                    Text("ETM No: ${result.etmNo}")
-                    // Display other fields as needed
+   if (resultList.isNotEmpty()) {
+   Surface(color = Color(0xFF1E026B)) {var abc=0
+    LazyColumn(modifier = Modifier.padding(start = 25.dp)) {
+      items(resultList) { (scheduleNo: String, originalData) ->
+                        Text("Bus Type: ${originalData.bustype}", color = Color.White)
+                        Text("DepTime: ${originalData.departureTime}", color = Color.White)
+                        Text("From: ${originalData.startPlace}", color = Color.White)
+                        Text("ArrTime: ${originalData.arrivalTime}", color = Color.White)
+                        Text("Destination: ${originalData.destinationPlace}", color = Color.White)
+                        Text("Via: ${originalData.via}", color = Color.White)
+                        Text("DutyNo${scheduleNo}", color = Color.White)
+                        Divider(color = Color(0xFF6BCD88), thickness = 2.dp)
+                    }
                 }
             }
         } else {
-            Text("No matching records found.")
+            Surface(color = Color(0xFFDF9EE5)) {
+                Text("No matching records found.")
+            }
         }
     }
-
     return resultList
 }
-
 
 

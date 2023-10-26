@@ -27,10 +27,6 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    //val readData=
-                       // ReadScreen()
-                   // Authi()
-                   // DisplayScreen()
                     MyApp()
                 }
             }
@@ -38,22 +34,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-//@Composable
-//fun Authi(schedule:Shedule){
-//
-//    val originalDatabase=OriginalData(
-//        startPlace=schedule.startPlace,
-//        via=schedule.via,
-//        destinationPlace=schedule.destinationPlace,
-//        departureTime=schedule.departureTime,
-//        arrivalTime=schedule.arrivalTime,
-//        kilometer=schedule.kilometer
-//    )
-//    val database = FirebaseDatabase.getInstance()
-//    val myRef = database.getReference(schedule.depoNumber)
-//    myRef.child(schedule.depoNumber).child(schedule.scheduleNo).child(schedule.tripNumber).setValue(originalDatabase)
-//
-//}
 
 
 @Preview(showBackground = true)
