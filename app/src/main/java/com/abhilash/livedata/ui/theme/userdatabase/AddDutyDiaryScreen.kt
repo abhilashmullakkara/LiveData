@@ -11,7 +11,6 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -56,24 +55,8 @@ fun AddDutyDiaryScreen(navController: NavController){
 
         }
 
-//        var isLoading by remember {
-//            mutableStateOf(true) }
-//        LaunchedEffect(isLoading) {
-//            if (isLoading) {
-//                withContext(Dispatchers.Main) {
-//                    delay(1500)
-//                    isLoading = false
-//                }
-//            }
-//        }
-//Row{
-//    Spacer(modifier = Modifier.width(150.dp))
-//    CircularLoadingIndicator(isLoading)
-//}
+        RoomData(navController)
 
-        RoomData()
-
-       
     }
 
     }
@@ -83,7 +66,7 @@ fun AddDutyDiaryScreen(navController: NavController){
 
 @SuppressLint("SuspiciousIndentation")
 @Composable
-fun MyCalendar():String {
+fun myCalendar():String {
     val mContext = LocalContext.current
     val mYear1: Int
     val mMonth1: Int
@@ -97,6 +80,13 @@ fun MyCalendar():String {
     val mDatePickerDialog = DatePickerDialog(
         mContext,
         { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
+//            if(mDayOfMonth<10){
+//                mDate.value = "0$mDayOfMonth/${mMonth+1}/$mYear"
+//            }
+//            else
+//            {
+//                mDate.value = "$mDayOfMonth/${mMonth+1}/$mYear"
+//            }
             mDate.value = "$mDayOfMonth/${mMonth+1}/$mYear"
         }, mYear1, mMonth1, mDay1
     )
@@ -118,3 +108,8 @@ fun CircularLoadingIndicator(isLoading: Boolean) {
         CircularProgressIndicator()
     }
     }
+
+
+
+
+

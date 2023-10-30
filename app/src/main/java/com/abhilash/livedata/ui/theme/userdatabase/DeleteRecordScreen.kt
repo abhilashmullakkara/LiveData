@@ -36,6 +36,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun DeleteRecordScreen(navController: NavController){
     var recNo by rememberSaveable { mutableStateOf("") }
+    var flag by rememberSaveable { mutableStateOf(false) }
     val context= LocalContext.current
     val coroutineScope= rememberCoroutineScope()
     Surface(color = Color(0xFF616BA1), modifier = Modifier.height(850.dp)) {
@@ -74,7 +75,10 @@ fun DeleteRecordScreen(navController: NavController){
          OutlinedButton(onClick = {
            if (recNo.isNotBlank()){
                coroutineScope.launch {
+                   flag=true
                    EmployeeDB.getInstance(context).getEmployeeDao().delete(recNo.toInt())
+                   //EmployeeDB.getInstance(context).getEmployeeDao().reorderIdsAfterDelete(recNo.toInt())
+
                    Toast.makeText(context," Record Deleted or not existed !",Toast.LENGTH_SHORT).show()
                }
        }
@@ -91,7 +95,9 @@ fun DeleteRecordScreen(navController: NavController){
          }
 
 
-
+if(flag){
+    navController.popBackStack("MenuScreen",inclusive = false)
+}
         }
     }
 

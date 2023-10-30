@@ -31,15 +31,22 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.abhilash.livedata.ui.theme.schedule.isValidText
-import com.abhilash.livedata.ui.theme.userdatabase.MyCalendar
+import com.abhilash.livedata.ui.theme.userdatabase.myCalendar
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
+@OptIn(DelicateCoroutinesApi::class)
 @Composable
-fun RoomData() {
+fun RoomData(navController:NavController) {
     Surface(color = Color(0xFF6776CA)) {
         val context = LocalContext.current
         val coroutineScope = rememberCoroutineScope()
+        var flag by rememberSaveable { mutableStateOf(false) }
         var scheduleNo by rememberSaveable { mutableStateOf("") }
         var dutyEearnt by rememberSaveable { mutableStateOf("") }
         var permedDate by rememberSaveable { mutableStateOf("") }
@@ -92,7 +99,7 @@ fun RoomData() {
             )
         }
             Spacer(modifier = Modifier.height(10.dp))
-            permedDate = MyCalendar()
+            permedDate = myCalendar()
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 "Optional Data (below)",
@@ -168,43 +175,95 @@ fun RoomData() {
                     )
                 }
             )
-            OutlinedButton(onClick = {
-                if (scheduleNo.isNotBlank() && dutyEearnt.isNotBlank() && permedDate.isNotBlank()) {
-                    coroutineScope.launch {
-                        if (todayCollection.isBlank()) todayCollection = "--.--"
-                        val employee = Employee(
-                            dutyNo = scheduleNo,
-                            performedOn = permedDate,
-                            dutyEarned = dutyEearnt,
-                            collection = todayCollection,
-                            employeeName  =crewName,
-                            wayBillNo = wBillNo
-                        )
-                        EmployeeDB.getInstance(context).getEmployeeDao().insert(employee)
-                        Toast.makeText(context, "Record inserted successfully", Toast.LENGTH_SHORT)
-                            .show()
-                        scheduleNo=" "
-                        permedDate= " "
-                        dutyEearnt= " "
-                        todayCollection=""
-                        crewName=""
-                        wBillNo=""
+//            OutlinedButton(onClick = {
+//                if (scheduleNo.isNotBlank() && dutyEearnt.isNotBlank() && permedDate.isNotBlank()) {
+//                    coroutineScope.launch {
+//                        withContext(Dispatchers.IO) {
+//                        if (todayCollection.isBlank()) todayCollection = "--.--"
+//                        val employee = Employee(
+//                            dutyNo = scheduleNo,
+//                            performedOn = permedDate,
+//                            dutyEarned = dutyEearnt,
+//                            collection = todayCollection,
+//                            employeeName = crewName,
+//                            wayBillNo = wBillNo
+//                        )
+//                        EmployeeDB.getInstance(context).getEmployeeDao().insert(employee)
+//                        Toast.makeText(context, "Record inserted successfully", Toast.LENGTH_SHORT)
+//                            .show()
+//                        scheduleNo = " "
+//                        permedDate = " "
+//                        dutyEearnt = " "
+//                        todayCollection = ""
+//                        crewName = ""
+//                        wBillNo = ""
+//                    }
+//                    }
+//                } else {
+//                    Toast.makeText(context, "Input Record first", Toast.LENGTH_SHORT).show()
+//                }
+//            },modifier=Modifier.padding(start=20.dp),colors=ButtonDefaults.buttonColors(Color(
+//                0xFF0F0825
+//            )
+//            ), border = BorderStroke(width = 3.dp, color = Color(0xFF9889CA))
+//            ) {
+//                Text("INSERT", fontSize = 17.sp,color=Color.White)
+//            }
+
+            OutlinedButton(
+                onClick = {
+
+                    if (scheduleNo.isNotBlank() && dutyEearnt.isNotBlank() && permedDate.isNotBlank()) {
+                        coroutineScope.launch {
+                            withContext(Dispatchers.IO) {
+                                if (todayCollection.isBlank()) todayCollection = "--.--"
+                                val employee = Employee(
+                                    dutyNo = scheduleNo,
+                                    performedOn = permedDate,
+                                    dutyEarned = dutyEearnt,
+                                    collection = todayCollection,
+                                    employeeName = crewName,
+                                    wayBillNo = wBillNo
+                                )
+                                EmployeeDB.getInstance(context).getEmployeeDao().insert(employee)
+
+                                // Show the Toast on the main/UI thread
+                                GlobalScope.launch(Dispatchers.Main) {
+                                    flag=true
+                                    Toast.makeText(context, "Record inserted successfully", Toast.LENGTH_SHORT).show()
+                                }
+
+                                scheduleNo = " "
+                                permedDate = " " // Make sure to set this to a valid date
+                                dutyEearnt = " "
+                                todayCollection = ""
+                                crewName = ""
+                                wBillNo = ""
+                            }
+                        }
+                    } else {
+                        // Show the Toast on the main/UI thread
+                        GlobalScope.launch(Dispatchers.Main) {
+                            Toast.makeText(context, "Input Record first", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                } else {
-                    Toast.makeText(context, "Input Record first", Toast.LENGTH_SHORT).show()
-                }
-            },modifier=Modifier.padding(start=20.dp),colors=ButtonDefaults.buttonColors(Color(
-                0xFF0F0825
-            )
-            ), border = BorderStroke(width = 3.dp, color = Color(0xFF9889CA))
+                },
+                modifier = Modifier.padding(start = 20.dp),
+                colors = ButtonDefaults.buttonColors(Color(0xFF0F0825)),
+                border = BorderStroke(width = 3.dp, color = Color(0xFF9889CA))
             ) {
-                Text("INSERT", fontSize = 17.sp,color=Color.White)
+                Text("INSERT", fontSize = 17.sp, color = Color.White)
             }
+
+        }
+        if (flag){
+            navController.popBackStack("MenuScreen",inclusive = false)
         }
     }
 }
+//@SuppressLint("SuspiciousIndentation")
 @Composable
-fun EditRoomData(database: Employee) {
+fun EditRoomData(rec:Int,database: Employee) {
     Surface(color = Color(0xFF6776CA)) {
 
         val context = LocalContext.current
@@ -267,7 +326,7 @@ fun EditRoomData(database: Employee) {
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
-            permedDate = MyCalendar()
+            permedDate = myCalendar()
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 "Optional Data (below)",
@@ -345,8 +404,14 @@ fun EditRoomData(database: Employee) {
             )
             OutlinedButton(onClick = {
                 flag=true
-                if (scheduleNo.isNotBlank() && dutyEearnt.isNotBlank() && permedDate.isNotBlank()) {
-                    coroutineScope.launch {
+               // if (scheduleNo.isNotBlank() && dutyEearnt.isNotBlank() && permedDate.isNotBlank()) {
+                if(scheduleNo.isBlank())scheduleNo=database.dutyNo
+                if(dutyEearnt.isBlank())dutyEearnt=database.dutyEarned
+                if(permedDate.isBlank())permedDate= database.performedOn
+
+
+
+                coroutineScope.launch {
                         if (todayCollection.isBlank()) todayCollection = "--.--"
                          val database1 = Employee(
                             dutyNo = scheduleNo,
@@ -354,22 +419,26 @@ fun EditRoomData(database: Employee) {
                             dutyEarned = dutyEearnt,
                             collection = todayCollection,
                             employeeName  =crewName,
-                            wayBillNo = wBillNo
+                            wayBillNo = wBillNo,
+                             id=rec
+
                         )
-                        EmployeeDB.getInstance(context).getEmployeeDao().updateEmployee(database1)
+                       // EmployeeDB.getInstance(context).getEmployeeDao().updateEmployee(database1)
+                        EmployeeDB.getInstance(context).getEmployeeDao().insert(database1)
                         Toast.makeText(context, "Record inserted successfully", Toast.LENGTH_SHORT)
                             .show()
-                        scheduleNo=""
-                        permedDate= ""
-                        todayCollection=""
-                        wBillNo=""
-                        dutyEearnt= ""
-                        todayCollection=""
-                        crewName=""
+//                        scheduleNo=""
+//                        permedDate= ""
+//                        todayCollection=""
+//                        wBillNo=""
+//                        dutyEearnt= ""
+//                        todayCollection=""
+//                        crewName=""
                     }
-                } else {
-                    Toast.makeText(context, "Input Record first", Toast.LENGTH_SHORT).show()
-                }
+               // }
+//                else {
+//                    Toast.makeText(context, "Input Record first", Toast.LENGTH_SHORT).show()
+//                }
             },modifier=Modifier.padding(start=20.dp),colors=ButtonDefaults.buttonColors(Color(
                 0xFF0F0825
             )

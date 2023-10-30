@@ -21,6 +21,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -51,7 +52,7 @@ fun EditDutyDiaryScreen(navController: NavController) {
 
         var recNo by rememberSaveable { mutableStateOf("0") }
         var recNumber by rememberSaveable {
-            mutableStateOf(0)
+            mutableIntStateOf(0)
         }
         val coroutineScope = rememberCoroutineScope()
 
@@ -126,7 +127,7 @@ fun EditDutyDiaryScreen(navController: NavController) {
                 }
                 Spacer(modifier = Modifier.height(10.dp))
                 if (flag) {
-                    EditRoomData(database = employ)
+                    EditRoomData(recNumber,database = employ)
                 }
 
 

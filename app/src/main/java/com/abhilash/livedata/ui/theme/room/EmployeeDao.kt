@@ -12,6 +12,9 @@ interface EmployeeDao {
     suspend fun insert(employee: Employee)
     @Query ("select * from  Employee" )
     suspend fun display():List<Employee>
+    @Query("SELECT * FROM Employee ORDER BY id DESC")
+    suspend fun displaylast(): List<Employee>
+
     @Update
     suspend fun updateEmployee(employee: Employee)
     @Query("SELECT * FROM Employee WHERE id = :recNo")
@@ -21,5 +24,13 @@ interface EmployeeDao {
     suspend fun delete(recNo:Int)
     @Query("DELETE FROM Employee")
     suspend fun deleteAll()
+
+    @Query("DELETE FROM sqlite_sequence WHERE name='Employee'")
+    suspend fun resetAutoIncrement()
+    @Query("UPDATE Employee SET id = (id - 1) WHERE id >:deletedId")
+    suspend fun reorderIdsAfterDelete(deletedId: Int)
+
+
+
 
 }

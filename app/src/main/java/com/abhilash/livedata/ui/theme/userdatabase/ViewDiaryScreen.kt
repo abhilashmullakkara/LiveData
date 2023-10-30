@@ -67,7 +67,7 @@ fun ViewDiaryScreen(navController: NavController) {
                         coroutineScope.launch {
                             val data = StringBuffer()
                             val employeeInfo =
-                                EmployeeDB.getInstance(context).getEmployeeDao().display()
+                                EmployeeDB.getInstance(context).getEmployeeDao().displaylast()
                             for (employe in employeeInfo) {
 
                                 data.append("\n   " + employe.id + ")            " + employe.dutyNo + "          " + employe.performedOn + "          " + employe.dutyEarned)
@@ -92,7 +92,8 @@ fun ViewDiaryScreen(navController: NavController) {
                         coroutineScope.launch {
                             val data = StringBuffer()
                             val employeeInfo =
-                                EmployeeDB.getInstance(context).getEmployeeDao().display()
+                                EmployeeDB.getInstance(context).getEmployeeDao().displaylast()
+                                //EmployeeDB.getInstance(context).getEmployeeDao().display()
                             for (employe in employeeInfo) {
 
                                 data.append("\n   " + employe.id + ")            " + employe.dutyNo + "           " + employe.performedOn + "           " + employe.dutyEarned)

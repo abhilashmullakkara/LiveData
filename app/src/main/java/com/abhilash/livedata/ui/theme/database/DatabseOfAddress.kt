@@ -297,74 +297,83 @@ val depoList=listOf(
         "MAVELIKARA",
         "0479-2302282",
         "mvk@kerala.gov.in"
+    ),
+    DepoData(
+        51,	"MOOLAMATTOM",
+        "0486-22520450","mlt@kerala.gov.in"
+    ),
+    DepoData(
+        52	,
+        "MOOVATTUPUZHA",
+        "0485-2832321",
+        "mvp@kerala.gov.in"
+    ),
+    DepoData(
+        53,	"MUNNAR",
+        "0486-5230201",
+        "mnr@kerala.gov.in"
+    ),
+    DepoData(
+        54,	"NEDUMANGAD",
+        "0472-2812235",
+        "ndd@kerala.gov.in"
+    ),
+    DepoData(
+        55,	"NEDUMKANDAM",
+        "04868-234533",
+        "ndm.ksrtc@kerala.gov.in"
+    ),
+    DepoData(
+        56,	"NEYYATINKARA",
+        "0471-2222243",
+        "nta@kerala.gov.in"
+    ),
+ DepoData(
+     57,
+     "NILAMBUR",
+	 "04931-223929",
+     "nbr@kerala.gov.in"
+ ),
+    DepoData(
+        58,
+        "NORTH PARAVUR",
+ "0484-2442373",
+"npr@kerala.gov.in "
+    ),
+    DepoData(
+        59,
+        "PALA",
+ "0482-2212250",
+"pla@kerala.gov.in"
+    ),
+    DepoData(
+        60,
+        "PALAKKAD",
+	 "0491-2520098",
+"plk@kerala.gov.in "
+    ),
+    DepoData(
+        61,
+        "PALODE",
+"0472-2840259",
+"pld@kerala.gov.in"
+    ),
+    DepoData(
+        62,
+        "PAMBA",
+"0473-5203445",
+"sopba@kerala.gov.in "
+    ),
+    DepoData(
+        63,
+        "PANDALAM",
+"0473-4255800",
+"pdm@kerala.gov.in"
     )
-
-
 )
-// 51	MOOLAMATTOM
-//Zone:CENTRAL
-//Dist: IDK	 0486-2252045
-//mlt@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, MOOLAMATTOM
-//52	MOOVATTUPUZHA
-//Zone:CENTRAL
-//Dist: EKM	 0485-2832321
-//mvp@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, MOOVATTUPUZHA
-//53	MUNNAR
-//Zone:CENTRAL
-//Dist: IDK	 0486-5230201
-//mnr@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, MUNNAR
-//54	NEDUMANGAD
-//Zone:SOUTH
-//Dist: TVM	 0472-2812235
-//ndd@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, NEDUMANGAD
-//55	NEDUMKANDAM
-//Zone:CENTRAL
-//Dist: IDK	 04868-234533
-//ndm.ksrtc@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, NEDUMKANDAM
-//56	NEYYATINKARA
-//Zone:SOUTH
-//Dist: TVM	 0471-2222243
-//nta@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, NEYYATINKARA
-//57	NILAMBUR
-//Zone:NORTH
-//Dist: MLP	 04931-223929
-//nbr@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, NILAMBUR
-//58	NORTH PARAVUR
-//Zone:CENTRAL
-//Dist: EKM	 0484-2442373
-//npr@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, NORTH PARAVUR
-//59	PALA
-//Zone:CENTRAL
-//Dist: KTM	 0482-2212250
-//pla@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, PALA
-//60	PALAKKAD
-//Zone:NORTH
-//Dist: PLK	 0491-2520098
-//plk@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, PALAKKAD
-//61	PALODE
-//Zone:SOUTH
-//Dist: TVM	 0472-2840259
-//pld@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, PALODE
-//62	PAMBA
-//Zone:SOUTH
-//Dist: PTA	 0473-5203445
-//sopba@kerala.gov.in
+//
 //OFFICE OF THE DISTRICT TRANSPORT OFFICER, KSRTC, PAMBA
-//63	PANDALAM
-//Zone:SOUTH
-//Dist: PTA	 0473-4255800
-//pdm@kerala.gov.in
+//
 //OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, PANDALAM
 //64	PAPPANAMCODE
 //Zone:SOUTH
