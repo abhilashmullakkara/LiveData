@@ -51,6 +51,7 @@ android {
 
 dependencies {
     implementation 'com.google.firebase:protolite-well-known-types:18.0.0'
+    implementation 'com.google.android.gms:play-services-ads-lite:22.5.0'
     def room_version = "2.5.1"
 
     implementation "androidx.room:room-runtime:$room_version"
@@ -95,4 +96,6 @@ dependencies {
 
 
     implementation "androidx.navigation:navigation-compose:$nav_version"
+    //
+    implementation 'com.google.android.gms:play-services-ads:22.5.0'
 }

@@ -263,18 +263,18 @@ fun RoomData(navController:NavController) {
 }
 //@SuppressLint("SuspiciousIndentation")
 @Composable
-fun EditRoomData(rec:Int,database: Employee) {
+fun EditRoomData(rec:Int,database: Employee,navController: NavController) {
     Surface(color = Color(0xFF6776CA)) {
 
         val context = LocalContext.current
         val coroutineScope = rememberCoroutineScope()
         var flag by rememberSaveable { mutableStateOf(false) }
-        var scheduleNo by rememberSaveable { mutableStateOf("") }
-        var dutyEearnt by rememberSaveable { mutableStateOf("") }
-        var permedDate by rememberSaveable { mutableStateOf("") }
-        var todayCollection by rememberSaveable { mutableStateOf("") }
-        var wBillNo by rememberSaveable { mutableStateOf("") }
-        var crewName by rememberSaveable { mutableStateOf("") }
+        var scheduleNo by rememberSaveable { mutableStateOf(database.dutyNo) }
+        var dutyEearnt by rememberSaveable { mutableStateOf(database.dutyEarned) }
+        var permedDate by rememberSaveable { mutableStateOf(database.performedOn) }
+        var todayCollection by rememberSaveable { mutableStateOf(database.collection) }
+        var wBillNo by rememberSaveable { mutableStateOf(database.wayBillNo) }
+        var crewName by rememberSaveable { mutableStateOf(database.employeeName) }
         Column(modifier=Modifier.height(800.dp)) {
             Text("Schedule:${database.dutyNo} Duty:${database.dutyEarned} Date:${database.performedOn} " +
                     "Collection:${database.collection} WayBill:${database.wayBillNo} " +
@@ -405,9 +405,9 @@ fun EditRoomData(rec:Int,database: Employee) {
             OutlinedButton(onClick = {
                 flag=true
                // if (scheduleNo.isNotBlank() && dutyEearnt.isNotBlank() && permedDate.isNotBlank()) {
-                if(scheduleNo.isBlank())scheduleNo=database.dutyNo
-                if(dutyEearnt.isBlank())dutyEearnt=database.dutyEarned
-                if(permedDate.isBlank())permedDate= database.performedOn
+//                if(scheduleNo.isBlank())scheduleNo=database.dutyNo
+//                if(dutyEearnt.isBlank())dutyEearnt=database.dutyEarned
+//                if(permedDate.isBlank())permedDate= database.performedOn
 
 
 
@@ -459,6 +459,8 @@ fun EditRoomData(rec:Int,database: Employee) {
                 database.dutyEarned=""
                 database.performedOn=""
                 database.wayBillNo=""
+                database.employeeName=""
+                navController.navigate("EditDutyDiaryScreen")
             }
         }
     }

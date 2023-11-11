@@ -1,7 +1,5 @@
 package com.abhilash.livedata.ui.theme.manager
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -20,14 +18,12 @@ import com.abhilash.livedata.ui.theme.userdatabase.DeleteRecordScreen
 import com.abhilash.livedata.ui.theme.userdatabase.EditDutyDiaryScreen
 import com.abhilash.livedata.ui.theme.userdatabase.ViewDiaryScreen
 
-@RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun MyApp(){
    ScreenManager()
 }
 
 
-@RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun ScreenManager(){
     val navController= rememberNavController()
@@ -35,7 +31,7 @@ fun ScreenManager(){
         composable("MenuScreen"){
             MenuScreen(navController)
         }
-        composable(" ScheduleDisplayScreen"){
+        composable("ScheduleDisplayScreen"){
             ScheduleDisplayScreen(navController)
         }
         composable("AddScheduleScreen"){
@@ -74,5 +70,6 @@ fun ScreenManager(){
         composable("ListAllScheduleScreen"){
             ListAllScheduleScreen(navController)
         }
+
     }
 }

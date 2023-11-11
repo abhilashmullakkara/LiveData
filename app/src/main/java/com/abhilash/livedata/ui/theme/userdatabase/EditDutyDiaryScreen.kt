@@ -127,7 +127,7 @@ fun EditDutyDiaryScreen(navController: NavController) {
                 }
                 Spacer(modifier = Modifier.height(10.dp))
                 if (flag) {
-                    EditRoomData(recNumber,database = employ)
+                    EditRoomData(recNumber,database = employ,navController)
                 }
 
 
