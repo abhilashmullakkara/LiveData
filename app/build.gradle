@@ -96,6 +96,6 @@ dependencies {
 
 
     implementation "androidx.navigation:navigation-compose:$nav_version"
-    //
+    //adMob
     implementation 'com.google.android.gms:play-services-ads:22.5.0'
 }

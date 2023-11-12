@@ -13,12 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.abhilash.livedata.ui.theme.LiveDataTheme
 import com.abhilash.livedata.ui.theme.manager.MyApp
+import com.google.android.gms.ads.MobileAds
 
 
 class MainActivity : ComponentActivity() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
+        MobileAds.initialize(this) {
+        }
         super.onCreate(savedInstanceState)
         setContent {
             LiveDataTheme {

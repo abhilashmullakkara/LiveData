@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.abhilash.livedata.R
-import com.abhilash.livedata.ui.theme.admob.AdvertView
+import com.abhilash.livedata.ui.theme.admob.BannerAdView
 
 @Composable
 fun MenuScreen(navController: NavController) {
@@ -50,9 +50,10 @@ fun MenuScreen(navController: NavController) {
                             Text("വേല", fontSize = 20.sp, color = Color.White)
                             Text("KSRTC Duty Diary", fontSize = 12.sp, color = Color.White)
                             Text(" ", fontSize = 10.sp)
+                            Spacer(modifier = Modifier.height(10.dp))
+                            BannerAdView(true)
                         }
-//AdMob
-                        AdvertView()
+
                     }
 
                 }
