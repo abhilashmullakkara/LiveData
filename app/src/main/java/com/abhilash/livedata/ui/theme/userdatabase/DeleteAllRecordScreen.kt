@@ -24,7 +24,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.abhilash.livedata.ui.theme.admob.BannerAdView
 import com.abhilash.livedata.ui.theme.room.EmployeeDB
+import com.google.android.gms.ads.AdSize
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -113,6 +115,7 @@ fun DeleteAllRecordScreen(navController: NavController) {
             }
 
             Text("All the data will be deleted!", color = Color.White, fontSize = 24.sp)
+            BannerAdView(true, AdSize.LARGE_BANNER)
         }
         if(flag){
             navController.popBackStack("MenuScreen", inclusive = false)

@@ -32,8 +32,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.abhilash.livedata.ui.theme.admob.BannerAdView
 import com.abhilash.livedata.ui.theme.schedule.isValidText
 import com.abhilash.livedata.ui.theme.userdatabase.myCalendar
+import com.google.android.gms.ads.AdSize
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -254,6 +256,8 @@ fun RoomData(navController:NavController) {
             ) {
                 Text("INSERT", fontSize = 17.sp, color = Color.White)
             }
+            Spacer(modifier = Modifier.height(10.dp))
+            BannerAdView(true, AdSize.BANNER)
 
         }
         if (flag){
@@ -280,7 +284,9 @@ fun EditRoomData(rec:Int,database: Employee,navController: NavController) {
                     "Collection:${database.collection} WayBill:${database.wayBillNo} " +
                     " Crew: ${database.employeeName}",color= Color.White)
             Text(text = "Schedule No     No of duty earned  ", color=Color.White, fontSize = 19.sp,
-                modifier = Modifier.padding(start=10.dp,end=10.dp).fillMaxWidth())
+                modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp)
+                    .fillMaxWidth())
             Row {
                 OutlinedTextField(
                     value = scheduleNo,
