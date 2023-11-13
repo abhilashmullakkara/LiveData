@@ -75,7 +75,8 @@ fun MenuScreen(navController: NavController) {
                             fontSize = 16.sp, modifier = Modifier.padding(start = 10.dp)
                         )
                         IconButton(onClick = {
-                            navController.navigate("AddScheduleScreen")
+                           // navController.navigate("AddScheduleScreen")
+                            navController.navigate("AddScheduleScreenWithPassword")
 
                         }, modifier = Modifier.padding(start = 20.dp))
                         {

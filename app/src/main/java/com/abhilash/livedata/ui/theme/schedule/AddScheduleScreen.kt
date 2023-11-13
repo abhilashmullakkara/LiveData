@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.paddingFrom
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -33,6 +34,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -44,7 +46,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.abhilash.livedata.ui.theme.admob.BannerAdView
 import com.abhilash.livedata.ui.theme.database.OriginalData
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.database.FirebaseDatabase
 
 @SuppressLint("SuspiciousIndentation")
@@ -320,16 +325,30 @@ OutlinedTextField(value = destination,
 Toast.makeText(context, "field empty", Toast.LENGTH_LONG).show()
                                 }
                             },
- modifier = Modifier.fillMaxSize(0.5f).padding(start = 50.dp),
+ modifier = Modifier
+     .fillMaxSize(0.5f)
+     .padding(start = 50.dp),
   colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF536DFE),
       contentColor = Color.White)
                         )
-     {
-      Text(text = "UPLOAD", fontSize = 18.sp, color = Color.White)
-                        }
+     { Text(text = "UPLOAD", fontSize = 18.sp, color = Color.White) }
+            // Spacer(modifier = Modifier.height(400.dp))
+
+
                     }
+
+                }
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(5.dp), // Adjust padding as needed
+                    contentAlignment = Alignment.BottomStart // Align content to the bottom
+                ) {
+                    BannerAdView(true,AdSize.BANNER)
                 }
             }
+
         }
     }
 }

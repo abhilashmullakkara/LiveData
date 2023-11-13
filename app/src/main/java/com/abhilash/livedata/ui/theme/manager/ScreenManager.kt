@@ -70,6 +70,8 @@ fun ScreenManager(){
         composable("ListAllScheduleScreen"){
             ListAllScheduleScreen(navController)
         }
-
+        composable("AddScheduleScreenWithPassword"){
+            AddScheduleScreenWithPassword(navController)
+        }
     }
 }
