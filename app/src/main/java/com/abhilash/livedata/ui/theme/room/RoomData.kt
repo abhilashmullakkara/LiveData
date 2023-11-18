@@ -1,6 +1,8 @@
 package com.abhilash.livedata.ui.theme.room
 
+import android.os.Build
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +14,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Checkbox
+import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.Divider
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.OutlinedTextField
@@ -27,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -41,6 +46,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @OptIn(DelicateCoroutinesApi::class)
 @Composable
@@ -55,6 +62,7 @@ fun RoomData(navController:NavController) {
         var todayCollection by rememberSaveable { mutableStateOf("") }
         var wBillNo by rememberSaveable { mutableStateOf("") }
         var crewName by rememberSaveable { mutableStateOf("") }
+        var surrender by rememberSaveable { mutableStateOf(false) }
         Column(modifier=Modifier.height(800.dp)) {
             Row {
             OutlinedTextField(
@@ -177,40 +185,20 @@ fun RoomData(navController:NavController) {
                     )
                 }
             )
-//            OutlinedButton(onClick = {
-//                if (scheduleNo.isNotBlank() && dutyEearnt.isNotBlank() && permedDate.isNotBlank()) {
-//                    coroutineScope.launch {
-//                        withContext(Dispatchers.IO) {
-//                        if (todayCollection.isBlank()) todayCollection = "--.--"
-//                        val employee = Employee(
-//                            dutyNo = scheduleNo,
-//                            performedOn = permedDate,
-//                            dutyEarned = dutyEearnt,
-//                            collection = todayCollection,
-//                            employeeName = crewName,
-//                            wayBillNo = wBillNo
-//                        )
-//                        EmployeeDB.getInstance(context).getEmployeeDao().insert(employee)
-//                        Toast.makeText(context, "Record inserted successfully", Toast.LENGTH_SHORT)
-//                            .show()
-//                        scheduleNo = " "
-//                        permedDate = " "
-//                        dutyEearnt = " "
-//                        todayCollection = ""
-//                        crewName = ""
-//                        wBillNo = ""
-//                    }
-//                    }
-//                } else {
-//                    Toast.makeText(context, "Input Record first", Toast.LENGTH_SHORT).show()
-//                }
-//            },modifier=Modifier.padding(start=20.dp),colors=ButtonDefaults.buttonColors(Color(
-//                0xFF0F0825
-//            )
-//            ), border = BorderStroke(width = 3.dp, color = Color(0xFF9889CA))
-//            ) {
-//                Text("INSERT", fontSize = 17.sp,color=Color.White)
-//            }
+Spacer(modifier = Modifier.height(10.dp)) //✔✓☑ Check mark - Tick symbol 💯☐☒❎✗✘
+            Row(modifier = Modifier.padding(start=10.dp)){
+                Text("If duty Surrendered,please put tick ☑  ", fontWeight = FontWeight.SemiBold ,fontSize = 16.sp,color=Color.Red)
+                Spacer(modifier = Modifier.width(10.dp))
+                Checkbox(
+                    checked = surrender,
+                    onCheckedChange = { surrender = it },
+                    colors =CheckboxDefaults.colors(Color.Red)//Color.Red ✅
+                    //modifier = Modifier.padding(3.dp)
+                )
+
+
+            }
+
 
             OutlinedButton(
                 onClick = {
@@ -225,7 +213,8 @@ fun RoomData(navController:NavController) {
                                     dutyEarned = dutyEearnt,
                                     collection = todayCollection,
                                     employeeName = crewName,
-                                    wayBillNo = wBillNo
+                                    wayBillNo = wBillNo,
+                                    dutySurrendered = surrender
                                 )
                                 EmployeeDB.getInstance(context).getEmployeeDao().insert(employee)
 
@@ -266,12 +255,16 @@ fun RoomData(navController:NavController) {
     }
 }
 //@SuppressLint("SuspiciousIndentation")
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun EditRoomData(rec:Int,database: Employee,navController: NavController) {
     Surface(color = Color(0xFF6776CA)) {
 
         val context = LocalContext.current
         val coroutineScope = rememberCoroutineScope()
+        var surrender by rememberSaveable {
+            mutableStateOf(false)
+        }
         var flag by rememberSaveable { mutableStateOf(false) }
         var scheduleNo by rememberSaveable { mutableStateOf(database.dutyNo) }
         var dutyEearnt by rememberSaveable { mutableStateOf(database.dutyEarned) }
@@ -332,7 +325,7 @@ fun EditRoomData(rec:Int,database: Employee,navController: NavController) {
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
-            permedDate = myCalendar()
+            permedDate = performedDate()//myCalendar()
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 "Optional Data (below)",
@@ -408,17 +401,25 @@ fun EditRoomData(rec:Int,database: Employee,navController: NavController) {
                     )
                 }
             )
+            Spacer(modifier = Modifier.height(10.dp)) //✔✓☑ Check mark - Tick symbol 💯☐☒❎✗✘
+            Row(modifier = Modifier.padding(start=10.dp)){
+                Text("If duty Surrendered,please put tick ☑  ", fontWeight = FontWeight.SemiBold ,fontSize = 16.sp,color=Color.Red)
+                Spacer(modifier = Modifier.width(10.dp))
+                Checkbox(
+                    checked = surrender,
+                    onCheckedChange = { surrender = it },
+                    colors =CheckboxDefaults.colors(Color.Red)//Color.Red ✅
+                    //modifier = Modifier.padding(3.dp)
+                )
+
+
+            }
+
             OutlinedButton(onClick = {
                 flag=true
-               // if (scheduleNo.isNotBlank() && dutyEearnt.isNotBlank() && permedDate.isNotBlank()) {
-//                if(scheduleNo.isBlank())scheduleNo=database.dutyNo
-//                if(dutyEearnt.isBlank())dutyEearnt=database.dutyEarned
-//                if(permedDate.isBlank())permedDate= database.performedOn
-
-
 
                 coroutineScope.launch {
-                        if (todayCollection.isBlank()) todayCollection = "--.--"
+                      //  if (todayCollection.isBlank()) todayCollection = "--.--"
                          val database1 = Employee(
                             dutyNo = scheduleNo,
                             performedOn = permedDate,
@@ -426,6 +427,7 @@ fun EditRoomData(rec:Int,database: Employee,navController: NavController) {
                             collection = todayCollection,
                             employeeName  =crewName,
                             wayBillNo = wBillNo,
+                             dutySurrendered=surrender,
                              id=rec
 
                         )
@@ -433,18 +435,7 @@ fun EditRoomData(rec:Int,database: Employee,navController: NavController) {
                         EmployeeDB.getInstance(context).getEmployeeDao().insert(database1)
                         Toast.makeText(context, "Record inserted successfully", Toast.LENGTH_SHORT)
                             .show()
-//                        scheduleNo=""
-//                        permedDate= ""
-//                        todayCollection=""
-//                        wBillNo=""
-//                        dutyEearnt= ""
-//                        todayCollection=""
-//                        crewName=""
                     }
-               // }
-//                else {
-//                    Toast.makeText(context, "Input Record first", Toast.LENGTH_SHORT).show()
-//                }
             },modifier=Modifier.padding(start=20.dp),colors=ButtonDefaults.buttonColors(Color(
                 0xFF0F0825
             )
@@ -460,14 +451,26 @@ fun EditRoomData(rec:Int,database: Employee,navController: NavController) {
                 dutyEearnt= ""
                 todayCollection=""
                 crewName=""
-                database.collection=""
-                database.dutyNo=""
-                database.dutyEarned=""
-                database.performedOn=""
-                database.wayBillNo=""
-                database.employeeName=""
+                surrender=false
                 navController.navigate("EditDutyDiaryScreen")
             }
         }
     }
+}
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+fun performedDate():String{
+    val currentDate = LocalDate.now()
+
+    // Define the desired date format
+    val formatter = DateTimeFormatter.ofPattern("dd/MM/yy")
+
+    // Format the current date as a string
+    val formattedDate = currentDate.format(formatter)
+    val dDate= myCalendar()
+    return dDate.ifBlank {
+        formattedDate
+    }
+
+
 }

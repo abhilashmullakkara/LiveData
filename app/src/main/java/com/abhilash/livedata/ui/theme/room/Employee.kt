@@ -11,5 +11,6 @@ data class Employee (
     var collection:String="",
     var employeeName:String="",
     var wayBillNo:String="",
+     var dutySurrendered:Boolean=false,
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
 )

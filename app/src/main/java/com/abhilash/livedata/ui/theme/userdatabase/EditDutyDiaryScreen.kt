@@ -50,7 +50,7 @@ fun EditDutyDiaryScreen(navController: NavController) {
             mutableStateOf(false)
         }
 
-        var recNo by rememberSaveable { mutableStateOf("0") }
+        var recNo by rememberSaveable { mutableStateOf("") }
         var recNumber by rememberSaveable {
             mutableIntStateOf(0)
         }
@@ -83,11 +83,15 @@ fun EditDutyDiaryScreen(navController: NavController) {
                 Spacer(modifier=Modifier.height(10.dp))
                 OutlinedTextField(value = recNo,
                     singleLine = true,
-                    modifier = Modifier.padding(start=15.dp)
-                        .size(width = 190.dp, height = 51.dp),
+                    modifier = Modifier
+                        .padding(start = 15.dp)
+                        .size(width = 190.dp, height = 71.dp),
                     // shape = RoundedCornerShape(80),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                     onValueChange = { recNo = it },
+                    label = {
+                         Text(text = "0")   
+                    },
                     placeholder = {
                         Text(
                             text = "Rec NO:",

@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun SendWhatsAppMessage(context: Context,text:String) {
+fun SendWhatsAppMessage(context: Context,text:String,country:String="+91") {
     Surface(color= Color(0xFF6776CA),modifier= Modifier.fillMaxSize()) {
 
         val phoneNumber = remember {
@@ -65,7 +65,7 @@ fun SendWhatsAppMessage(context: Context,text:String) {
                             Uri.parse(
                                 String.format(
                                     "https://api.whatsapp.com/send?phone=%s&text=%s",
-                                    "+91" + phoneNumber.value, text
+                                    country + phoneNumber.value, text
                                 )
                             )
                         )
