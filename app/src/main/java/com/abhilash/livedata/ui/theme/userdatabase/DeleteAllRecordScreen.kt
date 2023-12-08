@@ -115,7 +115,7 @@ fun DeleteAllRecordScreen(navController: NavController) {
             }
 
             Text("All the data will be deleted!", color = Color.White, fontSize = 24.sp)
-            BannerAdView(true, AdSize.LARGE_BANNER)
+            BannerAdView(false, AdSize.LARGE_BANNER)
         }
         if(flag){
             navController.popBackStack("MenuScreen", inclusive = false)

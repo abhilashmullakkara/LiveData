@@ -52,7 +52,7 @@ fun MenuScreen(navController: NavController) {
                             Text("KSRTC Duty Diary", fontSize = 12.sp, color = Color.White)
                             Text(" ", fontSize = 10.sp)
                             Spacer(modifier = Modifier.height(10.dp))
-                            BannerAdView(true, AdSize.FULL_BANNER)
+                            BannerAdView(false, AdSize.FULL_BANNER)
                         }
 
                     }
@@ -277,7 +277,7 @@ Divider(color=Color.White, thickness = 3.dp)
 
          }
          Spacer(modifier = Modifier.height(20.dp))
-         BannerAdView(true, AdSize.LARGE_BANNER)
+         BannerAdView(false, AdSize.LARGE_BANNER)
 
      }
 

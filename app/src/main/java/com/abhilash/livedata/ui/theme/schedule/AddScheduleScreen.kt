@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.paddingFrom
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -49,7 +48,6 @@ import androidx.navigation.NavController
 import com.abhilash.livedata.ui.theme.admob.BannerAdView
 import com.abhilash.livedata.ui.theme.database.OriginalData
 import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.MobileAds
 import com.google.firebase.database.FirebaseDatabase
 
 @SuppressLint("SuspiciousIndentation")
@@ -345,7 +343,7 @@ Toast.makeText(context, "field empty", Toast.LENGTH_LONG).show()
                         .padding(5.dp), // Adjust padding as needed
                     contentAlignment = Alignment.BottomStart // Align content to the bottom
                 ) {
-                    BannerAdView(true,AdSize.BANNER)
+                    BannerAdView(false,AdSize.BANNER)
                 }
             }
 

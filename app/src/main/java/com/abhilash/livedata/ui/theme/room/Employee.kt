@@ -5,9 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Employee (
-     var dutyNo:String,
-     var performedOn:String,
-     var dutyEarned:String,
+     var dutyNo:String="",
+     var performedOn:String="",
+     var dutyEarned:String="",
     var collection:String="",
     var employeeName:String="",
     var wayBillNo:String="",

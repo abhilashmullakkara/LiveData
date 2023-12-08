@@ -40,10 +40,7 @@ fun DeleteRecordScreen(navController: NavController){
     val context= LocalContext.current
     val coroutineScope= rememberCoroutineScope()
     Surface(color = Color(0xFF616BA1), modifier = Modifier.height(850.dp)) {
-        Column(
-//            verticalArrangement = Arrangement.Center,
-//            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+        Column {
             IconButton(onClick = {
                 navController.popBackStack("MenuScreen",inclusive = false)
             })

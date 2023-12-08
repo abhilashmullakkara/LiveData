@@ -14,7 +14,7 @@ import com.google.android.gms.ads.AdView
 @Composable
 fun BannerAdView(isTest: Boolean = true ,banner:AdSize= AdSize.BANNER) {
     val unitId = if (isTest) stringResource(id = R.string.ad_mob_test_banner_id) else stringResource(
-        id = R.string.ad_mob_banner_id
+        id =R.string.ad_mob_banner_id
     )
 //var bannr=AdSize.BANNER
     AndroidView(
