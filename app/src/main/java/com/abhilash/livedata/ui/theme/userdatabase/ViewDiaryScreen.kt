@@ -116,8 +116,12 @@ fun ViewDiaryScreen(navController: NavController) {
 
             }
             Spacer(modifier = Modifier.height(10.dp))
-            Text("Record    DutyNo      Performed on    Duty earned     W/B no  CrewName    Collection",color=Color.White,
+            Text("Record         DutyNo          Performed on      Duty earned     W/B no        CrewName    Collection",color=Color.White,
                 modifier=Modifier.padding(start=5.dp), fontSize = 18.sp)
+            Spacer(modifier = Modifier.height(15.dp))
+            Divider(color=Color.White)
+            Spacer(modifier = Modifier.height(2.dp))
+            Divider(color=Color.Green)
             EmployeeList(employees = employeeInfo)
             if(share){
                 SendWhatsAppMessage(context,result)
@@ -144,22 +148,22 @@ fun EmployeeItem(employee: Employee) {
         sign="*"
     }
 Row {
-    Spacer(modifier = Modifier.width(10.dp))
-    Text(text = "$sign ${employee.id} )",color=color,fontSize = 16.sp)
-    Spacer(modifier = Modifier.width(10.dp))
+    Spacer(modifier = Modifier.width(25.dp))
+    Text(text = " ${employee.id} )$sign",color=color,fontSize = 16.sp)
+    Spacer(modifier = Modifier.width(55.dp))
     Text(employee.dutyNo,color=color,fontSize = 16.sp )
-    Spacer(modifier = Modifier.width(10.dp))
+    Spacer(modifier = Modifier.width(75.dp))
     Text(employee.performedOn,color=color,fontSize = 16.sp )
-    Spacer(modifier = Modifier.width(10.dp))
+    Spacer(modifier = Modifier.width(105.dp))
     Text(employee.dutyEarned, color=color,fontSize = 16.sp )
-    Spacer(modifier = Modifier.width(10.dp))
+    Spacer(modifier = Modifier.width(65.dp))
     Text( employee.wayBillNo,color=color,fontSize = 16.sp)
-    Spacer(modifier = Modifier.width(10.dp))
+    Spacer(modifier = Modifier.width(35.dp))
     Text(employee.employeeName,color=color,fontSize = 16.sp )
-    Spacer(modifier = Modifier.width(10.dp))
+    Spacer(modifier = Modifier.width(45.dp))
     Text("₹",color=Color.Red, fontSize = 19.sp)
     Text(text = employee.collection,color=color,fontSize = 16.sp)
-    Spacer(modifier = Modifier.width(10.dp))
+    Spacer(modifier = Modifier.width(35.dp))
     if(employee.dutySurrendered){
         BlinkingText(text = "☑")
     }

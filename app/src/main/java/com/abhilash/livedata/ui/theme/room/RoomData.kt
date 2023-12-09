@@ -259,7 +259,7 @@ Spacer(modifier = Modifier.height(10.dp)) //✔✓☑ Check mark - Tick symbol �
 @Composable
 fun EditRoomData(rec:Int,database: Employee,navController: NavController) {
     Surface(color = Color(0xFF6776CA)) {
-
+        database.dutySurrendered=false
         val context = LocalContext.current
         val coroutineScope = rememberCoroutineScope()
         var surrender by rememberSaveable {

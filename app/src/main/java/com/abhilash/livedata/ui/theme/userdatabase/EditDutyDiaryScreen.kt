@@ -3,6 +3,7 @@ package com.abhilash.livedata.ui.theme.userdatabase
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,7 +11,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
@@ -58,12 +61,13 @@ fun EditDutyDiaryScreen(navController: NavController) {
             mutableIntStateOf(0)
         }
         val coroutineScope = rememberCoroutineScope()
+        val scroll= rememberScrollState()
 
         val context = LocalContext.current
         Surface(color = Color(0xFF6F8BB8), modifier = Modifier.fillMaxSize()) {
 
 
-            Column {
+            Column(modifier= Modifier.verticalScroll(scroll)) {
                 Row{
                     IconButton(onClick = {
                         navController.popBackStack("MenuScreen", inclusive = false)
