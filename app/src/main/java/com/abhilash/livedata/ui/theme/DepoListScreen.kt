@@ -19,7 +19,7 @@ import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Phone
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -36,7 +36,7 @@ import com.abhilash.livedata.ui.theme.database.depoList
 
 @Composable
 fun DepoListScreen(navController: NavController) {
-    Surface(color = Color.White) {
+    Surface(color = Color(0xFF6E7CC9)) {
 
 
         Column {
@@ -60,8 +60,8 @@ fun DepoListScreen(navController: NavController) {
 }
 @Composable
 fun DepoItem(depoData: DepoData){
-    var flag by remember { mutableStateOf(0) }
-    Surface(color = Color(0xFFA5ACAE)){
+    var flag by remember { mutableIntStateOf(0) }
+    Surface(color = Color(0xFF7885CA)){
         Row(modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 8.dp)) {
@@ -69,10 +69,10 @@ fun DepoItem(depoData: DepoData){
                 .padding(end = 8.dp, start = 15.dp)
                 .size(40.dp)
                 .clip(CircleShape),
-                backgroundColor = Color(0XFF896DA3)
+                backgroundColor = Color(0xFFFFEB3B)
             )
             {
-                Text(text=depoData.depoName[0].toString(),
+                Text(text=depoData.depoName[0].toString(), fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center, modifier = Modifier.padding(8.dp))
             }
             Column(modifier = Modifier.weight(2.0f) ) {
@@ -83,7 +83,7 @@ fun DepoItem(depoData: DepoData){
                 Text("Depo NO:${depoData.depoId}",
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Red
+                    color = Color(0xFFB2FF59)
                 )
                 Text(depoData.phone,
                     fontSize = 15.sp,
