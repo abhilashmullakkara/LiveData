@@ -40,6 +40,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.abhilash.livedata.ui.ai.isValidText
 import com.abhilash.livedata.ui.theme.userdatabase.CircularLoadingIndicator
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers

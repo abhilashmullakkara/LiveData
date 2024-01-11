@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -37,11 +38,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.abhilash.livedata.ui.ai.displayCloudDatabase
 import com.google.firebase.database.FirebaseDatabase
 
 @Composable
 fun DeleteScheduleScreen(navController:NavController){
         var scheduleNo by rememberSaveable { mutableStateOf("") }
+    var result by rememberSaveable { mutableStateOf("SCHEDULE") }
        // var tripNo by rememberSaveable { mutableStateOf("") }
         var clicked by rememberSaveable { mutableStateOf(false) }
         var depoNo by rememberSaveable { mutableStateOf("") }
@@ -79,10 +82,19 @@ fun DeleteScheduleScreen(navController:NavController){
                     val scrollState = rememberScrollState()
                     Box(modifier = Modifier.verticalScroll(scrollState)) {
                         Column {
+//
 
+
+
+
+              //
                             Spacer(modifier = Modifier.height(20.dp))
                             OutlinedTextField(value = depoNo,
                                 singleLine = true,
+                                modifier = Modifier
+                                    .size(width = 175.dp, height = 51.dp)
+                                    .fillMaxWidth()
+                                    .padding(start = 20.dp),
                                 shape = RoundedCornerShape(80),
                                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                                 onValueChange = { depoNo = it },
@@ -98,6 +110,10 @@ fun DeleteScheduleScreen(navController:NavController){
                             Spacer(modifier = Modifier.height(20.dp))
                             OutlinedTextField(value = bType,
                                 singleLine = true,
+                                modifier = Modifier
+                                    .size(width = 175.dp, height = 51.dp)
+                                    .fillMaxWidth()
+                                    .padding(start = 20.dp),
                                 shape = RoundedCornerShape(80),
                                 // keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
                                 keyboardOptions = KeyboardOptions(
@@ -107,7 +123,7 @@ fun DeleteScheduleScreen(navController:NavController){
                                 //modifier=Modifier.padding(start = 20.dp,end=250.dp),
                                 placeholder = {
                                     Text(
-                                        text = "Enter Type (eg:- FP )",
+                                        text = "Bus Type",
                                         color = Color.Black,
                                         fontSize = 15.sp
                                     )
@@ -116,13 +132,17 @@ fun DeleteScheduleScreen(navController:NavController){
                             Spacer(modifier = Modifier.height(20.dp))
                             OutlinedTextField(value = scheduleNo,
                                 singleLine = true,
+                                modifier = Modifier
+                                    .size(width = 175.dp, height = 51.dp)
+                                    .fillMaxWidth()
+                                    .padding(start = 20.dp),
                                 shape = RoundedCornerShape(80),
                                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                                 onValueChange = { scheduleNo = it },
                                 //modifier=Modifier.padding(start = 20.dp,end=250.dp),
                                 placeholder = {
                                     Text(
-                                        text = "Enter Schedule No (eg:- 1)",
+                                        text = "Schedule No:",
                                         color = Color.Black,
                                         fontSize = 15.sp
                                     )
@@ -130,26 +150,15 @@ fun DeleteScheduleScreen(navController:NavController){
                             )
 
                             Spacer(modifier = Modifier.height(20.dp))
-//                            OutlinedTextField(value = tripNo,
-//                                singleLine = true,
-//                                shape = RoundedCornerShape(80),
-//                                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-//                                onValueChange = { tripNo = it },
-//                                //modifier=Modifier.padding(start = 20.dp,end=250.dp),
-//                                placeholder = {
-//                                    Text(
-//                                        text = "Enter Trip Number (eg:- 1)",
-//                                        color = Color.Black,
-//                                        fontSize = 15.sp
-//                                    )
-//                                }
-//                            )
+
+
+
                             OutlinedButton(onClick = {
+
                                 clicked = true
                                 val dataBase = FirebaseDatabase.getInstance()
                                 val myRef = dataBase.getReference("$depoNo/$bType/")
                                 if (scheduleNo.isNotBlank() && depoNo.isNotBlank() && bType.isNotBlank()) {
-
 
                                 myRef.child(scheduleNo).removeValue().addOnSuccessListener {
                                     Toast.makeText(
@@ -173,14 +182,30 @@ fun DeleteScheduleScreen(navController:NavController){
                                     ).show()
                                 }
                                // navController.popBackStack()
-                            }) {
+                            },
+                                modifier = Modifier
+                                    .size(width = 175.dp, height = 51.dp)
+                                    .fillMaxWidth()
+                                    .padding(start = 20.dp),
+                                ) {
                                 Text(text = "Delete")
 
                             }
+                            if (depoNo.isNotBlank() && scheduleNo.isNotBlank() && bType.isNotBlank())
+                            {
+                                result = displayCloudDatabase(reference = "$depoNo/$bType/$scheduleNo")
+                                    .takeIf { true } ?: "RESULT"
+                            }
 
+
+                            if(result.isNotEmpty()){
+                                Text(result, fontSize = 12.sp, color=Color.Blue,modifier=Modifier.padding(start=100.dp))
+                            }
 
 
                         }
+
+
                     }
 
 

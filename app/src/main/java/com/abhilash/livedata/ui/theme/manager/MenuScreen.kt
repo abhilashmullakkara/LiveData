@@ -99,7 +99,8 @@ fun MenuScreen(navController: NavController) {
                         Text("Delete Trip", color = Color.White, fontSize = 20.sp)
 
                         IconButton(onClick = {
-                            navController.navigate("DeleteTripScreen")
+                           // navController.navigate("DeleteTripScreen")
+                              navController.navigate("DeleteTripScreenWithPassword")
 
                         }, modifier = Modifier.padding(start = 20.dp))
                         {
@@ -110,7 +111,8 @@ fun MenuScreen(navController: NavController) {
                         }
                         Text("Delete Schedule", color = Color.White, fontSize = 20.sp)
                         IconButton(onClick = {
-                            navController.navigate("DeleteScheduleScreen")
+                            //navController.navigate("DeleteScheduleScreen")
+                            navController.navigate("DeleteScheduleScreenWithPassword")
 
                         }, modifier = Modifier.padding(start = 20.dp))
                         {

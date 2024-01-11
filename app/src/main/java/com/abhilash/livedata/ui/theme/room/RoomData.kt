@@ -37,8 +37,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.abhilash.livedata.ui.ai.isValidText
 import com.abhilash.livedata.ui.theme.admob.BannerAdView
-import com.abhilash.livedata.ui.theme.schedule.isValidText
 import com.abhilash.livedata.ui.theme.userdatabase.myCalendar
 import com.google.android.gms.ads.AdSize
 import kotlinx.coroutines.DelicateCoroutinesApi

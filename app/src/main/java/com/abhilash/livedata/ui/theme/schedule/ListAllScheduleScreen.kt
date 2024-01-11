@@ -33,6 +33,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.abhilash.livedata.ui.ai.isValidText
 import com.abhilash.livedata.ui.theme.database.OriginalData
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

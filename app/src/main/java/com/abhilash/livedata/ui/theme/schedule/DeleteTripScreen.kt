@@ -37,11 +37,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.abhilash.livedata.ui.ai.displayCloudDatabase
 import com.google.firebase.database.FirebaseDatabase
 
 @Composable
 fun DeleteTripScreen(navController: NavController) {
     var scheduleNo by rememberSaveable { mutableStateOf("") }
+    var result by rememberSaveable { mutableStateOf("SCHEDULE DETAILS") }
     var tripNo by rememberSaveable { mutableStateOf("") }
     var clicked by rememberSaveable { mutableStateOf(false) }
     var depoNo by rememberSaveable { mutableStateOf("") }
@@ -81,7 +83,7 @@ fun DeleteTripScreen(navController: NavController) {
                     Column(modifier = Modifier.padding(start=10.dp)) {
 
                         Spacer(modifier = Modifier.height(20.dp))
-                    OutlinedTextField(value = depoNo,
+                     OutlinedTextField(value = depoNo,
                         singleLine = true,
                         shape = RoundedCornerShape(80),
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
@@ -89,14 +91,14 @@ fun DeleteTripScreen(navController: NavController) {
                         //modifier=Modifier.padding(start = 20.dp,end=250.dp),
                         placeholder = {
                             Text(
-                                text = "Enter Depo Number (eg:- KMR->34)",
+                                text = "Depo Number",
                                 color = Color.Black,
                                 fontSize = 15.sp
                             )
                         }
-                    )
-                    Spacer(modifier = Modifier.height(20.dp))
-                    OutlinedTextField(value = bType,
+                     )
+                     Spacer(modifier = Modifier.height(20.dp))
+                     OutlinedTextField(value = bType,
                         singleLine = true,
                         shape = RoundedCornerShape(80),
                         // keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
@@ -112,7 +114,7 @@ fun DeleteTripScreen(navController: NavController) {
                                 fontSize = 15.sp
                             )
                         }
-                    )
+                      )
                         Spacer(modifier = Modifier.height(20.dp))
                         OutlinedTextField(value = scheduleNo,
                             singleLine = true,
@@ -122,7 +124,7 @@ fun DeleteTripScreen(navController: NavController) {
                             //modifier=Modifier.padding(start = 20.dp,end=250.dp),
                             placeholder = {
                                 Text(
-                                    text = "Enter Schedule No (eg:- 1)",
+                                    text = "Schedule No",
                                     color = Color.Black,
                                     fontSize = 15.sp
                                 )
@@ -130,7 +132,7 @@ fun DeleteTripScreen(navController: NavController) {
                         )
 
                         Spacer(modifier = Modifier.height(20.dp))
-                    OutlinedTextField(value = tripNo,
+                      OutlinedTextField(value = tripNo,
                         singleLine = true,
                         shape = RoundedCornerShape(80),
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
@@ -138,28 +140,31 @@ fun DeleteTripScreen(navController: NavController) {
                         //modifier=Modifier.padding(start = 20.dp,end=250.dp),
                         placeholder = {
                             Text(
-                                text = "Enter Trip Number (eg:- 1)",
+                                text = "Trip Number",
                                 color = Color.Black,
                                 fontSize = 15.sp
                             )
                         }
-                    )
+                       )
                         Spacer(modifier = Modifier.height(20.dp))
                         OutlinedButton(colors =ButtonDefaults.buttonColors(backgroundColor = Color.Red) , modifier= Modifier
                             .fillMaxWidth(0.8f)
                             .padding(start = 50.dp),onClick = {
-                            clicked = true
+
                             val dataBase = FirebaseDatabase.getInstance()
                             val myRef = dataBase.getReference("$depoNo/$bType/$scheduleNo/")
-                            if (depoNo.isNotBlank() && bType.isNotBlank() && scheduleNo.isNotBlank()) {
-
+                            if (depoNo.isNotBlank() && bType.isNotBlank() && scheduleNo.isNotBlank() && tripNo.isNotBlank()) {
 
                             myRef.child(tripNo).removeValue().addOnSuccessListener {
                                // depoNo = ""
                                 //bType = ""
-                                scheduleNo = ""
+                               // scheduleNo = ""
                                 tripNo=""
                                 Toast.makeText(context, "Record Deleted or not existed", Toast.LENGTH_SHORT).show()
+                                clicked = true
+                                result=""
+
+
                             }.addOnFailureListener {
                                 Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                             }
@@ -179,15 +184,35 @@ fun DeleteTripScreen(navController: NavController) {
                                 color = Color.White)
 
                         }
+ Text("Record will be updated automatically ", fontSize = 12.sp, color = Color.DarkGray, modifier = Modifier.padding(start=10.dp))
+                        if (depoNo.isNotBlank() && scheduleNo.isNotBlank() && bType.isNotBlank())
+                        {
+                            result = displayCloudDatabase(reference = "$depoNo/$bType/$scheduleNo")
+                                .takeIf { true } ?: "RESULT"
+                        }
 
 
+                        if(result.isNotEmpty()){
+                            Text(result, fontSize = 12.sp, color=Color.Blue,modifier=Modifier.padding(start=100.dp))
+                        }
+
+                        if (clicked){
+                            if(result.isNotEmpty()){
+
+                                Text(result, fontSize = 12.sp, color=Color.Blue,modifier=Modifier.padding(start=100.dp))
+                            }
+                            clicked=false
+                        }
 
                             }
-                        }
-                }
-                //End of card |
 
-            }
-        }
-            }
+                        }
+                  }
+                   //End of card |
+
+
+
+              }
+          }
+    }
 

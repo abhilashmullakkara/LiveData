@@ -1,8 +1,17 @@
+//plugins {
+//    id 'com.android.application'
+//    id 'org.jetbrains.kotlin.android'
+//    id 'com.google.gms.google-services'
+//    id 'kotlin-kapt'
+//    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+//}
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
     id 'kotlin-kapt'
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -37,7 +46,8 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        compose true
+        compose  true
+        //buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.2.0'
@@ -87,7 +97,7 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
     implementation platform('com.google.firebase:firebase-bom:32.0.0')
     //Coroutine
-    def coroutine_version = "1.5.4"
+    def coroutine_version = '1.7.3'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
     implementation "androidx.navigation:navigation-compose"
     def nav_version = "2.7.4"
@@ -99,4 +109,9 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:$nav_version"
     //adMob
     implementation 'com.google.android.gms:play-services-ads:22.5.0'
+    // add the dependency for the Google AI client SDK for Android
+    implementation('com.google.ai.client.generativeai:generativeai:0.1.2')
+
+
+
 }

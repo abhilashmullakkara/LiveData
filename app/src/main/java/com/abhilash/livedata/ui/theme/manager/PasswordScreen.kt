@@ -31,6 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.abhilash.livedata.ui.theme.admob.BannerAdView
 import com.abhilash.livedata.ui.theme.schedule.AddScheduleScreen
+import com.abhilash.livedata.ui.theme.schedule.DeleteScheduleScreen
+import com.abhilash.livedata.ui.theme.schedule.DeleteTripScreen
 import com.google.android.gms.ads.AdSize
 
 
@@ -47,6 +49,38 @@ fun AddScheduleScreenWithPassword(navController: NavController) {
         } else {
             // Show the AddScheduleScreen only if the password is entered correctly
             AddScheduleScreen(navController)
+        }
+    }
+}
+@Composable
+fun DeleteScheduleScreenWithPassword(navController: NavController) {
+    Surface(color = Color.White) {
+        var passwordEntered by rememberSaveable { mutableStateOf(false) }
+
+        if (!passwordEntered) {
+            // Show the password screen
+            PasswordScreen { pass ->
+                passwordEntered = pass.pwrd
+            }
+        } else {
+            // Show the AddScheduleScreen only if the password is entered correctly
+            DeleteScheduleScreen(navController)
+        }
+    }
+}
+@Composable
+fun DeleteTripScreenWithPassword(navController: NavController) {
+    Surface(color = Color.White) {
+        var passwordEntered by rememberSaveable { mutableStateOf(false) }
+
+        if (!passwordEntered) {
+            // Show the password screen
+            PasswordScreen { pass ->
+                passwordEntered = pass.pwrd
+            }
+        } else {
+            // Show the AddScheduleScreen only if the password is entered correctly
+            DeleteTripScreen(navController)
         }
     }
 }
@@ -97,7 +131,7 @@ fun PasswordScreen(onPasswordEntered: (Pass) -> Unit) {
                 // Check if the password is correct
 
                 if (password == "november") {
-                    val pass = Pass(pwrd = true, paswd = password)
+                    val pass = Pass(pwrd = true)
                     // Call the callback with the Pass object
                     onPasswordEntered(pass)
                 } else {
@@ -114,7 +148,7 @@ fun PasswordScreen(onPasswordEntered: (Pass) -> Unit) {
 }
 }
 
-class Pass(val pwrd: Boolean = false, val paswd: String = "")
+class Pass(val pwrd: Boolean = false)
 
 
 //
