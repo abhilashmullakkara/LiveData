@@ -62,12 +62,13 @@ android {
 dependencies {
     implementation 'com.google.firebase:protolite-well-known-types:18.0.0'
     implementation 'com.google.android.gms:play-services-ads-lite:22.5.0'
-    def room_version = "2.5.1"
+    def room_version = "2.6.1"
 
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+   kapt "androidx.room:room-compiler:$room_version"
 
+   // kapt "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.5.0"
     implementation 'androidx.core:core-ktx'
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {

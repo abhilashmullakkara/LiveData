@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -170,7 +171,10 @@ fun RoomData(navController:NavController) {
                 value = crewName,
                 singleLine = true,
                 shape = RoundedCornerShape(80),
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.Characters
+                ),
+             //   keyboardOptions = KeyboardOptions.Default.copy(keyboardType= KeyboardType.Text).copy(capitalization = KeyboardCapitalization.Characters),
                 onValueChange = {
                     crewName = it
                 },

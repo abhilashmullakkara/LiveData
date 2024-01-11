@@ -12,7 +12,7 @@ interface EmployeeDao {
     suspend fun insert(employee: Employee)
     @Query ("select * from  Employee" )
     suspend fun display():List<Employee>
-    @Query("SELECT * FROM Employee ORDER BY id DESC")
+    @Query(value="SELECT * FROM Employee ORDER BY id DESC")
     suspend fun displaylast(): List<Employee>
 
     @Update
