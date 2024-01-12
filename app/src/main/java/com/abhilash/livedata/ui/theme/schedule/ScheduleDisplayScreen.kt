@@ -207,3 +207,5 @@ Surface(color = Color(0xFF071715)) {
 }
 
     }
+
+class Depo(var depoId:Int=0,var password:String="")

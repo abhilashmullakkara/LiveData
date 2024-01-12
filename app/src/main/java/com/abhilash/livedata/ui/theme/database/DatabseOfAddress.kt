@@ -1,4 +1,5 @@
 package com.abhilash.livedata.ui.theme.database
+
 val depoList=listOf(
     DepoData(
         depoId = 1,
@@ -15,7 +16,7 @@ val depoList=listOf(
     ),
     DepoData(
         depoId = 3,
-        depoName = "EKM",
+        depoName = "ALUVA",
         phone = "0484-2624242",
         email = "alv@kerala.gov.in"
     ),
@@ -309,22 +310,26 @@ val depoList=listOf(
         "mvp@kerala.gov.in"
     ),
     DepoData(
-        53,	"MUNNAR",
+        53,
+        "MUNNAR",
         "0486-5230201",
         "mnr@kerala.gov.in"
     ),
     DepoData(
-        54,	"NEDUMANGAD",
+        54,
+        "NEDUMANGAD",
         "0472-2812235",
         "ndd@kerala.gov.in"
     ),
     DepoData(
-        55,	"NEDUMKANDAM",
+        55,
+        "NEDUMKANDAM",
         "04868-234533",
         "ndm.ksrtc@kerala.gov.in"
     ),
     DepoData(
-        56,	"NEYYATINKARA",
+        56,
+        "NEYYATINKARA",
         "0471-2222243",
         "nta@kerala.gov.in"
     ),
@@ -369,97 +374,110 @@ val depoList=listOf(
         "PANDALAM",
 "0473-4255800",
 "pdm@kerala.gov.in"
+    ),
+    DepoData(
+        64,
+        "PAPPANAMCODE",
+        "0471-2494002",
+                "ppd@kerala.gov.in"
+    ),
+    DepoData(
+        65	,
+        "PARASSALA",
+        "0471-2202058",
+        "psl@kerala.gov.in"
+    ),
+    DepoData(
+        66,
+        "PATHANAMTHITTA",
+        " 0468-2222366",
+        "pta@kerala.gov.in"
+    ),
+    DepoData(
+        67,	"PATHANAPURAM",
+        "0475-2354010",
+        "ppm@kerala.gov.in"
+    ),
+    DepoData(
+        68,	"PAYYANUR",
+        " 0498-5203062",
+        "pnr@kerala.gov.in"
+    ),
+    DepoData(
+        69,	"PERINTHAMANNA",
+        "0493-3227342",
+        "pmn@kerala.gov.in"
+    ),
+    DepoData(
+        70,	"PEROORKADA",
+        " 0471-2433683",
+        "prk@kerala.gov.in"
+    ),
+    DepoData(
+        71,
+        "PERUMBAVOOR",
+        "0484-2523416",
+        "pbr@kerala.gov.in"
+    ),
+    DepoData(
+        72,
+        "PIRAVOM",
+        "0485-2265533",
+        "pvm@kerala.gov.in"
+    ),
+    DepoData(
+        73,
+        "PONKUNNAM",
+        "0482-8221333",
+        "pnk@kerala.gov.in"
+    ),
+    DepoData(
+        74,
+        "PONNANI",
+        "0494-2666396",
+        "pni@kerala.gov.in"
+    ),
+    DepoData(
+        75,
+        "POOVAR",
+        "0471-2210047",
+        "pvr@kerala.gov.in"
+    ),
+    DepoData(
+        76,
+        "PUNALUR" ,
+        "0475-2222626",
+        "plr@kerala.gov.in"
+    ),
+    DepoData(
+        77	,
+        "PUTHUKKADU" ,
+        "0480-2751648",
+        "pdk@kerala.gov.in"
+    ),
+    DepoData(
+        78,
+        "RANNI",
+        " 04735-225253",
+        "rni@kerala.gov.in"
+    ),
+    DepoData(
+        79	,
+        "SULTHAN BATHERY" ,
+        "0493-6220217",
+        "sby@kerala.gov.in"
+    ),
+    DepoData(
+        80,
+        "THALASSERY",
+        "0490-2343333",
+        "tly@kerala.gov.in"
     )
 )
-//
-//OFFICE OF THE DISTRICT TRANSPORT OFFICER, KSRTC, PAMBA
-//
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, PANDALAM
-//64	PAPPANAMCODE
-//Zone:SOUTH
-//Dist: TVM	 0471-2494002
-//ppd@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, PAPPANAMCODE
-//65	PARASSALA
-//Zone:SOUTH
-//Dist: TVM	 0471-2202058
-//psl@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, PARASSALA
-//66	PATHANAMTHITTA
-//Zone:SOUTH
-//Dist: PTA	 0468-2222366
-//pta@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, PATHANAMTHITTA
-//67	PATHANAPURAM
-//Zone:SOUTH
-//Dist: KLM	 0475-2354010
-//ppm@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, PATHANAPURAM
-//68	PAYYANUR
-//Zone:NORTH
-//Dist: KNR	 0498-5203062
-//pnr@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, PAYYANUR
-//69	PERINTHAMANNA
-//Zone:NORTH
-//Dist: MLP	 0493-3227342
-//pmn@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, PERINTHAMANNA
-//70	PEROORKADA
-//Zone:SOUTH
-//Dist: TVM	 0471-2433683
-//prk@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, PEROORKADA
-//71	PERUMBAVOOR
-//Zone:CENTRAL
-//Dist: EKM	 0484-2523416
-//pbr@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, PERUMBAVOOR
-//72	PIRAVOM
-//Zone:CENTRAL
-//Dist: EKM	 0485-2265533
-//pvm@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, PIRAVOM
-//73	PONKUNNAM
-//Zone:CENTRAL
-//Dist: KTM	 0482-8221333
-//pnk@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, PONKUNNAM
-//74	PONNANI
-//Zone:NORTH
-//Dist: MLP	 0494-2666396
-//pni@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, PONNANI
-//75	POOVAR
-//Zone:SOUTH
-//Dist: TVM	 0471-2210047
-//pvr@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, POOVAR
-//76	PUNALUR
-//Zone:SOUTH
-//Dist: KLM	 0475-2222626
-//plr@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, PUNALUR
-//77	PUTHUKKADU
-//Zone:CENTRAL
-//Dist: TSR	 0480-2751648
-//pdk@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, PUTHUKKADU
-//78	RANNI
-//Zone:SOUTH
-//Dist: PTA	 04735-225253
-//rni@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, RANNI
-//79	SULTHAN
-//BATHERY
-//Zone:NORTH
-//Dist: WND	 0493-6220217
-//sby@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, SULTHAN BATHERY
-//80	THALASSERY
-//Zone:NORTH
-//Dist: KNR	 0490-2343333
-//tly@kerala.gov.in
+
+
+
+
 //OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, THALASSERY
 //81	THAMARASSERY
 //Zone:NORTH

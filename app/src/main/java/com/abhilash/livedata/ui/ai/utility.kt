@@ -3,7 +3,6 @@ package com.abhilash.livedata.ui.ai
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
@@ -18,7 +17,6 @@ fun isValidText(text: TextFieldValue): Boolean {
 
 @Composable
 fun displayCloudDatabase(reference:String):String {
-    var searchResults by remember { mutableStateOf(emptyList<String>()) }
     val dataBase = FirebaseDatabase.getInstance()
     val myRef2 = dataBase.getReference(reference)
     var ti=0

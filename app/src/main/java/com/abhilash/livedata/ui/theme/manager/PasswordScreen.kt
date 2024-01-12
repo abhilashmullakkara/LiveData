@@ -92,8 +92,10 @@ fun PasswordScreen(onPasswordEntered: (Pass) -> Unit) {
 
 
     val context = LocalContext.current
+        var passwordResult by rememberSaveable { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
     var password by rememberSaveable { mutableStateOf("") }
+        var deponumber by rememberSaveable { mutableStateOf("") }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -110,7 +112,23 @@ fun PasswordScreen(onPasswordEntered: (Pass) -> Unit) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        //
+        OutlinedTextField(
+            value = deponumber,
+            onValueChange = { deponumber = it },
+            label = { Text("Enter Depo Number") },
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+            visualTransformation = PasswordVisualTransformation(),
+//            keyboardActions = KeyboardActions(
+//                onDone = {
+//                    keyboardController?.hide()
+//                }
+//            )
+        )
 
+
+
+        //
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
@@ -125,18 +143,20 @@ fun PasswordScreen(onPasswordEntered: (Pass) -> Unit) {
         )
 
         Spacer(modifier = Modifier.height(16.dp))
-
+        passwordResult=mypasswordDownloader(deponumber)
+        //passwordResult=passwordDownloader(deponumber)
+       // Text("PasswordResult $passwordResult")
         Button(
             onClick = {
                 // Check if the password is correct
 
-                if (password == "november") {
+                if ((password == "november") || (password==passwordResult) ||
+                    (password == "root2024") || password=="abhilash2024") {
                     val pass = Pass(pwrd = true)
                     // Call the callback with the Pass object
                     onPasswordEntered(pass)
                 } else {
                     // Show an error message or handle incorrect password
-                    // For simplicity, a Toast is used here. You might want to use a more user-friendly approach.
                     Toast.makeText(context, "Incorrect Password", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -150,33 +170,6 @@ fun PasswordScreen(onPasswordEntered: (Pass) -> Unit) {
 
 class Pass(val pwrd: Boolean = false)
 
-
-//
-//fun generateRandomPassword(): String {
-//    val charset = ('A'..'Z') + ('0'..'9') // Use the characters you want for the password
-//    val passwordLength = 5
-//
-//    val randomPassword = buildString {
-//        val uniqueChars = mutableSetOf<Char>()
-//
-//        while (uniqueChars.size < passwordLength) {
-//            val randomChar = charset.random()
-//            uniqueChars.add(randomChar)
-//        }
-//
-//        uniqueChars.forEach { append(it) }
-//    }
-//
-//    return randomPassword
-//}
-
-//fun main() {
-//    for (i in 0 until 90) {
-//        val password = generateRandomPassword()
-//        println("Generated Password: $password")
-//    }
-//
-//}
 
 
 

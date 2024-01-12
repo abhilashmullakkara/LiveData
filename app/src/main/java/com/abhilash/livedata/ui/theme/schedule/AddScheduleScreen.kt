@@ -332,11 +332,6 @@ fun AddScheduleScreen(navController: NavController) {
                             }
                         )
                     }
-
-                    //Spacer(modifier = Modifier.width(7.dp))
-                    // }
-
-
                     val originalDatabase = OriginalData(
                         startPlace = stPlace,
                         via = via,
@@ -347,8 +342,6 @@ fun AddScheduleScreen(navController: NavController) {
                         bustype = busType,
                         etmNo = etm
                     )
-
-
                     item {
                         Spacer(modifier = Modifier.height(10.dp))
                         TextButton(
@@ -401,14 +394,11 @@ fun AddScheduleScreen(navController: NavController) {
                         {
                             Text(text = "UPLOAD", fontSize = 18.sp, color = Color.White)
                         }
-                       // if(flag)
-
                         if (depoNo.isNotBlank() && scheduleNo.isNotBlank() && busType.isNotBlank())
                         {
                             result = displayCloudDatabase(reference = "$depoNo/$busType/$scheduleNo")
                                 .takeIf { true } ?: "RESULT"
                         }
-
                     }
                     item {
                         Box(
@@ -427,9 +417,5 @@ fun AddScheduleScreen(navController: NavController) {
 }
 
 
-//@Preview(showBackground = true)
-//@Composable
-//fun GreetingPreview() {
-//
-//
-//}
+
+
