@@ -118,7 +118,7 @@ val depoList=listOf(
     DepoData(
         20,
         "ERNAKULAM",
-	    "0484-2372033",
+	     "0484-2372033",
         "ekm@kerala.gov.in"
     ),
     DepoData(

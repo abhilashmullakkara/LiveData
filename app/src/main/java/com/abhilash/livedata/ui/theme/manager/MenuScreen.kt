@@ -47,10 +47,13 @@ fun MenuScreen(navController: NavController) {
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Surface(color = Color(0xFF075E54), modifier = Modifier.fillMaxWidth()) {
+
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Text("വേല", fontSize = 20.sp, color = Color.White)
                             Text("KSRTC Duty Diary", fontSize = 12.sp, color = Color.White)
                             Text(" ", fontSize = 10.sp)
+                            val ver=mypasswordDownloader("0")
+                            Text(ver, fontSize = 15.sp,color=Color.Yellow)
                             Spacer(modifier = Modifier.height(10.dp))
                             BannerAdView(false, AdSize.FULL_BANNER)
                         }
@@ -75,8 +78,8 @@ fun MenuScreen(navController: NavController) {
                             fontSize = 16.sp, modifier = Modifier.padding(start = 10.dp)
                         )
                         IconButton(onClick = {
-                           // navController.navigate("AddScheduleScreen")
-                            navController.navigate("AddScheduleScreenWithPassword")
+                            navController.navigate("AddScheduleScreen")
+                            //navController.navigate("AddScheduleScreenWithPassword")
 
                         }, modifier = Modifier.padding(start = 20.dp))
                         {

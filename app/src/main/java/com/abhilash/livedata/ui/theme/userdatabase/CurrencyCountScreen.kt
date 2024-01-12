@@ -46,6 +46,7 @@ fun CurrencyCountScreen(navController:NavController) {
         var hundred by rememberSaveable { mutableStateOf("") }
         var twohundred by rememberSaveable { mutableStateOf("") }
         var fivehundred by rememberSaveable { mutableStateOf("") }
+        var coins by rememberSaveable { mutableStateOf("") }
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -117,8 +118,17 @@ fun CurrencyCountScreen(navController:NavController) {
                         fivehundred = add("500", readValue())
                         Text(" =  $fivehundred", fontSize = 25.sp)
                     }
+                    Divider()
+                    Text("For coins enter only the total value", fontSize = 12.sp,color= Color.DarkGray)
+                    Row {
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Text("₹coins x ", fontSize = 18.sp, color = Color.Red)
+                        Spacer(modifier = Modifier.width(5.dp))
+                        coins = add("1", readValue())
+                        Text(" =  $coins", fontSize = 25.sp)
+                    }
                     Spacer(modifier = Modifier.height(20.dp))
-                    total=sum(ten,twenty, fifty,hundred,twohundred,fivehundred)
+                    total=sum(ten,twenty, fifty,hundred,twohundred,fivehundred,coins)
                     Divider()
                     Divider()
                     Text("Total : $total ",fontSize = 25.sp,color= Color.Green, modifier = Modifier.padding(start=25.dp))
@@ -141,10 +151,10 @@ fun add(cur: String, num: String): String {
     }
 }
 @Composable
-fun sum(ten: String, twenty: String, fifty:String,hundred:String
-,twohundred:String,fivehundred:String): String {
+fun sum(ten: String="0", twenty: String="0", fifty:String="0",hundred:String="0"
+,twohundred:String="0",fivehundred:String="0",coins:String="0"): String {
     return try {
-        val total=ten.toInt()+twenty.toInt()+fifty.toInt()+hundred.toInt()+twohundred.toInt()+fivehundred.toInt()
+   val total=ten.toInt()+twenty.toInt()+fifty.toInt()+hundred.toInt()+twohundred.toInt()+fivehundred.toInt()+coins.toInt()
         total.toString()
     } catch (e: NumberFormatException) {
         "0"

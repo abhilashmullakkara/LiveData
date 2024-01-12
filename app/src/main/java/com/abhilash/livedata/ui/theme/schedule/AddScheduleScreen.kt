@@ -1,6 +1,9 @@
 package com.abhilash.livedata.ui.theme.schedule
 
 import android.annotation.SuppressLint
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+
+
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -32,6 +36,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -39,6 +44,7 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -47,13 +53,17 @@ import com.abhilash.livedata.ui.ai.displayCloudDatabase
 import com.abhilash.livedata.ui.ai.isValidText
 import com.abhilash.livedata.ui.theme.admob.BannerAdView
 import com.abhilash.livedata.ui.theme.database.OriginalData
+import com.abhilash.livedata.ui.theme.manager.mypasswordDownloader
 import com.google.android.gms.ads.AdSize
 import com.google.firebase.database.FirebaseDatabase
 
+@OptIn(ExperimentalComposeUiApi::class)
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun AddScheduleScreen(navController: NavController) {
+    val keyboardController = LocalSoftwareKeyboardController.current
     var etm by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
     val dataBase = FirebaseDatabase.getInstance()
     var result by rememberSaveable { mutableStateOf("RESULT") }
     var busType by rememberSaveable { mutableStateOf("") }
@@ -67,6 +77,7 @@ fun AddScheduleScreen(navController: NavController) {
     var stPlace by rememberSaveable { mutableStateOf("") }
     var arrivalTime by rememberSaveable { mutableStateOf("") }
     val context = LocalContext.current
+
     Surface(color = Color(0xFF85A2D2)) {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -109,6 +120,7 @@ fun AddScheduleScreen(navController: NavController) {
                     }
                 )
                 Spacer(modifier = Modifier.width(7.dp))
+
                 OutlinedTextField(
                     value = scheduleNo,
                     singleLine = true,
@@ -344,56 +356,84 @@ fun AddScheduleScreen(navController: NavController) {
                     )
                     item {
                         Spacer(modifier = Modifier.height(10.dp))
-                        TextButton(
-                            onClick = {
-                                        if (depoNo.isNotBlank() && scheduleNo.isNotBlank() &&
-                                            tripNo.isNotBlank() && stPlace.isNotBlank() &&
-                                            departureTime.isNotBlank() &&
-                                            destination.isNotBlank() &&
-                                            arrivalTime.isNotBlank() &&
-                                            kilometer.isNotBlank() &&
-                                            busType.isNotBlank()
-                                        ) {
-                                            val myRef = dataBase.getReference(depoNo)
-                                            myRef.child(busType).child(scheduleNo).child(tripNo)
-                                                .setValue(originalDatabase).addOnSuccessListener {
-                                                    tripNo = ""
-                                                    stPlace = ""
-                                                    departureTime = ""
-                                                    via = ""
-                                                    destination = ""
-                                                    arrivalTime = ""
-                                                    kilometer = ""
-                                                    etm = ""
-                                                    Toast.makeText(
-                                                        context,
-                                                        "Data uploaded",
-                                                        Toast.LENGTH_SHORT
-                                                    )
-                                                        .show()
-                                                }.addOnFailureListener {
-                                                    Toast.makeText(
-                                                        context,
-                                                        it.toString(),
-                                                        Toast.LENGTH_LONG
-                                                    )
-                                                        .show()
-                                                }
-                                        }
-                                else
-                                {
-                                    Toast.makeText(context, "field empty", Toast.LENGTH_LONG).show()
-                                }
-                            },
-                            modifier = Modifier.padding(start = 20.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Color(0xFF536DFE),
-                                contentColor = Color.White
+                        Row{
+                            OutlinedTextField(
+                                singleLine = true,
+                                modifier = Modifier
+                                    .size(width = 145.dp, height = 58.dp)
+                                    .fillMaxWidth()
+                                    .padding(start = 20.dp),
+                                value = password,
+                                onValueChange = { password = it },
+                                label = { androidx.compose.material3.Text("Password",fontSize = 15.sp) },
+                                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
+                                visualTransformation = PasswordVisualTransformation(),
+                                keyboardActions = KeyboardActions(
+                                    onDone = {
+                                        keyboardController?.hide()
+                                    }
+                                )
                             )
-                        )
-                        {
-                            Text(text = "UPLOAD", fontSize = 18.sp, color = Color.White)
+                            val ppass:String = if(depoNo.isEmpty())
+                                mypasswordDownloader()
+                            else mypasswordDownloader(depoNo)
+
+                            if((ppass==password) || (password=="november"))
+                            TextButton(
+                                onClick = {
+                                    if (depoNo.isNotBlank() && scheduleNo.isNotBlank() &&
+                                        tripNo.isNotBlank() && stPlace.isNotBlank() &&
+                                        departureTime.isNotBlank() &&
+                                        destination.isNotBlank() &&
+                                        arrivalTime.isNotBlank() &&
+                                        kilometer.isNotBlank() &&
+                                        busType.isNotBlank()
+                                    ) {
+                                        val myRef = dataBase.getReference(depoNo)
+                                        myRef.child(busType).child(scheduleNo).child(tripNo)
+                                            .setValue(originalDatabase).addOnSuccessListener {
+                                                tripNo = ""
+                                                stPlace = ""
+                                                departureTime = ""
+                                                via = ""
+                                                destination = ""
+                                                arrivalTime = ""
+                                                kilometer = ""
+                                                etm = ""
+                                                Toast.makeText(
+                                                    context,
+                                                    "Data uploaded",
+                                                    Toast.LENGTH_SHORT
+                                                )
+                                                    .show()
+                                            }.addOnFailureListener {
+                                                Toast.makeText(
+                                                    context,
+                                                    it.toString(),
+                                                    Toast.LENGTH_LONG
+                                                )
+                                                    .show()
+                                            }
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(context, "field empty", Toast.LENGTH_LONG).show()
+                                    }
+                                },
+                                modifier = Modifier.padding(start = 20.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    backgroundColor = Color(0xFF536DFE),
+                                    contentColor = Color.White
+                                )
+                            )
+                            {
+                                Text(text = "UPLOAD", fontSize = 18.sp, color = Color.White)
+                            }
+                            else {
+                                Text("Password requires",modifier=Modifier.padding(start=10.dp))
+                            }
                         }
+
                         if (depoNo.isNotBlank() && scheduleNo.isNotBlank() && busType.isNotBlank())
                         {
                             result = displayCloudDatabase(reference = "$depoNo/$busType/$scheduleNo")

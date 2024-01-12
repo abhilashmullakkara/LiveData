@@ -71,7 +71,7 @@ fun mypasswordDownloader(depoNumber: String = "0"): String {
           //  data.append("  $depoId = $password")
             data.append("$password")
 
-            passwordResult = if (data.isNotEmpty()) data.toString() else "nothing recovered!..."
+            passwordResult = if (data.isNotEmpty()) data.toString() else "..."
         }
 
         override fun onCancelled(error: DatabaseError) {
