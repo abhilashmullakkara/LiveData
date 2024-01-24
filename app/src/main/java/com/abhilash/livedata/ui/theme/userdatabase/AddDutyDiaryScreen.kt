@@ -87,7 +87,8 @@ fun myCalendar():String {
 //            {
 //                mDate.value = "$mDayOfMonth/${mMonth+1}/$mYear"
 //            }
-            mDate.value = "$mDayOfMonth/${mMonth+1}/$mYear"
+           // mDate.value = "$mDayOfMonth/${mMonth+1}/$mYear"
+            mDate.value = "$mYear/${mMonth+1}/$mDayOfMonth"
         }, mYear1, mMonth1, mDay1
     )
         Button(onClick = {

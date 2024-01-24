@@ -467,7 +467,7 @@ fun performedDate():String{
     val currentDate = LocalDate.now()
 
     // Define the desired date format
-    val formatter = DateTimeFormatter.ofPattern("dd/MM/yy")
+    val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
 
     // Format the current date as a string
     val formattedDate = currentDate.format(formatter)

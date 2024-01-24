@@ -10,9 +10,9 @@ import androidx.room.Update
 interface EmployeeDao {
     @Insert (onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(employee: Employee)
-    @Query ("select * from  Employee" )
+    @Query ("select * from  Employee order by performedOn asc" )
     suspend fun display():List<Employee>
-    @Query(value="SELECT * FROM Employee ORDER BY id DESC")
+    @Query(value="SELECT * FROM Employee ORDER BY performedOn DESC")
     suspend fun displaylast(): List<Employee>
 
     @Update
