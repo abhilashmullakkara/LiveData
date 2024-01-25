@@ -22,8 +22,8 @@ android {
         applicationId "com.abhilash.livedata"
         minSdk 21
         targetSdk 33
-        versionCode 2
-        versionName "2.0"
+        versionCode 3
+        versionName "3.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -81,6 +81,8 @@ dependencies {
     ( constraints.implementation 'androidx.fragment:fragment:1.3.6')
     implementation 'androidx.room:room-ktx:2.5.2'
     kapt "androidx.room:room-compiler:2.5.2"
+
+
     implementation "androidx.compose.material3:material3:1.1.2"
     implementation "androidx.compose.material3:material3-window-size-class:1.1.2"
     implementation 'androidx.core:core-ktx:1.12.0'

@@ -250,7 +250,7 @@ Spacer(modifier = Modifier.height(10.dp)) //✔✓☑ Check mark - Tick symbol �
                 Text("INSERT", fontSize = 17.sp, color = Color.White)
             }
             Spacer(modifier = Modifier.height(10.dp))
-            BannerAdView(true, AdSize.BANNER)
+            BannerAdView(false, AdSize.BANNER)
 
         }
         if (flag){

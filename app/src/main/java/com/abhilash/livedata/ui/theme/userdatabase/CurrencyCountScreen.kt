@@ -62,7 +62,12 @@ fun CurrencyCountScreen(navController:NavController) {
                     navController.popBackStack("MenuScreen", inclusive = false)
                 })
                 {
-                    Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow")
+                    Row {
+                        Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow")
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Text("Total : $total ",fontSize = 25.sp,color= Color.Green, modifier = Modifier.padding(start=25.dp))
+                    }
+
                 }
                 Divider(thickness = 5.dp, color = Color.White)
                 Column {
@@ -154,7 +159,7 @@ fun add(cur: String, num: String): String {
 fun sum(ten: String="0", twenty: String="0", fifty:String="0",hundred:String="0"
 ,twohundred:String="0",fivehundred:String="0",coins:String="0"): String {
     return try {
-   val total=ten.toInt()+twenty.toInt()+fifty.toInt()+hundred.toInt()+twohundred.toInt()+fivehundred.toInt()+coins.toInt()
+   var total=ten.toInt()+twenty.toInt()+fifty.toInt()+hundred.toInt()+twohundred.toInt()+fivehundred.toInt()+coins.toInt()
         total.toString()
     } catch (e: NumberFormatException) {
         "0"

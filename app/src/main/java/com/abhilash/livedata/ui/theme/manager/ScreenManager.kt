@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.abhilash.livedata.ui.ai.AboutScreen
+import com.abhilash.livedata.ui.ai.ContactMeScreen
 import com.abhilash.livedata.ui.theme.DepoListScreen
 import com.abhilash.livedata.ui.theme.schedule.AddScheduleScreen
 import com.abhilash.livedata.ui.theme.schedule.DeleteScheduleScreen
@@ -86,6 +87,9 @@ fun ScreenManager(){
         }
         composable("AboutScreen"){
             AboutScreen(navController)
+        }
+        composable("ContactMeScreen"){
+            ContactMeScreen(navController = navController)
         }
     }
 }

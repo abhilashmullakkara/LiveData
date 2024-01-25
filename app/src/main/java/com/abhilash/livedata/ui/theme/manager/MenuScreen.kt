@@ -1,8 +1,6 @@
 package com.abhilash.livedata.ui.theme.manager
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,28 +10,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.ButtonDefaults.elevation
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Surface
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -294,34 +287,35 @@ fun MenuScreen(navController: NavController) {
 
 
          }
-             OutlinedButton(onClick = {
-                 navController.navigate("AboutScreen")
-             }, modifier= Modifier.size(80.dp).padding(10.dp).shadow(15.dp,RoundedCornerShape(32.dp,52.dp, 50.dp, 30.dp)),
-                // modifier = Modifier.clip(RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp)).size(50.dp),
-                 elevation = elevation(
-                     defaultElevation = 15.dp,
-                     pressedElevation = 8.dp,
-                     disabledElevation = 0.dp,
-                    hoveredElevation = 4.dp,
-                     focusedElevation = 4.dp
-                 ),
-                // shape = RoundedCornerShape(),
-                 shape = RoundedCornerShape(30.dp,50.dp, 50.dp, 30.dp),
+             Row {
+                 Spacer(modifier = Modifier.width(30.dp))
+                 Button(onClick = { navController.navigate("AboutScreen") },
+                     elevation = ButtonDefaults.buttonElevation(
+                         defaultElevation = 30.dp
+                     )
+                 ) {
+                     Text("ABOUT", color = Color.White, fontSize = 16.sp)
+                 }
+                 Spacer(modifier = Modifier.width(20.dp))
 
-                 border= BorderStroke(2.dp, Color.White),
-                 contentPadding = PaddingValues(0.dp),
-                 colors = ButtonDefaults.outlinedButtonColors(contentColor = Color(0xFF1A237E),
-                     backgroundColor = Color(0xFF1B5E20)
-                 ) )
-             {
-                // Column {
-                     Text("ABOUT", color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
-//                     Icon(
-//                         painter = painterResource(id = R.drawable.content_cut_fill0_wght400_grad0_opsz24),
-//                         "", modifier = Modifier.size(30.dp)
-//                     )
-                // }
+                 Button(onClick = { navController.navigate("ContactMeScreen") },
+                     colors = ButtonDefaults.buttonColors(
+                         containerColor = Color(0xFFFF6F00),
+                         contentColor = Color.White // text color
+                     ),elevation = ButtonDefaults.buttonElevation(
+                         defaultElevation = 20.dp
+                     )
+
+                   ) {
+                     Text("Contact Me", fontSize = 16.sp,color= Color.White)
+
+                 }
+
+
+
              }
+
+
 
      }
          Spacer(modifier = Modifier.height(20.dp))

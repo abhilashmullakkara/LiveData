@@ -21,7 +21,6 @@ import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,7 +37,8 @@ fun AboutScreen(navController: NavController){
             //backgroundColor = Color(0xFF448AFF),
             backgroundColor = Color(0xFF142033),
             shape = RoundedCornerShape(5.dp),
-            elevation = 5.dp) {
+            elevation = 5.dp)
+            {
 
             LazyColumn(modifier = Modifier.padding(start=20.dp)){//FF3CCE7E
                 item {
@@ -91,6 +91,25 @@ fun AboutScreen(navController: NavController){
                 item {
                     Text("Schedule -> കാണുന്നതിന് password ആവശ്യം ഇല്ല ", fontSize = 14.sp,color=Color(0xFF3A91F5))
                 }
+                item {
+                    Text("എങ്ങനെ Duty ഡയറിയിൽ റെക്കോർഡ് add ചെയ്യാം ?", fontSize = 17.sp,color=Color.White)
+                    Divider(color = Color(0xFFB1BDCA), thickness = 4.dp)
+                }
+                item {
+                    Text(
+                        "ഇതിനായി Add Duty ബട്ടൺ ക്ലിക്ക് ചെയ്യുക ... ",
+                        fontSize = 14.sp, color = Color(0xFF3A91F5)
+                    )
+                    Text("ഷെഡ്യൂൾ നമ്പർ , എത്ര duty ലഭിച്ചു എന്നിവ നൽകിയാൽ സെലക്ട് ഡേറ്റ് ക്ലിക്ക് ചെയ്യുക .ഡേറ്റ് സെലക്ട് ചെയ്തത് " +
+                            " ഇൻസെർട് ബട്ടൺ ക്ലിക്ക്  ചെയ്തത് മൊബൈലിൽ സേവ് ചെയ്യാം ",fontSize = 14.sp, color = Color(0xFF3A91F5))
+                    Text("മറ്റു വിവരങ്ങൾ optional ആണ്. Crew Name എന്റർ ചെയ്യേണ്ടിടത്തു കണ്ടക്ടർ ആണെങ്കിൽ ഡ്രൈവറിണ്ടെ പേരും , " +
+                            "ഡ്രൈവർ  ആണെങ്കിൽ കണ്ടക്ടർ പേരും നൽകാം  ",fontSize = 14.sp, color = Color(0xFF3A91F5))
+                }
+                item {
+                    Text(text=" View ബട്ടൺ ക്ലിക്ക് ചെയിതാൽ ," +
+                            " record ആഡ് ചെയിതിടൂണ്ടെങ്കിൽ അവ ലിസ്റ്റ് ചെയുന്നതാണു", fontSize = 14.sp, color = Color(0xFF3A91F5))
+                }
+
 
             }
 
@@ -98,6 +117,7 @@ fun AboutScreen(navController: NavController){
 
     }
 }
+
 //@Preview(showBackground = true)
 //@Composable
 //fun AboutScreenPreview(){

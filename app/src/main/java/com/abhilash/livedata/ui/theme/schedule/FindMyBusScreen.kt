@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
@@ -130,7 +131,7 @@ fun fetchDatabaseValues(
                 // Check if the depot number matches the search path
                 if (depoNumber == path) {
                     depoSnapshot.children.forEach { busTypeSnapshot ->
-                        val busType = busTypeSnapshot.key as String
+                     //   val busType = busTypeSnapshot.key as String
                         busTypeSnapshot.children.forEach { scheduleNoSnapshot ->
                             val scheduleNo = scheduleNoSnapshot.key as String
                             scheduleNoSnapshot.children.forEach { tripsSnapshot ->
@@ -173,12 +174,16 @@ fun searchAndStorePath(path: String = "", destination: String = ""): List<Pair<S
             Text(errorMessage.value)
         }
    if (resultList.isNotEmpty()) {
-   Surface(color = Color(0xFF4E67FF)) {var abc=0
+   Surface(color = Color(0xFF4E67FF)) {//var abc=0
     LazyColumn(modifier = Modifier.padding(start = 25.dp)) {
       items(resultList) { (scheduleNo: String, originalData) ->
                         Text("Bus Type: ${originalData.bustype}", color = Color.White)
                         Text("DepTime: ${originalData.departureTime}", color = Color.White)
-                        Text("From: ${originalData.startPlace}", color = Color.White)
+                        Surface(color = Color.White) {
+                            Text("From: ${originalData.startPlace}",
+                                color = Color(0xFFF30303), fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                        }
+
                         Text("ArrTime: ${originalData.arrivalTime}", color = Color.White)
                         Text("Destination: ${originalData.destinationPlace}", color = Color.White)
                         Text("Via: ${originalData.via}", color = Color.White)
