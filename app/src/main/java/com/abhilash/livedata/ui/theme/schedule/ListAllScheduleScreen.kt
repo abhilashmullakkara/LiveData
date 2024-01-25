@@ -10,13 +10,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
@@ -28,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -47,6 +51,8 @@ fun ListAllScheduleScreen(navController: NavController) {
         var depoNo by rememberSaveable { mutableStateOf("") }
        // var destination by rememberSaveable { mutableStateOf("") }
         Column {
+
+
             Row {
                 IconButton(
                     onClick = {
@@ -60,6 +66,7 @@ fun ListAllScheduleScreen(navController: NavController) {
                         tint = Color.White
                     )
                 }
+
                 Text(
                     "All schedule List",
                     fontSize = 26.sp,
@@ -67,6 +74,18 @@ fun ListAllScheduleScreen(navController: NavController) {
                     modifier = Modifier.padding(start = 15.dp)
                 )
             }
+            Divider(color=Color.White)
+//            Card(
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .padding(start = 10.dp, end = 10.dp, bottom = 10.dp),
+//                shape = RoundedCornerShape(15.dp),
+//                elevation = 3.dp,
+//                contentColor = Color.White,
+//                backgroundColor = Color(0xFFB7BCDD)
+//            ) {
+
+
             OutlinedTextField(
                 value = depoNo,
                 modifier = Modifier
@@ -79,14 +98,27 @@ fun ListAllScheduleScreen(navController: NavController) {
                         depoNo = textFieldValue.text
                     }
                 },
-                label = { Text("Depot NO") },
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    backgroundColor = Color(0xFF035697),
+                    textColor = Color.White,
+                    cursorColor = Color.White,
+                    leadingIconColor = Color.White,
+                    trailingIconColor = Color.White,
+                    focusedBorderColor = Color.White, // Border color when focused
+                    unfocusedBorderColor = Color.White.copy(alpha = 0.7f) // Border color when not focused
+                ),
+                label = { Text("Depot NO", fontSize = 15.sp, color = Color.White) },
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
             )
-            Spacer(modifier = Modifier.width(15.dp))
+
+
+            Spacer(modifier = Modifier.height(15.dp))
             searchAndStore(depoNo)
 
+
         }
-    }
+        }
+   // }
 }
 
 
@@ -106,23 +138,54 @@ fun searchAndStore(path: String = ""): List<Pair<String, OriginalData>> {
         if (errorMessage.value.isNotEmpty()) {
             Text(errorMessage.value)
         }
-        if (resultList.isNotEmpty() ) {
-            Surface(color = Color(0xFF1E026B)) {
-                LazyColumn(modifier = Modifier.padding(start = 25.dp)) {
-                    items(resultList) { (scheduleNo: String, originalData) ->
-                        Text("DutyNo $scheduleNo  :${originalData.departureTime}   ${originalData.destinationPlace} ", color = Color.White)
-                        Divider(color = Color(0xFF6BCD88), thickness = 2.dp)
+        if (resultList.isNotEmpty()) {
+
+            Surface(color = Color(0xFF809692)) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(start = 15.dp, end = 15.dp, bottom = 20.dp),
+                    shape = RoundedCornerShape(15.dp),
+                    elevation = 3.dp,
+                    contentColor = Color.White,
+                    backgroundColor = Color(0xFF7E8088)
+                ) {
+
+                    LazyColumn(modifier = Modifier.padding(start = 25.dp)) {
+                        items(resultList) { (scheduleNo: String, originalData) ->
+                            Text(
+                                "DutyNo $scheduleNo  :${originalData.departureTime}   ${originalData.destinationPlace} ",
+                                color = Color.White, fontSize = 17.sp, fontWeight = FontWeight.SemiBold
+                            )
+                            Divider(color = Color(0xFF0635F1), thickness = 1.dp)
+                        }
                     }
                 }
             }
-        } else {
-            Surface(color = Color(0xFFDF9EE5)) {
-                Text("No matching records found.")
-            }
         }
+
+                    else {
+
+
+
+                        Surface(color = Color(0xFFDE89E6)) {
+                            Text(
+                                "No matching records found.",
+                                fontSize = 14.sp,
+                                color = Color.White
+                            )
+                        }
+                    }
+
+
+                }
+
+
+
+        return resultList
     }
-    return resultList
-}
+
+
 
 
 fun fetchDatabase(

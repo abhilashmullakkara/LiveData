@@ -102,7 +102,7 @@ fun PasswordScreen(onPasswordEntered: (Pass) -> Unit) {
             .padding(10.dp), // Adjust padding as needed
         contentAlignment = Alignment.TopStart // Align content to the bottom
     ) {
-        BannerAdView(true, AdSize.BANNER)
+        BannerAdView(false, AdSize.BANNER)
     }
 
     Column(

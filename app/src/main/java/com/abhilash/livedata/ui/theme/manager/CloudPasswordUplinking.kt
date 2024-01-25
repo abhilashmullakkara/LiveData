@@ -50,7 +50,7 @@ fun passwordDownloader(depoNumber: String = "0"): String {
 
 @Composable
 fun mypasswordDownloader(depoNumber: String = "0"): String {
-    var passwordResult by remember { mutableStateOf("nothing recovered! wait....") }
+    var passwordResult by remember { mutableStateOf("Check internet.....") }
 
     val dataBase = FirebaseDatabase.getInstance("https://depopassword-default-rtdb.firebaseio.com/")
     val myRef = dataBase.reference

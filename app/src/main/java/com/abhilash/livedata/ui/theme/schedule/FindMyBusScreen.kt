@@ -110,6 +110,7 @@ fun FindMyBusScreen(navController: NavController) {
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters),
                 )
             }
+            Spacer(modifier = Modifier.height(15.dp))
                searchAndStorePath(path=depoNo,destination=destination)
         }
     }
@@ -172,7 +173,7 @@ fun searchAndStorePath(path: String = "", destination: String = ""): List<Pair<S
             Text(errorMessage.value)
         }
    if (resultList.isNotEmpty()) {
-   Surface(color = Color(0xFF1E026B)) {var abc=0
+   Surface(color = Color(0xFF4E67FF)) {var abc=0
     LazyColumn(modifier = Modifier.padding(start = 25.dp)) {
       items(resultList) { (scheduleNo: String, originalData) ->
                         Text("Bus Type: ${originalData.bustype}", color = Color.White)
@@ -182,7 +183,7 @@ fun searchAndStorePath(path: String = "", destination: String = ""): List<Pair<S
                         Text("Destination: ${originalData.destinationPlace}", color = Color.White)
                         Text("Via: ${originalData.via}", color = Color.White)
                         Text("DutyNo${scheduleNo}", color = Color.White)
-                        Divider(color = Color(0xFF6BCD88), thickness = 2.dp)
+                        Divider(color = Color(0xFFADB8F8), thickness = 3.dp)
                     }
                 }
             }

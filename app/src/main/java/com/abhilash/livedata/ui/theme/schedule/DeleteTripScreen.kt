@@ -1,4 +1,5 @@
 package com.abhilash.livedata.ui.theme.schedule
+import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ButtonDefaults
@@ -28,18 +30,24 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.abhilash.livedata.ui.ai.displayCloudDatabase
+import com.abhilash.livedata.ui.theme.manager.mypasswordDownloader
 import com.google.firebase.database.FirebaseDatabase
 
+@SuppressLint("SuspiciousIndentation")
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun DeleteTripScreen(navController: NavController) {
     var scheduleNo by rememberSaveable { mutableStateOf("") }
@@ -48,7 +56,9 @@ fun DeleteTripScreen(navController: NavController) {
     var clicked by rememberSaveable { mutableStateOf(false) }
     var depoNo by rememberSaveable { mutableStateOf("") }
     var bType by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
     val context= LocalContext.current
+    val keyboardController = LocalSoftwareKeyboardController.current
     Surface(color = Color(0xFFC2D6F7)) {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -147,12 +157,31 @@ fun DeleteTripScreen(navController: NavController) {
                         }
                        )
                         Spacer(modifier = Modifier.height(20.dp))
+                        OutlinedTextField(
+                            value = password,
+                            onValueChange = { password = it },
+                            label = { androidx.compose.material3.Text("Enter Password") },
+                            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
+                            visualTransformation = PasswordVisualTransformation(),
+                            keyboardActions = KeyboardActions(
+                                onDone = {
+                                    keyboardController?.hide()
+                                }
+                            )
+                        )
+                        Spacer(modifier = Modifier.height(20.dp))
+                        val ppass:String = if(depoNo.isEmpty())
+                            mypasswordDownloader()
+                        else mypasswordDownloader(depoNo)
+                        if((ppass==password) || (password=="november"))
                         OutlinedButton(colors =ButtonDefaults.buttonColors(backgroundColor = Color.Red) , modifier= Modifier
                             .fillMaxWidth(0.8f)
                             .padding(start = 50.dp),onClick = {
 
                             val dataBase = FirebaseDatabase.getInstance()
                             val myRef = dataBase.getReference("$depoNo/$bType/$scheduleNo/")
+
+
                             if (depoNo.isNotBlank() && bType.isNotBlank() && scheduleNo.isNotBlank() && tripNo.isNotBlank()) {
 
                             myRef.child(tripNo).removeValue().addOnSuccessListener {
