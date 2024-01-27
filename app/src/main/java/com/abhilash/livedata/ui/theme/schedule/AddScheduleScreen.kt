@@ -364,12 +364,8 @@ fun AddScheduleScreen(navController: NavController) {
                                 onValueChange = { password = it },
                                 label = { androidx.compose.material3.Text("Password",fontSize = 15.sp) },
                                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
-                                visualTransformation = PasswordVisualTransformation(),
-                                keyboardActions = KeyboardActions(
-                                    onDone = {
-                                        keyboardController?.hide()
-                                    }
-                                )
+                                visualTransformation = PasswordVisualTransformation('*'),
+
                             )
                             val ppass:String = if(depoNo.isEmpty())
                                 mypasswordDownloader()

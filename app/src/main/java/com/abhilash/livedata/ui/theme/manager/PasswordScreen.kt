@@ -21,11 +21,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.autofill.AutofillType
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.abhilash.livedata.ui.theme.admob.BannerAdView
@@ -88,10 +91,14 @@ fun DeleteTripScreenWithPassword(navController: NavController) {
 fun PasswordScreen(onPasswordEntered: (Pass) -> Unit) {
     Surface(color = Color.White) {
 
+        val focusManager = LocalFocusManager.current
 
+        // keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+        //    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done, keyboardType = KeyboardType.Password)
     val context = LocalContext.current
         var passwordResult by rememberSaveable { mutableStateOf("") }
-    val keyboardController = LocalSoftwareKeyboardController.current
+
+        // val keyboardController = LocalSoftwareKeyboardController.current
     var password by rememberSaveable { mutableStateOf("") }
         var deponumber by rememberSaveable { mutableStateOf("") }
     Box(
@@ -115,8 +122,10 @@ fun PasswordScreen(onPasswordEntered: (Pass) -> Unit) {
             value = deponumber,
             onValueChange = { deponumber = it },
             label = { Text("Enter Depo Number") },
-            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-            visualTransformation = PasswordVisualTransformation(),
+            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done, keyboardType = KeyboardType.Number),
+            //keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+           // visualTransformation = PasswordVisualTransformation(),
 //            keyboardActions = KeyboardActions(
 //                onDone = {
 //                    keyboardController?.hide()
@@ -124,21 +133,33 @@ fun PasswordScreen(onPasswordEntered: (Pass) -> Unit) {
 //            )
         )
 
+        OutlinedTextField(
+            value = password,
+        onValueChange ={password=it},
+        label = { Text("Enter Password") },
+        keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done, keyboardType = KeyboardType.Password),
+           visualTransformation = PasswordVisualTransformation(mask = '*')
+        )
+
+
+
 
 
         //
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Enter Password") },
-            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardActions = KeyboardActions(
-                onDone = {
-                    keyboardController?.hide()
-                }
-            )
-        )
+//        OutlinedTextField(
+//            value = password,
+//            onValueChange = { password = it },
+//            label = { Text("Enter Password") },
+//            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
+//            visualTransformation = PasswordVisualTransformation(),
+//
+////            keyboardActions = KeyboardActions(
+////                onDone = {
+////                    keyboardController?.hide()
+////                }
+////            )
+//        )
 
         Spacer(modifier = Modifier.height(16.dp))
         passwordResult=mypasswordDownloader(deponumber)
@@ -148,8 +169,9 @@ fun PasswordScreen(onPasswordEntered: (Pass) -> Unit) {
             onClick = {
                 // Check if the password is correct
 
-                if ((password == "november") || (password==passwordResult) ||
-                    (password == "root2024") || password=="abhilash2024") {
+                if ((password == "november") || (password == passwordResult) ||
+                    (password == "root2024") || (password == "abhilash2024")
+                ) {
                     val pass = Pass(pwrd = true)
                     // Call the callback with the Pass object
                     onPasswordEntered(pass)

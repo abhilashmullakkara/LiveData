@@ -39,7 +39,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -53,7 +55,9 @@ import com.google.firebase.database.FirebaseDatabase
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun DeleteScheduleScreen(navController:NavController){
-        var scheduleNo by rememberSaveable { mutableStateOf("") }
+    val focusManager = LocalFocusManager.current
+
+    var scheduleNo by rememberSaveable { mutableStateOf("") }
     var result by rememberSaveable { mutableStateOf("SCHEDULE") }
        // var tripNo by rememberSaveable { mutableStateOf("") }
         var clicked by rememberSaveable { mutableStateOf(false) }
@@ -193,13 +197,9 @@ fun DeleteScheduleScreen(navController:NavController){
                                         color = Color.White
                                     )
                                 },
-                                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
-                                visualTransformation = PasswordVisualTransformation(),
-                                keyboardActions = KeyboardActions(
-                                    onDone = {
-                                        // Handle the 'Done' action if needed
-                                    }
-                                ),
+                                keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+                                keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done, keyboardType = KeyboardType.Password),
+                                visualTransformation = PasswordVisualTransformation('*'),
                                 colors = TextFieldDefaults.outlinedTextFieldColors(
                                     textColor = Color.White,
                                     cursorColor = Color.White,

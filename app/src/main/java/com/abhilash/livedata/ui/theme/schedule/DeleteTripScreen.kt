@@ -33,11 +33,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -56,7 +56,8 @@ fun DeleteTripScreen(navController: NavController) {
     var bType by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     val context= LocalContext.current
-    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
+    //val keyboardController = LocalSoftwareKeyboardController.current
     Surface(color = Color(0xFFC2D6F7)) {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -159,14 +160,10 @@ fun DeleteTripScreen(navController: NavController) {
                             value = password,
                             onValueChange = { password = it },
                             label = { androidx.compose.material3.Text("Enter Password") },
-                            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
-                            visualTransformation = PasswordVisualTransformation(),
-                            keyboardActions = KeyboardActions(
-                                onDone = {
-                                    keyboardController?.hide()
-                                }
-                            )
-                        )
+                            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+                            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done, keyboardType = KeyboardType.Password),
+                                                   )
+
                         Spacer(modifier = Modifier.height(20.dp))
                         val ppass:String = if(depoNo.isEmpty())
                             mypasswordDownloader()
