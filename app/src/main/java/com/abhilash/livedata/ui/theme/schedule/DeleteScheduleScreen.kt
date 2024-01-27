@@ -1,5 +1,6 @@
 package com.abhilash.livedata.ui.theme.schedule
 
+import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
@@ -49,6 +50,7 @@ import com.abhilash.livedata.ui.ai.displayCloudDatabase
 import com.abhilash.livedata.ui.theme.manager.mypasswordDownloader
 import com.google.firebase.database.FirebaseDatabase
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun DeleteScheduleScreen(navController:NavController){
         var scheduleNo by rememberSaveable { mutableStateOf("") }

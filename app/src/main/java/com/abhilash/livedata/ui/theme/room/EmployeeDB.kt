@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase
 abstract class EmployeeDB:RoomDatabase (){
     abstract fun getEmployeeDao(): EmployeeDao
     companion object {
-        var INSTANCE: EmployeeDB?=null
+        private var INSTANCE: EmployeeDB?=null
         fun getInstance(context: Context): EmployeeDB {
         if (INSTANCE ==null){
             INSTANCE =Room.databaseBuilder(context.applicationContext, EmployeeDB::class.java,"Employeedb.db").build()

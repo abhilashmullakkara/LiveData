@@ -3,7 +3,6 @@ package com.abhilash.livedata.ui.theme.userdatabase
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -45,17 +44,12 @@ import kotlinx.coroutines.launch
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-
-
 fun EditDutyDiaryScreen(navController: NavController) {
     Surface(color = Color(0xFF69F0AE), modifier = Modifier.fillMaxSize()) {
-
-
         var employ = Employee("", "", "")
         var flag by rememberSaveable {
             mutableStateOf(false)
         }
-
         var recNo by rememberSaveable { mutableStateOf("") }
         var recNumber by rememberSaveable {
             mutableIntStateOf(0)
@@ -65,8 +59,6 @@ fun EditDutyDiaryScreen(navController: NavController) {
 
         val context = LocalContext.current
         Surface(color = Color(0xFF6F8BB8), modifier = Modifier.fillMaxSize()) {
-
-
             Column(modifier= Modifier.verticalScroll(scroll)) {
                 Row{
                     IconButton(onClick = {
@@ -93,7 +85,6 @@ fun EditDutyDiaryScreen(navController: NavController) {
                     modifier = Modifier
                         .padding(start = 15.dp)
                         .size(width = 190.dp, height = 71.dp),
-                    // shape = RoundedCornerShape(80),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                     onValueChange = { recNo = it },
                     label = {

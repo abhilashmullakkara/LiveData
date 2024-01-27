@@ -32,11 +32,7 @@ import java.util.Date
 @Composable
 fun AddDutyDiaryScreen(navController: NavController){
     Surface(color=Color(0xFF6776CA)) {
-
-
     Column(
-//        verticalArrangement = Arrangement.Center,
-//        horizontalAlignment = Alignment.CenterHorizontally
     )
     {
         Row()
@@ -54,11 +50,8 @@ fun AddDutyDiaryScreen(navController: NavController){
             )
 
         }
-
         RoomData(navController)
-
     }
-
     }
 }
 
@@ -80,14 +73,6 @@ fun myCalendar():String {
     val mDatePickerDialog = DatePickerDialog(
         mContext,
         { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
-//            if(mDayOfMonth<10){
-//                mDate.value = "0$mDayOfMonth/${mMonth+1}/$mYear"
-//            }
-//            else
-//            {
-//                mDate.value = "$mDayOfMonth/${mMonth+1}/$mYear"
-//            }
-           // mDate.value = "$mDayOfMonth/${mMonth+1}/$mYear"
             mDate.value = "$mYear/${mMonth+1}/$mDayOfMonth"
         }, mYear1, mMonth1, mDay1
     )

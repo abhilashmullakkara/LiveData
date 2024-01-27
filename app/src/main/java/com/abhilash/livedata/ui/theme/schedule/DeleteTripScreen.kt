@@ -30,7 +30,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -47,7 +46,6 @@ import com.abhilash.livedata.ui.theme.manager.mypasswordDownloader
 import com.google.firebase.database.FirebaseDatabase
 
 @SuppressLint("SuspiciousIndentation")
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun DeleteTripScreen(navController: NavController) {
     var scheduleNo by rememberSaveable { mutableStateOf("") }

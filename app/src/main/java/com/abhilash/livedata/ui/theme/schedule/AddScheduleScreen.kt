@@ -1,9 +1,7 @@
 package com.abhilash.livedata.ui.theme.schedule
 
+
 import android.annotation.SuppressLint
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-
-
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,10 +34,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -57,7 +55,6 @@ import com.abhilash.livedata.ui.theme.manager.mypasswordDownloader
 import com.google.android.gms.ads.AdSize
 import com.google.firebase.database.FirebaseDatabase
 
-@OptIn(ExperimentalComposeUiApi::class)
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun AddScheduleScreen(navController: NavController) {

@@ -128,9 +128,8 @@ fun ViewDiaryScreen(navController: NavController) {
                             }
                             if(!toast){
                                 toast=true
-                                Toast.makeText(context, "Rotate the screen for better experince",Toast.LENGTH_SHORT-1000).show()
+                                Toast.makeText(context, "Rotate the screen for better experience",Toast.LENGTH_SHORT-1000).show()
                             }
-
                         }
                     },
                     modifier = Modifier.padding(start = 20.dp),
@@ -149,8 +148,6 @@ fun ViewDiaryScreen(navController: NavController) {
                     {
                         Text("Share ", color = Color.White, fontSize = 16.sp)
                     }
-
-
             }
             Spacer(modifier = Modifier.height(10.dp))
             Text("Record         DutyNo          Performed on      Duty earned     W/B no        CrewName    Collection",color=Color.White,
@@ -160,9 +157,6 @@ fun ViewDiaryScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(2.dp))
             Divider(color=Color.Green)
             EmployeeList(employees = employeeInfo,context,result,share,isDetailed )
-//            if(share){
-//                SendWhatsAppMessage(context,result)
-//            }
         }
     }
 }
@@ -172,7 +166,6 @@ fun EmployeeList(employees: List<Employee>,context:Context,result:String,share:B
         item{
             if(share){
                 SendWhatsAppMessage(context,result)
-
             }
             else
             {
@@ -180,11 +173,9 @@ fun EmployeeList(employees: List<Employee>,context:Context,result:String,share:B
             }
 
         }
-
         items(employees) { employee ->
             if(isDetailed){
                 EmployeeItem(employee = employee)
-                // Divider(color = Color.Yellow)
             }
             else {
                 EmployeeItemReduced(employee = employee)
@@ -224,22 +215,14 @@ Row {
         BlinkingText(text = "☑")
     }
 }
-
-
-
     }
-
-
-
 @Composable
 fun BlinkingText(text: String) {
     var isVisible by remember { mutableStateOf(true) }
-
     LaunchedEffect(isVisible) {
         delay(1000)
         isVisible = !isVisible
     }
-
     if (isVisible) {
         Box(
             modifier = Modifier
@@ -250,8 +233,6 @@ fun BlinkingText(text: String) {
         }
     }
 }
-
-
 @Composable
 fun EmployeeItemReduced(employee: Employee) {
     var color= Color.White
@@ -281,8 +262,6 @@ fun EmployeeItemReduced(employee: Employee) {
             BlinkingText(text = "☑")
         }
     }
-
-
 
 }
 

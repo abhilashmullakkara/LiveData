@@ -51,8 +51,6 @@ fun ListAllScheduleScreen(navController: NavController) {
         var depoNo by rememberSaveable { mutableStateOf("") }
        // var destination by rememberSaveable { mutableStateOf("") }
         Column {
-
-
             Row {
                 IconButton(
                     onClick = {
@@ -75,16 +73,6 @@ fun ListAllScheduleScreen(navController: NavController) {
                 )
             }
             Divider(color=Color.White)
-//            Card(
-//                modifier = Modifier
-//                    .fillMaxSize()
-//                    .padding(start = 10.dp, end = 10.dp, bottom = 10.dp),
-//                shape = RoundedCornerShape(15.dp),
-//                elevation = 3.dp,
-//                contentColor = Color.White,
-//                backgroundColor = Color(0xFFB7BCDD)
-//            ) {
-
 
             OutlinedTextField(
                 value = depoNo,
@@ -110,18 +98,11 @@ fun ListAllScheduleScreen(navController: NavController) {
                 label = { Text("Depot NO", fontSize = 15.sp, color = Color.White) },
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
             )
-
-
             Spacer(modifier = Modifier.height(15.dp))
             searchAndStore(depoNo)
-
-
         }
         }
-   // }
 }
-
-
 @Composable
 fun searchAndStore(path: String = ""): List<Pair<String, OriginalData>> {
     var resultList by remember { mutableStateOf<List<Pair<String, OriginalData>>>(emptyList()) }
@@ -150,7 +131,6 @@ fun searchAndStore(path: String = ""): List<Pair<String, OriginalData>> {
                     contentColor = Color.White,
                     backgroundColor = Color(0xFF7E8088)
                 ) {
-
                     LazyColumn(modifier = Modifier.padding(start = 25.dp)) {
                         items(resultList) { (scheduleNo: String, originalData) ->
                             Text(
@@ -163,11 +143,7 @@ fun searchAndStore(path: String = ""): List<Pair<String, OriginalData>> {
                 }
             }
         }
-
                     else {
-
-
-
                         Surface(color = Color(0xFFDE89E6)) {
                             Text(
                                 "No matching records found.",
@@ -176,18 +152,9 @@ fun searchAndStore(path: String = ""): List<Pair<String, OriginalData>> {
                             )
                         }
                     }
-
-
                 }
-
-
-
         return resultList
     }
-
-
-
-
 fun fetchDatabase(
     databaseRef: DatabaseReference,
     path: String,
@@ -195,7 +162,6 @@ fun fetchDatabase(
     onError: (Exception) -> Unit
 ) {
     val resultList = mutableListOf<Pair<String, OriginalData>>()
-
     try {
         databaseRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -220,7 +186,6 @@ fun fetchDatabase(
                 }
                 onSuccess(resultList)
             }
-
             override fun onCancelled(error: DatabaseError) {
                 onError(error.toException())
             }

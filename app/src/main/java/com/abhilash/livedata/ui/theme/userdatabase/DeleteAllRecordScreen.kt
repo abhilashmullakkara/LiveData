@@ -32,45 +32,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-//@Composable
-//fun DeleteAllRecordScreen(navController: NavController) {
-//    val context = LocalContext.current
-//    val coroutineScope = rememberCoroutineScope()
-//    val database = EmployeeDB.getInstance(context)
-//
-//    database.close()
-//
-//    Surface(color = Color(0xFFFA0133), modifier = Modifier
-//        .height(850.dp)
-//        .fillMaxWidth()) {
-//        Column {
-//
-//
-//        IconButton(onClick = {
-//            navController.popBackStack("MenuScreen",inclusive = false)
-//        })
-//        {
-//            Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow",tint= Color.White)
-//        }
-//            Divider(thickness = 3.dp, color = Color(0xFFC6E4C4))
-//            Spacer(modifier = Modifier.height(2.dp))
-//            Divider(thickness = 1.dp, color = Color(0xFFC6E4C4))
-//            Spacer(modifier = Modifier.height(10.dp))
-//        OutlinedButton(onClick = {
-//
-//            coroutineScope.launch {
-//                EmployeeDB.getInstance(context).getEmployeeDao().deleteAll()
-//                EmployeeDB.getInstance(context).getEmployeeDao().resetAutoIncrement()
-//                Toast.makeText(context, "All records deleted", Toast.LENGTH_SHORT).show()
-//            }
-//        }) {
-//            Text(text = "DELETE ALL", fontSize = 24.sp,color=Color.White)
-//
-//        }
-//            Text("All the data will be deleted!",color= Color.White, fontSize = 24.sp)
-//    }
-//}
-//}
 
 
 @OptIn(DelicateCoroutinesApi::class)
@@ -80,12 +41,6 @@ fun DeleteAllRecordScreen(navController: NavController) {
     var flag by remember { mutableStateOf(false) }
     val database = EmployeeDB.getInstance(context)
     val viewModel = remember { DeleteAllRecordViewModel() }
-
-//    DisposableEffect(Unit) {
-//        onDispose {
-//            database.close()
-//        }
-//    }
 
     Surface(color = Color(0xFFFA0133), modifier = Modifier
         .height(850.dp)

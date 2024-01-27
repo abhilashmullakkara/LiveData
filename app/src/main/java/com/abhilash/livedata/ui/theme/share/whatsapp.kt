@@ -35,8 +35,6 @@ fun SendWhatsAppMessage(context: Context,text:String,country:String="+91") {
             modifier = Modifier
                 //.fillMaxSize()
                 .padding(top= 20.dp),
-//		horizontalAlignment = Alignment.CenterHorizontally,
-//		verticalArrangement = Arrangement.Center,
         ) {
             Text(
                 text = "Send Details to WhatsApp",
@@ -54,9 +52,7 @@ fun SendWhatsAppMessage(context: Context,text:String,country:String="+91") {
                 textStyle = TextStyle(color = Color.Black, fontSize = 14.sp),
                 singleLine = true,
             )
-           // Spacer(modifier = Modifier.height(10.dp))
             Spacer(modifier = Modifier.height(20.dp))
-
             Button(
                 onClick = {
                     context.startActivity(

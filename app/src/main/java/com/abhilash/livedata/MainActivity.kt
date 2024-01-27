@@ -1,5 +1,6 @@
 package com.abhilash.livedata
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -18,6 +19,7 @@ import com.google.android.gms.ads.MobileAds
 
 class MainActivity : ComponentActivity() {
 
+    @SuppressLint("NewApi")
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         MobileAds.initialize(this) {

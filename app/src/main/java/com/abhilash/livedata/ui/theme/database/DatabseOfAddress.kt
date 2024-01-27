@@ -160,7 +160,7 @@ val depoList=listOf(
     DepoData(
         27,
         "KANIYAPURAM",
-        " 0471-2752533",
+        "0471-2752533",
         "kpm@kerala.gov.in"
     ),
     DepoData(
@@ -253,7 +253,8 @@ val depoList=listOf(
         "kkd@kerala.gov.in"
     ),
     DepoData(
-        43,	"KULATHUPUZHA",
+        43,
+        "KULATHUPUZHA",
         "0475-2318777",
         "klp@kerala.gov.in"
     ),
@@ -266,7 +267,7 @@ val depoList=listOf(
     DepoData(
         45,
         "MALA",
-	    " 0480-2890438",
+	    "0480-2890438",
         "mla@kerala.gov.in"
     ),
     DepoData(
@@ -300,8 +301,10 @@ val depoList=listOf(
         "mvk@kerala.gov.in"
     ),
     DepoData(
-        51,	"MOOLAMATTOM",
-        "0486-22520450","mlt@kerala.gov.in"
+        51,
+        "MOOLAMATTOM",
+        "0486-22520450",
+        "mlt@kerala.gov.in"
     ),
     DepoData(
         52	,
@@ -354,32 +357,32 @@ val depoList=listOf(
     DepoData(
         60,
         "PALAKKAD",
-	 "0491-2520098",
-"plk@kerala.gov.in "
+	     "0491-2520098",
+        "plk@kerala.gov.in "
     ),
     DepoData(
         61,
         "PALODE",
-"0472-2840259",
-"pld@kerala.gov.in"
+        "0472-2840259",
+        "pld@kerala.gov.in"
     ),
     DepoData(
         62,
         "PAMBA",
-"0473-5203445",
-"sopba@kerala.gov.in "
+        "0473-5203445",
+        "sopba@kerala.gov.in "
     ),
     DepoData(
         63,
         "PANDALAM",
-"0473-4255800",
-"pdm@kerala.gov.in"
+        "0473-4255800",
+        "pdm@kerala.gov.in"
     ),
     DepoData(
         64,
         "PAPPANAMCODE",
         "0471-2494002",
-                "ppd@kerala.gov.in"
+        "ppd@kerala.gov.in"
     ),
     DepoData(
         65	,
@@ -390,27 +393,31 @@ val depoList=listOf(
     DepoData(
         66,
         "PATHANAMTHITTA",
-        " 0468-2222366",
+        "0468-2222366",
         "pta@kerala.gov.in"
     ),
     DepoData(
-        67,	"PATHANAPURAM",
+        67,
+        "PATHANAPURAM",
         "0475-2354010",
         "ppm@kerala.gov.in"
     ),
     DepoData(
-        68,	"PAYYANUR",
-        " 0498-5203062",
+        68,
+        "PAYYANUR",
+        "0498-5203062",
         "pnr@kerala.gov.in"
     ),
     DepoData(
-        69,	"PERINTHAMANNA",
+        69,
+        "PERINTHAMANNA",
         "0493-3227342",
         "pmn@kerala.gov.in"
     ),
     DepoData(
-        70,	"PEROORKADA",
-        " 0471-2433683",
+        70,
+        "PEROORKADA",
+        "0471-2433683",
         "prk@kerala.gov.in"
     ),
     DepoData(
@@ -458,7 +465,7 @@ val depoList=listOf(
     DepoData(
         78,
         "RANNI",
-        " 04735-225253",
+        "04735-225253",
         "rni@kerala.gov.in"
     ),
     DepoData(
@@ -472,95 +479,133 @@ val depoList=listOf(
         "THALASSERY",
         "0490-2343333",
         "tly@kerala.gov.in"
+    ),
+    DepoData(
+        81,
+        "THAMARASSERY",
+        "0495-2222217",
+        "tsy@kerala.gov.in"
+    ),
+    DepoData(
+        82,
+        "THIRUVALLA" ,
+        "0469-2602945",
+        "tvl@kerala.gov.in"
+    ),
+    DepoData(
+        83,
+        "THIRUVAMBADY",
+        "0495-2254500",
+        "tdy@kerala.gov.in"
+    ),
+    DepoData(
+        84	,
+        "THODUPUZHA",
+        "0486-2222388",
+        "tdp@kerala.gov.in"
+    ),
+    DepoData(
+        85,
+        "THOTTILPALAM" ,
+        "0496-2566200",
+        "tpm@kerala.gov.in"
+    ),
+    DepoData(
+        86	,
+        "THRISSUR" ,
+        "0487-2421150",
+        "tsr@kerala.gov.in"
+    ),
+    DepoData(
+        87,
+        "TVM CENTRAL" ,
+        "0471-2323886",
+        "tvm@kerala.gov.in"
+    ),
+    DepoData(
+        88	,
+        "TVM CITY ",
+        "0471-2575495",
+        "cty@kerala.gov.in"
+    ),
+    DepoData(
+        89,
+        "VADAKARA",
+        "0496-2523377",
+        "vka@kerala.gov.in"
+    ),
+    DepoData(
+        90,
+        "VADAKKANCHERY",
+        "0492-2255001",
+        "vdk@kerala.gov.in"
+    ),
+    DepoData(
+        91,
+        "VAIKOM" ,
+        "0482-9231210",
+        "vkm@kerala.gov.in"
+    ),
+    DepoData(
+        92	,
+        "VELLANAD",
+        "0472-2884686",
+        "vnd@kerala.gov.in"
+    ),
+    DepoData(
+        93,
+        "VELLARADA",
+        "0471-2242029",
+        "vrd@kerala.gov.in"
+    ),
+    DepoData(
+        94	,
+        "VENJARAMOODU",
+        "0472-2874141",
+        "vjd@kerala.gov.in"
+    ),
+    DepoData(
+        95,
+        "VIKASBHAVAN",
+        "0471-2307890",
+        "vkb@kerala.gov.in"
+    ),
+    DepoData(
+        96,
+        "VITHURA" ,
+        "0472-2858686",
+        "vtr@kerala.gov.in"
+    ),
+    DepoData(
+        97,
+        "VIZHINJAM" ,
+        "0471-2481365",
+        "vzm@kerala.gov.in"
     )
+
 )
 
 
 
-
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, THALASSERY
-//81	THAMARASSERY
-//Zone:NORTH
-//Dist: KKD	 0495-2222217
-//tsy@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, THAMARASSERY
-//82	THIRUVALLA
-//Zone:SOUTH
-//Dist: PTA	 0469-2602945
-//tvl@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, THIRUVALLA
-//83	THIRUVAMBADY
-//Zone:NORTH
-//Dist: KKD	 0495-2254500
-//tdy@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, THIRUVAMBADY
-//84	THODUPUZHA
-//Zone:CENTRAL
-//Dist: IDK	 0486-2222388
-//tdp@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, THODUPUZHA
-//85	THOTTILPALAM
-//Zone:NORTH
-//Dist: KKD	 0496-2566200
-//tpm@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, THOTTILPALAM
-//86	THRISSUR
-//Zone:CENTRAL
-//Dist: TSR	 0487-2421150
-//tsr@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, THRISSUR
-//87	TVM CENTRAL
-//Zone:SOUTH
-//Dist: TVM	 0471-2323886
-//tvm@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, TVM CENTRAL
-//88	TVM CITY
-//Zone:SOUTH
-//Dist: TVM	 0471-2575495
-//cty@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, TVM CITY
-//89	VADAKARA
-//Zone:NORTH
-//Dist: KKD	 0496-2523377
-//vka@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, VADAKARA
-//90	VADAKKANCHERY
-//Zone:NORTH
-//Dist: PLK	 0492-2255001
-//vdk@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, VADAKKANCHERY
-//91	VAIKOM
-//Zone:CENTRAL
-//Dist: KTM	 0482-9231210
-//vkm@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, VAIKOM
-//92	VELLANAD
-//Zone:SOUTH
-//Dist: TVM	 0472-2884686
-//vnd@kerala.gov.in
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, VELLANAD
-//93	VELLARADA
-//Zone:SOUTH
-//Dist: TVM	 0471-2242029
-//vrd@kerala.gov.in
+//Dist: TVM
 //OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, VELLARADA
-//94	VENJARAMOODU
+//
 //Zone:SOUTH
-//Dist: TVM	 0472-2874141
-//vjd@kerala.gov.in
+//Dist: TVM
+//
 //OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, VENJARAMOODU
-//95	VIKASBHAVAN
+//
 //Zone:SOUTH
-//Dist: TVM	 0471-2307890
-//vkb@kerala.gov.in
+//Dist: TVM
+//
 //OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, VIKASBHAVAN
-//96	VITHURA
+//
 //Zone:SOUTH
-//Dist: TVM	 0472-2858686
-//vtr@kerala.gov.in
+//Dist: TVM
+//
 //OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, VITHURA
-//97	VIZHINJAM
+//
 //Zone:SOUTH
-//Dist: TVM	 0471-2481365
-//vzm@kerala.gov.in
+//Dist: TVM
+//
 //OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, VIZHINJAM

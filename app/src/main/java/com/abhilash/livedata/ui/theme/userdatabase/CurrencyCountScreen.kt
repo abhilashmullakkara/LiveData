@@ -159,7 +159,7 @@ fun add(cur: String, num: String): String {
 fun sum(ten: String="0", twenty: String="0", fifty:String="0",hundred:String="0"
 ,twohundred:String="0",fivehundred:String="0",coins:String="0"): String {
     return try {
-   var total=ten.toInt()+twenty.toInt()+fifty.toInt()+hundred.toInt()+twohundred.toInt()+fivehundred.toInt()+coins.toInt()
+   val total=ten.toInt()+twenty.toInt()+fifty.toInt()+hundred.toInt()+twohundred.toInt()+fivehundred.toInt()+coins.toInt()
         total.toString()
     } catch (e: NumberFormatException) {
         "0"
@@ -173,8 +173,6 @@ fun readValue():String {
     OutlinedTextField(
         value = inputValue,
         singleLine = true,
-        //modifier=Modifier.width(90.dp).height(50.dp),
-        // shape = RoundedCornerShape(80),
         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
         onValueChange = { newValue ->
             val textFieldValue =

@@ -14,8 +14,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Checkbox
-import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.Divider
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.OutlinedTextField
@@ -40,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.abhilash.livedata.ui.ai.isValidText
 import com.abhilash.livedata.ui.theme.admob.BannerAdView
+import com.abhilash.livedata.ui.theme.checkbox
 import com.abhilash.livedata.ui.theme.userdatabase.myCalendar
 import com.google.android.gms.ads.AdSize
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -191,16 +190,11 @@ fun RoomData(navController:NavController) {
             )
 Spacer(modifier = Modifier.height(10.dp)) //✔✓☑ Check mark - Tick symbol 💯☐☒❎✗✘
             Row(modifier = Modifier.padding(start=10.dp)){
-                Text("If duty Surrendered,please put tick ☑  ", fontWeight = FontWeight.SemiBold ,fontSize = 16.sp,color=Color.Red)
-                Spacer(modifier = Modifier.width(10.dp))
-                Checkbox(
-                    checked = surrender,
-                    onCheckedChange = { surrender = it },
-                    colors =CheckboxDefaults.colors(Color.Red)//Color.Red ✅
-                    //modifier = Modifier.padding(3.dp)
-                )
-
-
+                Surface(color= Color(0xFFA8BDE0)) {
+                    Text("If duty Surrendered,please put tick ☑  ", fontWeight = FontWeight.SemiBold ,fontSize = 16.sp,color=Color.Red)
+                   // Spacer(modifier = Modifier.width(10.dp))
+                  surrender= checkbox()
+                }
             }
 
 
@@ -407,21 +401,14 @@ fun EditRoomData(rec:Int,database: Employee,navController: NavController) {
             )
             Spacer(modifier = Modifier.height(10.dp)) //✔✓☑ Check mark - Tick symbol 💯☐☒❎✗✘
             Row(modifier = Modifier.padding(start=10.dp)){
-                Text("If duty Surrendered,please put tick ☑  ", fontWeight = FontWeight.SemiBold ,fontSize = 16.sp,color=Color.Red)
-                Spacer(modifier = Modifier.width(10.dp))
-                Checkbox(
-                    checked = surrender,
-                    onCheckedChange = { surrender = it },
-                    colors =CheckboxDefaults.colors(Color.Red)//Color.Red ✅
-                    //modifier = Modifier.padding(3.dp)
-                )
-
-
+                Surface(color= Color(0xFFA8BDE0)) {
+                    Text("If duty Surrendered,please put tick ☑  ", fontWeight = FontWeight.SemiBold ,fontSize = 16.sp,color=Color.Red)
+                    // Spacer(modifier = Modifier.width(10.dp))
+                    surrender= checkbox()
+                }
             }
-
             OutlinedButton(onClick = {
                 flag=true
-
                 coroutineScope.launch {
                       //  if (todayCollection.isBlank()) todayCollection = "--.--"
                          val database1 = Employee(

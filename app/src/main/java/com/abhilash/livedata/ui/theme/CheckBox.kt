@@ -16,10 +16,10 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Checkbox(){
+fun checkbox(select:String="Select"):Boolean {
 
 
-    val (checkedState, onStateChange) = remember { mutableStateOf(true) }
+    val (checkedState, onStateChange) = remember { mutableStateOf(false) }
     Row(
         Modifier
             .fillMaxWidth()
@@ -37,9 +37,10 @@ fun Checkbox(){
             onCheckedChange = null // null recommended for accessibility with screenreaders
         )
         Text(
-            text = "Option selection",
+            text = select,
             style = MaterialTheme.typography.body1,
             modifier = Modifier.padding(start = 16.dp)
         )
     }
+    return checkedState
 }
