@@ -24,7 +24,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -41,11 +40,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.abhilash.livedata.ui.ai.isValidText
-import com.abhilash.livedata.ui.theme.userdatabase.CircularLoadingIndicator
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
 
 
 @Composable
@@ -56,7 +51,7 @@ fun  ScheduleDisplayScreen(navController: NavController){
     var scheduleNo by rememberSaveable { mutableStateOf("") }
     var busType by rememberSaveable { mutableStateOf("") }
     var ti by rememberSaveable { mutableIntStateOf(0) }
-    var flag by rememberSaveable { mutableIntStateOf(0) }
+   // var flag by rememberSaveable { mutableIntStateOf(0) }
     val dataBase = FirebaseDatabase.getInstance()
     val scroll= rememberScrollState()
     var result by rememberSaveable { mutableStateOf("") }
@@ -121,6 +116,7 @@ Surface(color = Color(0xFF071715)) {
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(16.dp))
+
             OutlinedTextField(
                 value = busType,
                 onValueChange = { newValue ->
@@ -154,7 +150,7 @@ Surface(color = Color(0xFF071715)) {
              kilo.append(","+childSnapshot.child("kilometer").value)
              etmKmr.append(""+childSnapshot.child("etmNo").value+",")
              ti += 1
-             flag=1
+            // flag=1
          }
             ti = 0
             result=data.toString()
@@ -175,19 +171,11 @@ Surface(color = Color(0xFF071715)) {
             }
             Text(text = "Check Internet Connection", color = Color.LightGray)
         }
-        if(flag==1){
-            var isLoading by rememberSaveable{
-                mutableStateOf(true) }
-            LaunchedEffect(isLoading) {
-                if (isLoading) {
-                    withContext(Dispatchers.Main) {
-                        delay(1400)
-                        isLoading = false
-                    }
-                }
-            }
 
-            CircularLoadingIndicator(isLoading)
+
+
+
+
             Text(" \nNo   Time  From   Via    To    Arr.Time   Kmrs\n",color= Color.White)
             Divider(color = Color.Red, thickness = 4.dp)
             Text(result, color = Color.White)
@@ -199,11 +187,11 @@ Surface(color = Color(0xFF071715)) {
             Divider(color = Color.Red, thickness = 2.dp)
             Divider(color = Color.Green, thickness = 3.dp)
         }
-        else
-        {
-            flag=0
-        }
+
     }
 }
-    }
+
+
+
+
 
