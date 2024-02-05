@@ -6,6 +6,7 @@ import android.widget.DatePicker
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
@@ -69,11 +70,30 @@ fun myCalendar():String {
     mMonth1 = mCalendar.get(Calendar.MONTH)
     mDay1 = mCalendar.get(Calendar.DAY_OF_MONTH)
     mCalendar.time = Date()
+    val stDate = remember {
+        mutableStateOf("")
+    }
+    val stMonth = remember {
+        mutableStateOf("")
+    }
     val mDate = remember { mutableStateOf("") }
     val mDatePickerDialog = DatePickerDialog(
         mContext,
         { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
-            mDate.value = "$mYear/${mMonth+1}/$mDayOfMonth"
+            if(mDayOfMonth<10){
+                stDate.value="0${mDayOfMonth}"
+            }
+            else {
+                stDate.value="$mDayOfMonth"
+            }
+            if((mMonth+1)<10){
+                stMonth.value="0${mMonth+1}"
+            }
+            else {
+                stMonth.value="${(mMonth+1)}"
+            }
+           // mDate.value = "$mYear/${mMonth+1}/$mDayOfMonth"
+            mDate.value = "$mYear/${stMonth.value}/${stDate.value}"
         }, mYear1, mMonth1, mDay1
     )
         Button(onClick = {
@@ -91,9 +111,16 @@ fun myCalendar():String {
 @Composable
 fun CircularLoadingIndicator(isLoading: Boolean) {
     if (isLoading) {
-        CircularProgressIndicator()
+            CircularProgressIndicator(
+                progress = 0.6f, // 60% progress
+                modifier = Modifier.size(size = 64.dp),
+                color = Color.Magenta,
+                strokeWidth = 6.dp
+
+        )
     }
     }
+
 
 
 

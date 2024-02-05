@@ -53,6 +53,9 @@ android {
 }
 
 dependencies {
+
+
+
     implementation 'com.google.firebase:protolite-well-known-types:18.0.0'
     implementation 'com.google.android.gms:play-services-ads-lite:22.6.0'
     def room_version = "2.6.1"

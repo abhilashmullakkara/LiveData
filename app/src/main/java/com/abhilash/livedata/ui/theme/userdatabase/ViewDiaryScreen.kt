@@ -175,9 +175,11 @@ fun EmployeeList(employees: List<Employee>,context:Context,result:String,share:B
         }
         items(employees) { employee ->
             if(isDetailed){
+
                 EmployeeItem(employee = employee)
             }
             else {
+
                 EmployeeItemReduced(employee = employee)
             }
             
@@ -200,6 +202,7 @@ Row {
     Spacer(modifier = Modifier.width(55.dp))
     Text(employee.dutyNo,color=color,fontSize = 16.sp )
     Spacer(modifier = Modifier.width(75.dp))
+
     Text(employee.performedOn,color=color,fontSize = 16.sp )
     Spacer(modifier = Modifier.width(105.dp))
     Text(employee.dutyEarned, color=color,fontSize = 16.sp )
