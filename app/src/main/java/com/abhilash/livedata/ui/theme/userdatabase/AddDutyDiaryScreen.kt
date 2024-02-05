@@ -69,11 +69,32 @@ fun myCalendar():String {
     mMonth1 = mCalendar.get(Calendar.MONTH)
     mDay1 = mCalendar.get(Calendar.DAY_OF_MONTH)
     mCalendar.time = Date()
+    val stMonth= remember {
+        mutableStateOf("")
+    }
+    val stDate= remember {
+        mutableStateOf("")
+    }
     val mDate = remember { mutableStateOf("") }
     val mDatePickerDialog = DatePickerDialog(
         mContext,
         { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
-            mDate.value = "$mYear/${mMonth+1}/$mDayOfMonth"
+            if(mDayOfMonth<10){
+                stDate.value="0$mDayOfMonth"
+            }
+            else {
+                stDate.value="$mDayOfMonth"
+            }
+            if((mMonth+1)<10){
+                stMonth.value="0$mMonth"
+            }
+            else {
+
+                    stMonth.value="$mMonth"
+
+            }
+           // mDate.value = "$mYear/${mMonth+1}/$mDayOfMonth"
+            mDate.value = "$mYear/${stMonth.value}/${stDate.value}"
         }, mYear1, mMonth1, mDay1
     )
         Button(onClick = {
