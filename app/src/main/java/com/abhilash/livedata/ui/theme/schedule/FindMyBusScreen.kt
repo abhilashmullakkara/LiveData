@@ -137,10 +137,16 @@ fun fetchDatabaseValues(
                             scheduleNoSnapshot.children.forEach { tripsSnapshot ->
                                 val trips = tripsSnapshot.getValue(OriginalData::class.java)
                                 // Check if trips is not null and destinationPlace matches the search destination
-                                if (trips != null && (trips.destinationPlace == destination || trips.via==destination)
-                                    && (trips.destinationPlace.isNotBlank()|| trips.via.isNotBlank() )) {
+//                                if (trips != null && (trips.destinationPlace == destination || trips.via==destination)
+//                                    && (trips.destinationPlace.isNotBlank()|| trips.via.isNotBlank() )) {
+//                                    // Add the result to the resultList
+//                                   resultList.add(scheduleNo to trips)
+//                                }
+                                if (trips != null &&
+                                    ((trips.destinationPlace == destination || trips.via.contains(destination))
+                                            && (trips.destinationPlace.isNotBlank() && trips.via.isNotBlank()))) {
                                     // Add the result to the resultList
-                                   resultList.add(scheduleNo to trips)
+                                    resultList.add(scheduleNo to trips)
                                 }
                             }
                         }

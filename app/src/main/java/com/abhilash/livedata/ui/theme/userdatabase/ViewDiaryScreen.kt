@@ -202,8 +202,10 @@ Row {
     Spacer(modifier = Modifier.width(55.dp))
     Text(employee.dutyNo,color=color,fontSize = 16.sp )
     Spacer(modifier = Modifier.width(75.dp))
+    val rdate= reverseStringDate(rdate = employee.performedOn)
 
-    Text(employee.performedOn,color=color,fontSize = 16.sp )
+   // Text(employee.performedOn,color=color,fontSize = 16.sp )
+    Text(rdate,color=color,fontSize = 16.sp )
     Spacer(modifier = Modifier.width(105.dp))
     Text(employee.dutyEarned, color=color,fontSize = 16.sp )
     Spacer(modifier = Modifier.width(65.dp))
@@ -250,7 +252,11 @@ fun EmployeeItemReduced(employee: Employee) {
         Spacer(modifier = Modifier.width(55.dp))
         Text(employee.dutyNo,color=color,fontSize = 16.sp )
         Spacer(modifier = Modifier.width(75.dp))
-        Text(employee.performedOn,color=color,fontSize = 16.sp )
+        val rdate= reverseStringDate(rdate = employee.performedOn)
+
+        // Text(employee.performedOn,color=color,fontSize = 16.sp )
+        Text(rdate,color=color,fontSize = 16.sp )
+       // Text(employee.performedOn,color=color,fontSize = 16.sp )
         Spacer(modifier = Modifier.width(105.dp))
         Text(employee.dutyEarned, color=color,fontSize = 16.sp )
 //        Spacer(modifier = Modifier.width(65.dp))
@@ -267,5 +273,16 @@ fun EmployeeItemReduced(employee: Employee) {
     }
 
 }
+
+@Composable
+fun reverseStringDate(rdate: String): String {
+    val parts = rdate.split("/")
+    return if (parts.size >= 3) {
+        "${parts[2]}/${parts[1]}/${parts[0]}"
+    } else {
+        rdate // Return the original date if it doesn't have the expected format
+    }
+}
+
 
 

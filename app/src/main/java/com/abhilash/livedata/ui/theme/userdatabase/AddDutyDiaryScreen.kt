@@ -102,8 +102,11 @@ fun myCalendar():String {
             colors = ButtonDefaults.buttonColors(backgroundColor = Color(0XFF0F9D58)) ) {
             Text(text = "Select Date", color = Color.White)
         }
-        Text(text = "Selected Date: ${mDate.value}", fontSize = 17.sp,modifier = Modifier.padding(start=10.dp)
-        )
+//        Text(text = "Selected Date: ${mDate.value}", fontSize = 17.sp,modifier = Modifier.padding(start=10.dp)
+//        )
+    val dated= reverseStringDate(rdate = mDate.value)
+    Text(text = "Selected Date: $dated", fontSize = 17.sp,modifier = Modifier.padding(start=10.dp)
+    )
     return mDate.value
 }
 
