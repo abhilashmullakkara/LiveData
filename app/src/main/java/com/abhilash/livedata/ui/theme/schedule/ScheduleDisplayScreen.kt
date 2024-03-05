@@ -63,18 +63,13 @@ fun  ScheduleDisplayScreen(navController: NavController){
 
     val context = LocalContext.current
     val etmNumbers = mutableSetOf<String>()
-    // val etmNumbers = remember { mutableSetOf(String()) }
     var depoNo by rememberSaveable { mutableStateOf("") }
     var scheduleNo by rememberSaveable { mutableStateOf("") }
- //  var busType by rememberSaveable { mutableStateOf("") }
     var ti by rememberSaveable { mutableIntStateOf(0) }
     var flag by rememberSaveable { mutableIntStateOf(0) }
-   // val dataBase = FirebaseDatabase.getInstance()
     val scroll= rememberScrollState()
     var result by rememberSaveable { mutableStateOf("") }
-
     var kilomts by rememberSaveable { mutableDoubleStateOf(0.0) }
-
 Surface(color = Color(0xFF071715)) {
     Column(
         modifier = Modifier
@@ -133,7 +128,6 @@ Surface(color = Color(0xFF071715)) {
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
                 modifier = Modifier.fillMaxWidth()
             )
-           // Spacer(modifier = Modifier.height(16.dp))
             Spacer(modifier = Modifier.height(16.dp))
             var resultList: SnapshotStateList<OriginalData>
             val errorMessage = remember { mutableStateOf("") }
@@ -170,7 +164,6 @@ Surface(color = Color(0xFF071715)) {
                                 result = data.toString()
                             }
                         }, { error ->
-                            // Handle error here
                             errorMessage.value = "Error: ${error.message}"
                         })
                     } else {
@@ -185,58 +178,6 @@ Surface(color = Color(0xFF071715)) {
             ) {
                 Text("Display")
             }
-
-
-//            Button(
-//    onClick = {
-//        kilomts = 0.0
-//        ti=0
-//        result=""
-//        etmNumbers.clear()
-//       if (depoNo.isNotBlank()  && scheduleNo.isNotBlank()){
-//           val myRef = FirebaseDatabase.getInstance().reference.child("")
-//           fetchMyDatabase(myRef,depoNo,scheduleNo, { results ->
-//               resultList= results as SnapshotStateList<OriginalData>
-//               errorMessage.value = "" // Clear any previous error message
-//
-//           }, { error ->
-//               // Handle error here
-//               errorMessage.value = "Error: ${error.message}"
-//           })
-//         val data = StringBuffer()
-//         val etmKmr=StringBuffer()
-//          if(resultList.isNotEmpty()){
-//              resultList.forEach{
-//                  result=""
-//                  data.append("\n")
-//                  data.append("\n"+ (ti+1).toString())
-//                  data.append("   "+it.departureTime)
-//                  data.append("   "+it.startPlace)
-//                  data.append("   "+ it.via)
-//                  data.append("   "+it.destinationPlace)
-//                  data.append("   "+it.arrivalTime)
-//                  data.append("   "+it.kilometer)
-//                  kilomts+=it.kilometer.toDouble()
-//                  etmKmr.append(it.etmNo)
-//                  ti+=1
-//                  flag=1
-//                  etmNumbers.add(it.etmNo.replace("\\s+".toRegex(), ""))
-//              }
-//              result=data.toString()
-//          }
-//                }
-//                    else
-//                    {
-//                        Toast.makeText(context, "Input data first", Toast.LENGTH_SHORT).show()
-//                    }
-//                },
-//                modifier = Modifier.align(Alignment.CenterHorizontally)
-//            )
-//           {
-//                Text("Display")
-//            }
-
-
             Text(text = "Check Internet Connection", color = Color.LightGray)
         }
         if(flag==1){
@@ -250,7 +191,6 @@ Surface(color = Color(0xFF071715)) {
                     }
                 }
             }
-
             CircularLoadingIndicator(isLoading)
             Text(" \nNo   Time  From   Via    To    Arr.Time   Kmrs\n",color= Color.White)
             Divider(color = Color.Red, thickness = 4.dp)
@@ -276,8 +216,6 @@ fun fetchMyDatabase(
     onSuccess: (List< OriginalData>) -> Unit,
     onError: (Exception) -> Unit
 ) {
-
-
      val resultList =  mutableStateListOf<OriginalData>()
     databaseRef.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {
@@ -288,7 +226,6 @@ fun fetchMyDatabase(
                     depoSnapshot.children.forEach { busTypeSnapshot ->
                         busTypeSnapshot.children.forEach { scheduleNoSnapshot ->
                             val scheduleNo = scheduleNoSnapshot.key as String
-
                             scheduleNoSnapshot.children.forEach { tripsSnapshot ->
                                 if (scheduleNo == schedule) {
                                     val trips = tripsSnapshot.getValue(OriginalData::class.java)
@@ -301,16 +238,13 @@ fun fetchMyDatabase(
                     }
                 }
             }
-            // Check if resultList is not null before invoking onSuccess
             onSuccess(resultList)
         }
-
         override fun onCancelled(error: DatabaseError) {
             onError(error.toException())
         }
       }
     )
-
 }
 
 
