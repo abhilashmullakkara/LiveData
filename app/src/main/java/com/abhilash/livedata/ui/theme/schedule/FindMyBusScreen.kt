@@ -136,12 +136,6 @@ fun fetchDatabaseValues(
                             val scheduleNo = scheduleNoSnapshot.key as String
                             scheduleNoSnapshot.children.forEach { tripsSnapshot ->
                                 val trips = tripsSnapshot.getValue(OriginalData::class.java)
-                                // Check if trips is not null and destinationPlace matches the search destination
-//                                if (trips != null && (trips.destinationPlace == destination || trips.via==destination)
-//                                    && (trips.destinationPlace.isNotBlank()|| trips.via.isNotBlank() )) {
-//                                    // Add the result to the resultList
-//                                   resultList.add(scheduleNo to trips)
-//                                }
                                 if (trips != null &&
                                     ((trips.destinationPlace == destination || trips.via.contains(destination))
                                             && (trips.destinationPlace.isNotBlank() && trips.via.isNotBlank()))) {
@@ -153,16 +147,13 @@ fun fetchDatabaseValues(
                     }
                 }
             }
-
             onSuccess(resultList)
         }
-
         override fun onCancelled(error: DatabaseError) {
             onError(error.toException())
         }
     })
 }
-
 @Composable
 fun searchAndStorePath(path: String = "", destination: String = ""): List<Pair<String, OriginalData>> {
     var resultList by remember { mutableStateOf<List<Pair<String, OriginalData>>>(emptyList()) }
@@ -170,9 +161,8 @@ fun searchAndStorePath(path: String = "", destination: String = ""): List<Pair<S
     val databaseRef = FirebaseDatabase.getInstance().reference.child("")
     fetchDatabaseValues(databaseRef, path, destination, { results ->
         resultList = results
-        errorMessage.value = "" // Clear any previous error message
+        errorMessage.value = ""
     }, { error ->
-        // Handle error here
         errorMessage.value = "Error: ${error.message}"
     })
     Column {
@@ -189,7 +179,6 @@ fun searchAndStorePath(path: String = "", destination: String = ""): List<Pair<S
                             Text("From: ${originalData.startPlace}",
                                 color = Color(0xFFF30303), fontWeight = FontWeight.Bold, fontSize = 14.sp)
                         }
-
                         Text("ArrTime: ${originalData.arrivalTime}", color = Color.White)
                         Text("Destination: ${originalData.destinationPlace}", color = Color.White)
                         Text("Via: ${originalData.via}", color = Color.White)

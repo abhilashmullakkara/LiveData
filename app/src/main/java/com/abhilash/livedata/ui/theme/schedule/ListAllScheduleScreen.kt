@@ -44,7 +44,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-
 @Composable
 fun ListAllScheduleScreen(navController: NavController) {
     Surface(color = Color(0xFF929FEB), modifier = Modifier.fillMaxSize()) {
@@ -64,7 +63,6 @@ fun ListAllScheduleScreen(navController: NavController) {
                         tint = Color.White
                     )
                 }
-
                 Text(
                     "All schedule List",
                     fontSize = 26.sp,
@@ -73,7 +71,6 @@ fun ListAllScheduleScreen(navController: NavController) {
                 )
             }
             Divider(color=Color.White)
-
             OutlinedTextField(
                 value = depoNo,
                 modifier = Modifier
@@ -110,9 +107,8 @@ fun searchAndStore(path: String = ""): List<Pair<String, OriginalData>> {
     val databaseRef = FirebaseDatabase.getInstance().reference.child("")
     fetchDatabase(databaseRef, path, { results ->
         resultList = results
-        errorMessage.value = "" // Clear any previous error message
+        errorMessage.value = ""
     }, { error ->
-        // Handle error here
         errorMessage.value = "Error: ${error.message}"
     })
     Column {
