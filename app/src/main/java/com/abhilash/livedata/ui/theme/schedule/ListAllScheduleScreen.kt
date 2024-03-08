@@ -12,7 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Card
+import androidx.compose.material3.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -21,7 +21,8 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -58,7 +59,7 @@ fun ListAllScheduleScreen(navController: NavController) {
                     modifier = Modifier.size(48.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.Outlined.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                         contentDescription = "Arrow",
                         tint = Color.White
                     )
@@ -123,9 +124,15 @@ fun searchAndStore(path: String = ""): List<Pair<String, OriginalData>> {
                         .fillMaxSize()
                         .padding(start = 15.dp, end = 15.dp, bottom = 20.dp),
                     shape = RoundedCornerShape(15.dp),
-                    elevation = 3.dp,
-                    contentColor = Color.White,
-                    backgroundColor = Color(0xFF7E8088)
+                    elevation = CardDefaults.cardElevation(
+                        defaultElevation = 5.dp,
+                        focusedElevation = 12.dp
+                    ),
+                    colors =CardDefaults.cardColors(
+                        containerColor = Color.White,
+                        contentColor = Color(0xFF7E8088)
+
+                    ) ,
                 ) {
                     LazyColumn(modifier = Modifier.padding(start = 25.dp)) {
                         items(resultList) { (scheduleNo: String, originalData) ->
