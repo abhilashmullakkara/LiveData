@@ -14,10 +14,13 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -41,7 +44,7 @@ fun AddDutyDiaryScreen(navController: NavController){
                 navController.popBackStack("MenuScreen",inclusive = false)
             })
             {
-                Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow")
+                Icon(imageVector = Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = "Arrow")
             }
             Text(
                 "Enter Information", fontSize = 19.sp,
@@ -56,36 +59,86 @@ fun AddDutyDiaryScreen(navController: NavController){
 }
 
 
-
 @SuppressLint("SuspiciousIndentation")
 @Composable
-fun myCalendar():String {
+fun myCalendar(): String {
     val mContext = LocalContext.current
-    val mYear1: Int
-    val mMonth1: Int
-    val mDay1: Int
     val mCalendar = Calendar.getInstance()
-    mYear1 = mCalendar.get(Calendar.YEAR)
-    mMonth1 = mCalendar.get(Calendar.MONTH)
-    mDay1 = mCalendar.get(Calendar.DAY_OF_MONTH)
+    val mYear1 = mCalendar.get(Calendar.YEAR)
+    val mMonth1 = mCalendar.get(Calendar.MONTH)
+    val mDay1 = mCalendar.get(Calendar.DAY_OF_MONTH)
     mCalendar.time = Date()
     val mDate = remember { mutableStateOf("") }
     val mDatePickerDialog = DatePickerDialog(
         mContext,
         { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
-            mDate.value = "$mYear/${mMonth+1}/$mDayOfMonth"
+            val monthString = if ((mMonth + 1) < 10) "0${mMonth + 1}" else "${mMonth + 1}"
+            val dayString = if (mDayOfMonth < 10) "0$mDayOfMonth" else "$mDayOfMonth"
+            mDate.value = "$mYear/$monthString/$dayString"
         }, mYear1, mMonth1, mDay1
     )
-        Button(onClick = {
+    Button(
+        onClick = {
             mDatePickerDialog.show()
-        },modifier = Modifier.padding(start=10.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0XFF0F9D58)) ) {
-            Text(text = "Select Date", color = Color.White)
-        }
-        Text(text = "Selected Date: ${mDate.value}", fontSize = 17.sp,modifier = Modifier.padding(start=10.dp)
-        )
+        },
+        modifier = Modifier.padding(start = 10.dp),
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0XFF0F9D58))
+    ) {
+        Text(text = "Select Date", color = Color.White)
+    }
+    val rdate = reverseStringDate(rdate = mDate.value)
+    Text(
+        text = "Selected Date: $rdate",
+        fontSize = 17.sp,
+        modifier = Modifier.padding(start = 10.dp)
+    )
     return mDate.value
 }
+
+
+
+//@SuppressLint("SuspiciousIndentation")
+//@Composable
+//fun myCalendar():String {
+//    val mContext = LocalContext.current
+//    val mYear1: Int
+//    val mMonth1: Int
+//    val mDay1: Int
+//    var mMonts by remember {
+//        mutableStateOf("")
+//    }
+//    var mMdays by remember {
+//        mutableStateOf("")
+//    }
+//    val mCalendar = Calendar.getInstance()
+//    mYear1 = mCalendar.get(Calendar.YEAR)
+//    mMonth1 = mCalendar.get(Calendar.MONTH)
+//    mDay1 = mCalendar.get(Calendar.DAY_OF_MONTH)
+//    mCalendar.time = Date()
+//    val mDate = remember { mutableStateOf("") }
+//    val mDatePickerDialog = DatePickerDialog(
+//        mContext,
+//        { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
+//            mMonts = if((mMonth+1)<10)
+//                "0${mMonth1+1}"
+//            else "${mMonth1+1}"
+//            mMdays = if(mDayOfMonth<10) "0${mDayOfMonth}"
+//            else "$mDayOfMonth"
+//            mDate.value = "$mYear/$mMonts/$mMdays"
+//        }, mYear1, mMonth1, mDay1
+//    )
+//        Button(onClick = {
+//            mDatePickerDialog.show()
+//        },modifier = Modifier.padding(start=10.dp),
+//            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0XFF0F9D58)) ) {
+//            Text(text = "Select Date", color = Color.White)
+//        }
+//    val rdate= reverseStringDate(rdate = mDate.value)
+//        Text(text = "Selected Date: $rdate", fontSize = 17.sp,modifier = Modifier.padding(start=10.dp)
+//        )
+//    //
+//   return mDate.value
+//}
 
 
 @Composable

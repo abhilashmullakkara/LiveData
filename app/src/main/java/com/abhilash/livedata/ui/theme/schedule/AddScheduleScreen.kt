@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
@@ -26,7 +25,8 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -83,7 +83,7 @@ fun AddScheduleScreen(navController: NavController) {
                     navController.popBackStack("MenuScreen", inclusive = false)
                 })
                 {
-                    Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow")
+                    Icon(imageVector = Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = "Arrow")
                 }
                 Text(
                     "  Enter Schedule Information...    ",
@@ -412,11 +412,14 @@ fun AddScheduleScreen(navController: NavController) {
                                     }
                                 },
                                 modifier = Modifier.padding(start = 20.dp),
-                                colors = ButtonDefaults.buttonColors(
+                                colors= ButtonDefaults.textButtonColors(
                                     backgroundColor = Color(0xFF536DFE),
-                                    contentColor = Color.White
+                                   contentColor = Color.White
+                                ),
+
+//
                                 )
-                            )
+
                             {
                                 Text(text = "UPLOAD", fontSize = 18.sp, color = Color.White)
                             }

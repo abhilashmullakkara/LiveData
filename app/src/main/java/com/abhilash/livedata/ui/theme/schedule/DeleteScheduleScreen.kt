@@ -28,7 +28,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -77,7 +77,7 @@ fun DeleteScheduleScreen(navController:NavController){
                     navController.popBackStack("MenuScreen",inclusive = false)
                 })
                 {
-                    Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow", tint = Color.White)
+                    Icon(imageVector = Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = "Arrow", tint = Color.White)
                 }
                 Text(
                     "Enter Schedule Information to Delete",
@@ -277,7 +277,10 @@ fun DeleteScheduleScreen(navController:NavController){
 
                 }
                 //End of card |
-
+                if(clicked){
+                    result=""
+                    clicked=false
+                }
             }
         }
     }
