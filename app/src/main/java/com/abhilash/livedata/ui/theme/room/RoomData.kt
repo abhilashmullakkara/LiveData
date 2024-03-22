@@ -4,6 +4,7 @@ import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,12 +14,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Divider
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,7 +44,6 @@ import com.abhilash.livedata.ui.ai.isValidText
 import com.abhilash.livedata.ui.theme.admob.BannerAdView
 import com.abhilash.livedata.ui.theme.checkbox
 import com.abhilash.livedata.ui.theme.userdatabase.myCalendar
-import com.abhilash.livedata.ui.theme.userdatabase.reverseStringDate
 import com.google.android.gms.ads.AdSize
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -77,6 +80,13 @@ fun RoomData(navController:NavController) {
                         scheduleNo = textFieldValue.text
                     }
                 },
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedTextColor = Color.Green,
+                    focusedTextColor = Color.White,
+                    cursorColor = Color.Blue,
+                    focusedLabelColor = Color.Gray,
+                    disabledContainerColor = Color(0xFF4C94D6)
+                ),
                 modifier = Modifier
                     .fillMaxWidth(0.4f)
                     .padding(start = 10.dp),
@@ -98,6 +108,13 @@ fun RoomData(navController:NavController) {
                 onValueChange = {
                     dutyEearnt = it
                 },
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedTextColor = Color.Green,
+                    focusedTextColor = Color.White,
+                    cursorColor = Color.Blue,
+                    focusedLabelColor = Color.Gray,
+                    disabledContainerColor = Color(0xFF4C94D6)
+                ),
                 modifier = Modifier
                     .fillMaxWidth(0.8f),
                 placeholder = {
@@ -118,7 +135,7 @@ fun RoomData(navController:NavController) {
                 color = Color.Red,
                 modifier = Modifier.padding(start = 10.dp)
             )
-            Divider(thickness = 5.dp, color = Color.White)
+            HorizontalDivider(thickness = 5.dp, color = Color.White)
             Spacer(modifier = Modifier.height(10.dp))
             Text("Collection",modifier=Modifier.padding(start=20.dp),
                 color=Color.White, fontSize = 14.sp)
@@ -130,6 +147,13 @@ fun RoomData(navController:NavController) {
                 onValueChange = {
                     todayCollection = it
                 },
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedTextColor = Color.Green,
+                    focusedTextColor = Color.White,
+                    cursorColor = Color.Blue,
+                    focusedLabelColor = Color.Gray,
+                    disabledContainerColor = Color(0xFF4C94D6)
+                ),
                 modifier = Modifier
                     .fillMaxWidth(0.44f)
                     .padding(start = 10.dp),
@@ -154,6 +178,13 @@ fun RoomData(navController:NavController) {
                         wBillNo = textFieldValue.text
                     }
                 },
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedTextColor = Color.Green,
+                    focusedTextColor = Color.White,
+                    cursorColor = Color.Blue,
+                    focusedLabelColor = Color.Gray,
+                    disabledContainerColor = Color(0xFF4C94D6)
+                ),
                 modifier = Modifier
                     .fillMaxWidth(0.44f)
                     .padding(start = 10.dp),
@@ -170,17 +201,28 @@ fun RoomData(navController:NavController) {
             OutlinedTextField(
                 value = crewName,
                 singleLine = true,
-                shape = RoundedCornerShape(80),
+                shape = RoundedCornerShape(20),
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.Characters
                 ),
-             //   keyboardOptions = KeyboardOptions.Default.copy(keyboardType= KeyboardType.Text).copy(capitalization = KeyboardCapitalization.Characters),
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedTextColor = Color.Green,
+                    focusedTextColor = Color.White,
+                    cursorColor = Color.Blue,
+                    focusedLabelColor = Color.Gray,
+                    disabledContainerColor = Color(0xFF4C94D6),
+                    focusedBorderColor = Color(0xFFF57F17),
+                            disabledBorderColor = Color.Black
+
+                ),
+              // keyboardOptions = KeyboardOptions.Default.copy(keyboardType= KeyboardType.Text).copy(capitalization = KeyboardCapitalization.Characters),
                 onValueChange = {
                     crewName = it
                 },
+
                 modifier = Modifier
                     .fillMaxWidth(0.44f)
-                    .padding(start = 10.dp),
+                    .padding(start = 10.dp).border(BorderStroke(2.dp, Color.Red)),
                 placeholder = {
                     Text(
                         text = "Name of the crew",
@@ -189,14 +231,31 @@ fun RoomData(navController:NavController) {
                     )
                 }
             )
-Spacer(modifier = Modifier.height(10.dp)) //✔✓☑ Check mark - Tick symbol 💯☐☒❎✗✘
-            Row(modifier = Modifier.padding(start=10.dp)){
-                Surface(color= Color(0xFFA8BDE0)) {
-                    Text("If duty Surrendered,please put tick ☑  ", fontWeight = FontWeight.SemiBold ,fontSize = 16.sp,color=Color.Red)
-                   // Spacer(modifier = Modifier.width(10.dp))
-                  surrender= checkbox()
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Row(modifier = Modifier.padding(start = 10.dp)) {
+                Surface(color = Color(0xFFA8BDE0)) {
+                    Text("If surrender, put tick ☑  ", fontWeight = FontWeight.SemiBold, fontSize = 16.sp, color = Color.Red)
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Checkbox(
+                        modifier = Modifier.padding(start=290.dp,end=5.dp).fillMaxWidth(),
+                        checked = surrender,
+                        onCheckedChange = { isChecked -> surrender = isChecked },
+                        colors = CheckboxDefaults.colors(checkedColor = Color.Red) // Customize checkbox color
+                    )
                 }
             }
+//Spacer(modifier = Modifier.height(10.dp)) //✔✓☑ Check mark - Tick symbol 💯☐☒❎✗✘
+//            Row(modifier = Modifier.padding(start=10.dp)){
+//                Surface(color= Color(0xFFA8BDE0)) {
+//
+//                    Text("If surrender, put tick ☑  ", fontWeight = FontWeight.SemiBold ,fontSize = 16.sp,color=Color.Red)
+//                   // Spacer(modifier = Modifier.width(10.dp))
+//                 surrender= checkbox()
+//
+//                }
+//            }
 
 
             OutlinedButton(
@@ -280,48 +339,56 @@ fun EditRoomData(rec:Int,database: Employee,navController: NavController) {
                     .padding(start = 10.dp, end = 10.dp)
                     .fillMaxWidth())
             Row {
-                OutlinedTextField(
-                    value = scheduleNo,
-                    singleLine = true,
-                    shape = RoundedCornerShape(80),
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                    onValueChange = { newValue ->
-                        val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
-                        if (isValidText(textFieldValue)) {
-                            scheduleNo = textFieldValue.text
+                scheduleNo?.let {
+                    OutlinedTextField(
+                        value = it,
+                        singleLine = true,
+                        shape = RoundedCornerShape(80),
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                        onValueChange = { newValue ->
+                            val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
+                            if (isValidText(textFieldValue)) {
+                                scheduleNo = textFieldValue.text
+                            }
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth(0.4f)
+                            .padding(start = 10.dp),
+                        placeholder = {
+                            database.dutyNo?.let { d->
+                                Text(
+                                    text = d,
+                                    color = Color.White,
+                                    fontSize = 17.sp
+                                )
+                            }
                         }
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth(0.4f)
-                        .padding(start = 10.dp),
-                    placeholder = {
-                        Text(
-                            text = database.dutyNo,
-                            color = Color.White,
-                            fontSize = 17.sp
-                        )
-                    }
-                )
+                    )
+                }
                 Spacer(modifier = Modifier.width(7.dp))
 
-                OutlinedTextField(
-                    value = dutyEearnt,
-                    singleLine = true,
-                    shape = RoundedCornerShape(80),
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                    onValueChange = {
-                        dutyEearnt = it
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth(0.8f),
-                    placeholder = {
-                        Text(
-                            text = database.dutyEarned,
-                            color = Color.White,
-                            fontSize = 16.sp
-                        )
-                    }
-                )
+                dutyEearnt?.let {
+                    OutlinedTextField(
+                        value = it,
+                        singleLine = true,
+                        shape = RoundedCornerShape(80),
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                        onValueChange = {earnt ->
+                            dutyEearnt = earnt
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth(0.8f),
+                        placeholder = {
+                            database.dutyEarned?.let { it1 ->
+                                Text(
+                                    text = it1,
+                                    color = Color.White,
+                                    fontSize = 16.sp
+                                )
+                            }
+                        }
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(10.dp))
             permedDate = performedDate()//myCalendar()
@@ -332,74 +399,86 @@ fun EditRoomData(rec:Int,database: Employee,navController: NavController) {
                 color = Color.Red,
                 modifier = Modifier.padding(start = 10.dp)
             )
-            Divider(thickness = 5.dp, color = Color.White)
+            HorizontalDivider(thickness = 5.dp, color = Color.White)
             Spacer(modifier = Modifier.height(10.dp))
             Text("Collection",modifier=Modifier.padding(start=20.dp),
                 color=Color.White, fontSize = 14.sp)
-            OutlinedTextField(
-                value = todayCollection,
-                singleLine = true,
-                shape = RoundedCornerShape(80),
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                onValueChange = {
-                    todayCollection = it
-                },
-                modifier = Modifier
-                    .fillMaxWidth(0.44f)
-                    .padding(start = 10.dp),
-                placeholder = {
-                    Text(
-                        text = database.collection,
-                        color = Color.Black,
-                        fontSize = 14.sp
-                    )
-                }
-            )
+            todayCollection?.let {
+                OutlinedTextField(
+                    value = it,
+                    singleLine = true,
+                    shape = RoundedCornerShape(80),
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                    onValueChange = {collect ->
+                        todayCollection = collect
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth(0.44f)
+                        .padding(start = 10.dp),
+                    placeholder = {
+                        database.collection?.let { it1 ->
+                            Text(
+                                text = it1,
+                                color = Color.Black,
+                                fontSize = 14.sp
+                            )
+                        }
+                    }
+                )
+            }
             Spacer(modifier = Modifier.height(10.dp))
             Text("Way Bill No",modifier=Modifier.padding(start=20.dp),color= Color.White, fontSize = 14.sp)
-            OutlinedTextField(
-                value = wBillNo,
-                singleLine = true,
-                shape = RoundedCornerShape(80),
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                onValueChange = { newValue ->
-                    val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
-                    if (isValidText(textFieldValue)) {
-                        wBillNo = textFieldValue.text
+            wBillNo?.let {
+                OutlinedTextField(
+                    value = it,
+                    singleLine = true,
+                    shape = RoundedCornerShape(80),
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                    onValueChange = { newValue ->
+                        val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
+                        if (isValidText(textFieldValue)) {
+                            wBillNo = textFieldValue.text
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth(0.44f)
+                        .padding(start = 10.dp),
+                    placeholder = {
+                        database.wayBillNo?.let { it1 ->
+                            Text(
+                                text = it1,
+                                color = Color.Black,
+                                fontSize = 14.sp
+                            )
+                        }
                     }
-                },
-                modifier = Modifier
-                    .fillMaxWidth(0.44f)
-                    .padding(start = 10.dp),
-                placeholder = {
-                    Text(
-                        text =database.wayBillNo,
-                        color = Color.Black,
-                        fontSize = 14.sp
-                    )
-                }
-            )
+                )
+            }
             Spacer(modifier = Modifier.height(10.dp))
             Text("Name of the Crew",modifier=Modifier.padding(start=20.dp),color=Color.White, fontSize = 14.sp)
-            OutlinedTextField(
-                value = crewName,
-                singleLine = true,
-                shape = RoundedCornerShape(80),
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
-                onValueChange = {
-                    crewName = it
-                },
-                modifier = Modifier
-                    .fillMaxWidth(0.44f)
-                    .padding(start = 10.dp),
-                placeholder = {
-                    Text(
-                        text = database.employeeName,
-                        color = Color.Black,
-                        fontSize = 14.sp
-                    )
-                }
-            )
+            crewName?.let {
+                OutlinedTextField(
+                    value = it,
+                    singleLine = true,
+                    shape = RoundedCornerShape(80),
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
+                    onValueChange = { cname ->
+                        crewName = cname
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth(0.44f)
+                        .padding(start = 10.dp),
+                    placeholder = {
+                        database.employeeName?.let { it1 ->
+                            Text(
+                                text = it1,
+                                color = Color.Black,
+                                fontSize = 14.sp
+                            )
+                        }
+                    }
+                )
+            }
             Spacer(modifier = Modifier.height(10.dp)) //✔✓☑ Check mark - Tick symbol 💯☐☒❎✗✘
             Row(modifier = Modifier.padding(start=10.dp)){
                 Surface(color= Color(0xFFA8BDE0)) {

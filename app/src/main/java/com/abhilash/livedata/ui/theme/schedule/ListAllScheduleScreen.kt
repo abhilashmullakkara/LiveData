@@ -12,17 +12,17 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Card
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,6 +45,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+
 @Composable
 fun ListAllScheduleScreen(navController: NavController) {
     Surface(color = Color(0xFF929FEB), modifier = Modifier.fillMaxSize()) {
@@ -71,12 +72,12 @@ fun ListAllScheduleScreen(navController: NavController) {
                     modifier = Modifier.padding(start = 15.dp)
                 )
             }
-            Divider(color=Color.White)
+            HorizontalDivider(color = Color.White)
             OutlinedTextField(
                 value = depoNo,
                 modifier = Modifier
-                    .height(60.dp)
-                    .width(120.dp)
+                    .height(80.dp)
+                    .width(140.dp)
                     .padding(start = 20.dp),
                 onValueChange = { newValue ->
                     val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
@@ -84,14 +85,13 @@ fun ListAllScheduleScreen(navController: NavController) {
                         depoNo = textFieldValue.text
                     }
                 },
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    backgroundColor = Color(0xFF035697),
-                    textColor = Color.White,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = Color(0xFF035697),
                     cursorColor = Color.White,
-                    leadingIconColor = Color.White,
-                    trailingIconColor = Color.White,
-                    focusedBorderColor = Color.White, // Border color when focused
-                    unfocusedBorderColor = Color.White.copy(alpha = 0.7f) // Border color when not focused
+                   focusedLeadingIconColor = Color.White,
+                    focusedTrailingIconColor = Color.White,
+                            unfocusedBorderColor = Color.White.copy(alpha = 0.7f),
+                    unfocusedTextColor = Color.Red
                 ),
                 label = { Text("Depot NO", fontSize = 15.sp, color = Color.White) },
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
@@ -122,25 +122,30 @@ fun searchAndStore(path: String = ""): List<Pair<String, OriginalData>> {
                 Card(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(start = 15.dp, end = 15.dp, bottom = 20.dp),
+                        .padding(start = 15.dp, end = 15.dp, bottom = 20.dp,top=10.dp),
                     shape = RoundedCornerShape(15.dp),
                     elevation = CardDefaults.cardElevation(
                         defaultElevation = 5.dp,
                         focusedElevation = 12.dp
                     ),
                     colors =CardDefaults.cardColors(
-                        containerColor = Color.White,
-                        contentColor = Color(0xFF7E8088)
+                        containerColor = Color(0xFF4B624C),
+                        contentColor = Color(0xFF257229)
 
                     ) ,
                 ) {
-                    LazyColumn(modifier = Modifier.padding(start = 25.dp)) {
+                    LazyColumn(modifier = Modifier.padding(start = 25.dp,top=15.dp)) {
+
                         items(resultList) { (scheduleNo: String, originalData) ->
+                            Surface(color=Color(0xFF4B624C)) {
                             Text(
                                 "DutyNo $scheduleNo  :${originalData.departureTime}   ${originalData.destinationPlace} ",
-                                color = Color.White, fontSize = 17.sp, fontWeight = FontWeight.SemiBold
+                                color = Color.White,
+                                fontSize = 17.sp,
+                                fontWeight = FontWeight.SemiBold
                             )
-                            Divider(color = Color(0xFF0635F1), thickness = 1.dp)
+                                HorizontalDivider(thickness = 1.dp, color = Color(0xFF9BC29D))
+                        }
                         }
                     }
                 }
