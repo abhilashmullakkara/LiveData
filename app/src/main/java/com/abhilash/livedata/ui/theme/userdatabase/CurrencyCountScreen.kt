@@ -9,17 +9,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
-import androidx.compose.material3.Divider
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -52,8 +54,19 @@ fun CurrencyCountScreen(navController:NavController) {
                 .fillMaxWidth()
                 .padding(10.dp)
                 .height(800.dp), // Adjust the height as needed
-            backgroundColor = Color(0xFF828ED2),
-            contentColor = Color.White
+
+            colors = CardDefaults.cardColors(
+                containerColor = Color(0xFF648FD6),
+                contentColor = Color.White
+            ),
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 5.dp,
+                focusedElevation = 8.dp
+            ),
+            shape = RoundedCornerShape(5.dp),
+
+//            backgroundColor = Color(0xFF828ED2),
+//            contentColor = Color.White
         ) {
             Column(modifier=Modifier.verticalScroll(scroll)) {
 
@@ -63,13 +76,13 @@ fun CurrencyCountScreen(navController:NavController) {
                 })
                 {
                     Row {
-                        Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow")
+                        Icon(imageVector = Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = "Arrow")
                         Spacer(modifier = Modifier.width(10.dp))
                         Text("Total : $total ",fontSize = 25.sp,color= Color.Green, modifier = Modifier.padding(start=25.dp))
                     }
 
                 }
-                Divider(thickness = 5.dp, color = Color.White)
+                HorizontalDivider(thickness = 5.dp, color = Color.White)
                 Column {
                     Row {
                         Spacer(modifier = Modifier.width(10.dp))
@@ -79,7 +92,7 @@ fun CurrencyCountScreen(navController:NavController) {
                         Text(" =  $ten", fontSize = 25.sp)
                     }
                     Spacer(modifier = Modifier.height(5.dp))
-                    Divider()
+                    HorizontalDivider()
                     Row {
                         Spacer(modifier = Modifier.width(10.dp))
                         Text("₹20 x ", fontSize = 24.sp, color = Color.White)
@@ -88,7 +101,7 @@ fun CurrencyCountScreen(navController:NavController) {
                         Text(" =  $twenty", fontSize = 25.sp)
                     }
                     Spacer(modifier = Modifier.height(5.dp))
-                    Divider()
+                    HorizontalDivider()
                     Row {
                         Spacer(modifier = Modifier.width(10.dp))
                         Text("₹50 x ", fontSize = 24.sp, color = Color.White)
@@ -97,7 +110,7 @@ fun CurrencyCountScreen(navController:NavController) {
                         Text(" =  $fifty", fontSize = 25.sp)
                     }
                     Spacer(modifier = Modifier.height(5.dp))
-                    Divider()
+                    HorizontalDivider()
                     Row {
                         Spacer(modifier = Modifier.width(10.dp))
                         Text("₹100 x ", fontSize = 24.sp, color = Color.White)
@@ -106,7 +119,7 @@ fun CurrencyCountScreen(navController:NavController) {
                         Text(" =  $hundred", fontSize = 25.sp)
                     }
                     Spacer(modifier = Modifier.height(5.dp))
-                    Divider()
+                    HorizontalDivider()
                     Row {
                         Spacer(modifier = Modifier.width(10.dp))
                         Text("₹200 x ", fontSize = 24.sp, color = Color.White)
@@ -115,7 +128,7 @@ fun CurrencyCountScreen(navController:NavController) {
                         Text(" =  $twohundred", fontSize = 25.sp)
                     }
                     Spacer(modifier = Modifier.height(5.dp))
-                    Divider()
+                    HorizontalDivider()
                     Row {
                         Spacer(modifier = Modifier.width(10.dp))
                         Text("₹500 x ", fontSize = 24.sp, color = Color.White)
@@ -123,7 +136,7 @@ fun CurrencyCountScreen(navController:NavController) {
                         fivehundred = add("500", readValue())
                         Text(" =  $fivehundred", fontSize = 25.sp)
                     }
-                    Divider()
+                    HorizontalDivider()
                     Text("For coins enter only the total value", fontSize = 12.sp,color= Color.DarkGray)
                     Row {
                         Spacer(modifier = Modifier.width(10.dp))
@@ -134,8 +147,8 @@ fun CurrencyCountScreen(navController:NavController) {
                     }
                     Spacer(modifier = Modifier.height(20.dp))
                     total=sum(ten,twenty, fifty,hundred,twohundred,fivehundred,coins)
-                    Divider()
-                    Divider()
+                    HorizontalDivider()
+                    HorizontalDivider()
                     Text("Total : $total ",fontSize = 25.sp,color= Color.Green, modifier = Modifier.padding(start=25.dp))
 
                 }

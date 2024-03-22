@@ -7,12 +7,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardDefaults.cardColors
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,9 +32,17 @@ fun AboutScreen(navController: NavController){
             .fillMaxWidth()
             .padding(10.dp)
             .height(300.dp), // Adjust the height as needed
-            backgroundColor = Color(0xFF142033),
+           // backgroundColor = Color(0xFF142033),
+            colors = cardColors(
+                containerColor = Color(0xFF142033),
+            ),
             shape = RoundedCornerShape(5.dp),
-            elevation = 5.dp)
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 5.dp,
+                focusedElevation = 10.dp
+            )
+        )
+           // elevation = 5.dp)
             {
 
                 LazyColumn(modifier = Modifier.padding(start=20.dp)){
@@ -47,7 +57,7 @@ fun AboutScreen(navController: NavController){
 
                         ) {
                             //androidx.compose.material3.Text("Back", fontSize = 18.sp, fontWeight = FontWeight.SemiBold, color= Color.White)
-                            Image(imageVector = Icons.Default.ArrowBack, contentDescription ="back" )
+                            Image(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription ="back" )
 
                         }
                     }

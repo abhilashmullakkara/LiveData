@@ -7,16 +7,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,9 +45,9 @@ fun DeleteRecordScreen(navController: NavController){
                 navController.popBackStack("MenuScreen",inclusive = false)
             })
             {
-                Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow",tint=Color.White)
+                Icon(imageVector = Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = "Arrow",tint=Color.White)
             }
-            Divider(thickness = 3.dp,color= Color.White)
+            HorizontalDivider(thickness = 3.dp, color = Color.White)
 
             Text(text = "Enter Record Number to delete a single record from the database",color = Color.Gray, fontSize = 18.sp)
             OutlinedTextField(
@@ -85,8 +85,14 @@ fun DeleteRecordScreen(navController: NavController){
            }
          },
              modifier = Modifier.padding(start = 25.dp),
-             colors = ButtonDefaults.buttonColors(Color(0xFF456890))
-             ) {
+             colors = ButtonDefaults.outlinedButtonColors(
+                 containerColor = Color(0xFF456890),
+                 contentColor = Color.White,
+                 disabledContainerColor = Color(0xFFF57F17)
+
+             ),
+           )
+         {
              Text(text = "DELETE",color = Color.White, fontSize = 16.sp)
 
          }

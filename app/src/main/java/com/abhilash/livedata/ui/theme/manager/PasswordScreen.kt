@@ -21,14 +21,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.autofill.AutofillType
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.abhilash.livedata.ui.theme.admob.BannerAdView
@@ -124,13 +122,6 @@ fun PasswordScreen(onPasswordEntered: (Pass) -> Unit) {
             label = { Text("Enter Depo Number") },
             keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done, keyboardType = KeyboardType.Number),
-            //keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-           // visualTransformation = PasswordVisualTransformation(),
-//            keyboardActions = KeyboardActions(
-//                onDone = {
-//                    keyboardController?.hide()
-//                }
-//            )
         )
 
         OutlinedTextField(
@@ -142,29 +133,8 @@ fun PasswordScreen(onPasswordEntered: (Pass) -> Unit) {
            visualTransformation = PasswordVisualTransformation(mask = '*')
         )
 
-
-
-
-
-        //
-//        OutlinedTextField(
-//            value = password,
-//            onValueChange = { password = it },
-//            label = { Text("Enter Password") },
-//            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
-//            visualTransformation = PasswordVisualTransformation(),
-//
-////            keyboardActions = KeyboardActions(
-////                onDone = {
-////                    keyboardController?.hide()
-////                }
-////            )
-//        )
-
         Spacer(modifier = Modifier.height(16.dp))
         passwordResult=mypasswordDownloader(deponumber)
-        //passwordResult=passwordDownloader(deponumber)
-       // Text("PasswordResult $passwordResult")
         Button(
             onClick = {
                 // Check if the password is correct
