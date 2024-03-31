@@ -56,7 +56,7 @@ import java.time.format.DateTimeFormatter
 @OptIn(DelicateCoroutinesApi::class)
 @Composable
 fun RoomData(navController:NavController) {
-    Surface(color = Color(0xFF6776CA)) {
+    Surface(color = Color(0xFF6776CA),modifier=Modifier.fillMaxWidth()) {
         val context = LocalContext.current
         val coroutineScope = rememberCoroutineScope()
         var flag by rememberSaveable { mutableStateOf(false) }
@@ -82,10 +82,12 @@ fun RoomData(navController:NavController) {
                 },
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedTextColor = Color.Green,
-                    focusedTextColor = Color.White,
+                    focusedTextColor = Color(0xFFF4511E),
                     cursorColor = Color.Blue,
+                    focusedContainerColor = Color(0xFF9BB9EC),
                     focusedLabelColor = Color.Gray,
-                    disabledContainerColor = Color(0xFF4C94D6)
+
+                    disabledContainerColor =  Color(0xFF648FD6)
                 ),
                 modifier = Modifier
                     .fillMaxWidth(0.4f)

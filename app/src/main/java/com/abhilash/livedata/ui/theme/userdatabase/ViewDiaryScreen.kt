@@ -9,12 +9,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.ButtonDefaults
@@ -55,7 +55,6 @@ fun ViewDiaryScreen(navController: NavController) {
     var ascend by rememberSaveable { mutableStateOf(false) }
     var result by rememberSaveable { mutableStateOf("") }
     var toast by rememberSaveable { mutableStateOf(false) }
-
     val coroutineScope = rememberCoroutineScope()
     val context= LocalContext.current
     var isDetailed by rememberSaveable { mutableStateOf(true) }
@@ -110,15 +109,18 @@ fun ViewDiaryScreen(navController: NavController) {
                             }
 
                             for (employee in employeeInfo) {
-                                data.append("\n   " + employee.id + ")            " + employee.dutyNo + "          " + employee.performedOn + "          " + employee.dutyEarned)
+                                val rdate = employee.performedOn?.let { myreverseStringDate(rdate = it) }
+                               // itemCount++
+                                data.append("\n   " + employee.id + ")            " + employee.dutyNo + "          " + rdate + "          " + employee.dutyEarned)
                                 data.append(" " + employee.wayBillNo + " " + employee.employeeName + " " + employee.collection)
                             }
 
                             result = data.toString()
                         }
                     },
-                    modifier = Modifier.weight(1f)
-                        .padding(start = 16.dp, end = 8.dp),
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp, vertical = 8.dp) // Adjust padding as needed
+                        .weight(1f),
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = Color.White,
                         containerColor = Color(0xFF456890)
@@ -146,7 +148,8 @@ fun ViewDiaryScreen(navController: NavController) {
                             }
                         }
                     },
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
                         .padding(horizontal = 8.dp),
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = Color.White,
@@ -160,7 +163,8 @@ fun ViewDiaryScreen(navController: NavController) {
                     onClick = {
                         share = !share
                     },
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
                         .padding(start = 8.dp, end = 16.dp),
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = Color.White,
@@ -170,95 +174,66 @@ fun ViewDiaryScreen(navController: NavController) {
                     Text("Share ", color = Color.White, fontSize = 16.sp)
                 }
             }
+                Surface(color=Color(0xFF456890),
+                    shape = RoundedCornerShape(topEnd = 15.dp,
+                        topStart = 25.dp, bottomEnd = 25.dp, bottomStart = 25.dp))
+                {
+                   // Spacer(modifier = Modifier.height(5.dp))
+                    LazyRow(modifier = Modifier
+                        .padding(start = 5.dp)
+                        .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        item {
+                            Text("S/L",  color=Color.Green,
+                                modifier=Modifier.padding(start=5.dp),
+                                fontSize = 13.sp)
+                        }
+                        item {
+                            Text("RecordNo",  color=Color.White,
+                                modifier=Modifier.padding(start=15.dp),
+                                fontSize = 14.sp)
+                        }
+                        item {
+                            Text("D/No",  color=Color.White,
+                                modifier=Modifier.padding(start=15.dp),
+                                fontSize = 14.sp)
+                        }
+                        item {
+                            Text("Performed on",  color=Color.White,
+                                modifier=Modifier.padding(start=15.dp),
+                                fontSize = 14.sp)
+                        }
+                        item {
+
+                            Text("Duty earned",  color=Color.White,
+                                modifier=Modifier.padding(start=15.dp),
+                                fontSize = 14.sp)
+                        }
+                        item {
+
+                            Text("W/B no",  color=Color.White,
+                                modifier=Modifier.padding(start=15.dp),
+                                fontSize = 14.sp)
+                        }
+                        item {
+
+                            Text("CrewName",  color=Color.White,
+                                modifier=Modifier.padding(start=15.dp),
+                                fontSize = 14.sp)
+                        }
+                        item {
+                            Text("Collection",  color=Color.White,
+                                modifier=Modifier.padding(start=15.dp),
+                                fontSize = 14.sp)
+                        }
 
 
-//            Row {
-//                OutlinedButton(
-//                    onClick = {
-//                        flag = !flag
-//                        isDetailed = false
-//                        coroutineScope.launch {
-//                            val data = StringBuffer()
-//                            employeeInfo = emptyList()
-//                            employeeInfo = if (ascend) {
-//                                ascend = false
-//                                employeeInfo + EmployeeDB.getInstance(context).getEmployeeDao().displaylast()
-//                            } else {
-//                                ascend = true
-//                                employeeInfo + EmployeeDB.getInstance(context).getEmployeeDao().display()
-//                            }
-//
-//                            for (employee in employeeInfo) {
-//                                data.append("\n   " + employee.id + ")            " + employee.dutyNo + "          " + employee.performedOn + "          " + employee.dutyEarned)
-//                                data.append(" " + employee.wayBillNo + " " + employee.employeeName + " " + employee.collection)
-//                            }
-//
-//                            result = data.toString()
-//                        }
-//                    },
-//                    modifier = Modifier.padding(start = 25.dp),
-//                    colors = ButtonDefaults.outlinedButtonColors(
-//                        contentColor = Color.White,
-//                        containerColor = Color(0xFF456890)
-//                    )
-//                ) {
-//                    Text("View ", color = Color.White, fontSize = 16.sp)
-//                }
-//
-//                OutlinedButton(
-//                    onClick = {
-//                        isDetailed = true
-//                        flag = !flag
-//                        employeeInfo = emptyList()
-//                        coroutineScope.launch {
-//                            employeeInfo = if (ascend) {
-//                                ascend = false
-//                                employeeInfo + EmployeeDB.getInstance(context).getEmployeeDao().displaylast()
-//                            } else {
-//                                ascend = true
-//                                employeeInfo + EmployeeDB.getInstance(context).getEmployeeDao().display()
-//                            }
-//                            if (!toast) {
-//                                toast = true
-//                                Toast.makeText(context, "Rotate the screen for better experience", Toast.LENGTH_SHORT-1000).show()
-//                            }
-//                        }
-//                    },
-//                    modifier = Modifier.padding(start = 20.dp),
-//                    colors = ButtonDefaults.outlinedButtonColors(
-//                        contentColor = Color.White,
-//                        containerColor = Color(0xFF456890)
-//                    )
-//                ) {
-//                    Text("Detailed View ", color = Color.White, fontSize = 16.sp)
-//                }
-//
-//                OutlinedButton(
-//                    onClick = {
-//                        share = !share
-//                    },
-//                    modifier = Modifier.padding(start = 20.dp),
-//                    colors = ButtonDefaults.outlinedButtonColors(
-//                        contentColor = Color.White,
-//                        containerColor = Color(0xFF456890)
-//                    )
-//                ) {
-//                    Text("Share ", color = Color.White, fontSize = 16.sp)
-//                }
-//            }
 
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                "Record         DutyNo          Performed on      Duty earned     W/B no        CrewName    Collection",
-                color=Color.White,
-                modifier=Modifier.padding(start=5.dp),
-                fontSize = 14.sp
-            )
+                    }
+                }
 
-            Spacer(modifier = Modifier.height(15.dp))
-            HorizontalDivider(color = Color.White)
-            Spacer(modifier = Modifier.height(2.dp))
-            HorizontalDivider(color = Color.Green)
             EmployeeList(
                 employees = employeeInfo,
                 context = context,
@@ -267,9 +242,8 @@ fun ViewDiaryScreen(navController: NavController) {
                 isDetailed = isDetailed,
                 onDelete = {
                         employeeToDelete ->
-                    // Implement the logic to delete the employee from the list
                     employeeInfo = employeeInfo.filterNot { it.id == employeeToDelete.id }
-                /* Implement onDelete logic here */ }
+                }
             )
         }
     }
@@ -284,6 +258,7 @@ fun EmployeeList(
     isDetailed: Boolean,
     onDelete: (Employee) -> Unit
 ) {
+
     LazyColumn  {
         item {
             if(share) {
@@ -292,58 +267,82 @@ fun EmployeeList(
                 Text("\n")
             }
         }
-        items(employees) { employee ->
-            if (isDetailed) {
-                EmployeeItem(employee = employee)
-            } else {
-                EmployeeItemReduced(
-                    employee = employee,
-                    onDelete = onDelete
-                )
+            items(employees) { employee ->
+                val index = employees.indexOf(employee)+1
+                if (isDetailed) {
+                    EmployeeItem(employee = employee,index)
+                } else {
+                    EmployeeItemReduced(
+                        employee = employee,
+                        index,
+                        onDelete = onDelete,
+                    )
+                }
+                HorizontalDivider(color = Color.LightGray)
             }
         }
-    }
-}
 
-
+        }
 
 @Composable
-fun EmployeeItem(employee: Employee ) {
+fun EmployeeItem(employee: Employee ,recordNo:Int=0) {
     val parts = employee.performedOn?.split("/")
     val surfaceColor by remember { mutableStateOf(parts?.get(1)?.let { getSurfaceColor(it.toInt()) }) }
     surfaceColor?.let { it ->
-        Surface(color = it) {
+        Surface(color = it,modifier=Modifier.fillMaxWidth()) {
         var color = Color.White
         var sign = ""
         if (employee.dutySurrendered) {
             color = Color.Red
             sign = "*"
         }
-        Row {
-            Spacer(modifier = Modifier.width(25.dp))
-            Text(text = " ${employee.id} )$sign", color = color, fontSize = 16.sp)
-            Spacer(modifier = Modifier.width(55.dp))
-            employee.dutyNo?.let { Text(it, color = color, fontSize = 16.sp) }
-            Spacer(modifier = Modifier.width(75.dp))
-            val rdate = employee.performedOn?.let { reverseStringDate(rdate = it) }
+        LazyRow(modifier = Modifier
+            .padding(start = 5.dp)
+            .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
 
-            // Text(employee.performedOn,color=color,fontSize = 16.sp )
-            if (rdate != null) {
-                Text(rdate, color = color, fontSize = 16.sp)
+//            modifier = Modifier.padding(start = 5.dp),
+//            verticalAlignment = Alignment.CenterVertically
+            )
+        {
+            item {
+                Spacer(modifier = Modifier.width(25.dp))
+                Text(text = "$recordNo )$sign ", color = Color.Green, fontSize = 11.sp)
+                Spacer(modifier = Modifier.width(25.dp))
+                Text(text = "[${employee.id}]", color = color, fontSize = 16.sp)
+                Spacer(modifier = Modifier.width(15.dp))
+                Text(text = " ${employee.id}", color = color, fontSize = 16.sp)
+                Spacer(modifier = Modifier.width(55.dp))
             }
-            Spacer(modifier = Modifier.width(105.dp))
-            employee.dutyEarned?.let { Text(it, color = color, fontSize = 16.sp) }
-            Spacer(modifier = Modifier.width(65.dp))
-            employee.wayBillNo?.let { Text(it, color = color, fontSize = 16.sp) }
-            Spacer(modifier = Modifier.width(35.dp))
-            employee.employeeName?.let { Text(it, color = color, fontSize = 16.sp) }
-            Spacer(modifier = Modifier.width(45.dp))
-            Text("₹", color = Color.Red, fontSize = 19.sp)
-            employee.collection?.let { Text(text = it, color = color, fontSize = 16.sp) }
-            Spacer(modifier = Modifier.width(35.dp))
-            if (employee.dutySurrendered) {
-                BlinkingText(text = "☑")
+            item {
+                employee.dutyNo?.let { Text(it, color = color, fontSize = 16.sp) }
+                Spacer(modifier = Modifier.width(75.dp))
             }
+            item {
+                val rdate = employee.performedOn?.let { reverseStringDate(rdate = it) }
+
+                if (rdate != null) {
+                    Text(rdate, color = color, fontSize = 16.sp)
+                }
+                Spacer(modifier = Modifier.width(105.dp))
+            }
+           item {
+               employee.dutyEarned?.let { Text(it, color = color, fontSize = 16.sp) }
+               Spacer(modifier = Modifier.width(65.dp))
+               employee.wayBillNo?.let { Text(it, color = color, fontSize = 16.sp) }
+               Spacer(modifier = Modifier.width(35.dp))
+               employee.employeeName?.let { Text(it, color = color, fontSize = 16.sp) }
+               Spacer(modifier = Modifier.width(45.dp))
+               Text("₹", color = Color.Red, fontSize = 19.sp)
+               employee.collection?.let { Text(text = it, color = color, fontSize = 16.sp) }
+               Spacer(modifier = Modifier.width(35.dp))
+               if (employee.dutySurrendered) {
+                   BlinkingText(text = "☑")
+               }
+           }
+
+
         }
     }
     }
@@ -359,7 +358,6 @@ fun BlinkingText(text: String) {
         Box(
             modifier = Modifier
                 .background(Color.White)
-               // .padding(8.dp)
         ) {
             Text(text = text, fontSize = 19.sp,color = Color.Red)
         }
@@ -368,98 +366,126 @@ fun BlinkingText(text: String) {
 
 
 @Composable
-fun EmployeeItemReduced(employee: Employee,onDelete:(Employee)->Unit) {
+fun EmployeeItemReduced(employee: Employee,recordNo: Int=0,onDelete:(Employee)->Unit) {
+
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     val parts = employee.performedOn?.split("/")
     val surfaceColor by remember { mutableStateOf(parts?.get(1)?.let { getSurfaceColor(it.toInt()) }) }
-
     surfaceColor?.let { it ->
-        Surface(color = it) {
+        Surface(color = it,modifier=Modifier.fillMaxWidth()
+
+        ) {
         var color = Color.White
         var sign = ""
         if (employee.dutySurrendered) {
             color = Color.Red
             sign = "*"
         }
-
-        LazyRow(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-        ) {
-            item {
-                Text(
-                    text = " ${employee.id} )$sign",
-                    color = color,
-                    fontSize = 16.sp,
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-            }
-            item {
-                employee.dutyNo?.let {
-                    Text(
-                        it,
-                        color = color,
-                        fontSize = 16.sp,
-                        modifier = Modifier.padding(end = 8.dp)
-                    )
-                }
-            }
-            item {
-                val rdate = employee.performedOn?.let { reverseStringDate(rdate = it) }
-                if (rdate != null) {
-                    Text(
-                        rdate,
-                        color = color,
-                        fontSize = 16.sp,
-                        modifier = Modifier.padding(end = 8.dp)
-                    )
-                }
-            }
-            item {
-                var isChecked by remember { mutableStateOf(false) }
-                Checkbox(
-                    checked = isChecked,
-                    onCheckedChange = { isChecked = it },
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                TextButton(
-                    onClick = {
-                        if (isChecked) {
-                            coroutineScope.launch {
-                                onDelete(employee)
-                                EmployeeDB.getInstance(context).getEmployeeDao().delete(employee.id)
-                                Toast.makeText(context, "Record Deleted!", Toast.LENGTH_SHORT).show()
-                                isChecked=false
-                            }
-                        }
-                        else {
-                            Toast.makeText(context, "Select record ", Toast.LENGTH_SHORT).show()
-
-                        }
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        contentColor = Color.White,
-                        containerColor = Color.Yellow
-                    )
+            Box(modifier = Modifier.fillMaxWidth()) {
+                LazyRow(
+                    modifier = Modifier
+                        .padding(start = 5.dp)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("Delete", color = Color.Red, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                    item {
+                        Text(
+                            text = "${recordNo})$sign",
+                            color = Color.Green,
+                            fontSize = 11.sp,
+                            modifier = Modifier.padding(start=10.dp,end = 8.dp)
+                        )
+                    }
+                    item {
+                        Text(
+                            text = "[${employee.id}]",
+                            color = color,
+                            fontSize = 16.sp,
+                            modifier = Modifier.padding(start=10.dp,end = 8.dp)
+                        )
+                    }
+                    item {
+                        employee.dutyNo?.let {
+                            Text(
+                                it,
+                                color = color,
+                                fontSize = 16.sp,
+                                modifier = Modifier.padding(start=10.dp,end = 8.dp)
+                            )
+                        }
+                    }
+                    item {
+                        val rdate = employee.performedOn?.let { reverseStringDate(rdate = it) }
+                        if (rdate != null) {
+                            Text(
+                                rdate,
+                                color = color,
+                                fontSize = 16.sp,
+                                modifier = Modifier.padding(start=10.dp,end = 8.dp)
+                            )
+                        }
+                    }
+                    item {
+                        var isChecked by remember { mutableStateOf(false) }
+                        Checkbox(
+                            checked = isChecked,
+                            onCheckedChange = { isChecked = it },
+                            modifier = Modifier.padding(end = 8.dp)
+                        )
+                        TextButton(
+                            onClick = {
+                                if (isChecked) {
+                                    coroutineScope.launch {
+                                        onDelete(employee)
+                                        EmployeeDB.getInstance(context).getEmployeeDao()
+                                            .delete(employee.id)
+                                        Toast.makeText(
+                                            context,
+                                            "Record Deleted!",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        isChecked = false
+                                    }
+                                } else {
+                                    Toast.makeText(context, "Select record ", Toast.LENGTH_SHORT)
+                                        .show()
+
+                                }
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                contentColor = Color.White,
+                                containerColor = Color(0xFFFF3D00)
+                            ),
+                            elevation = ButtonDefaults.buttonElevation(
+                                defaultElevation = 8.dp,
+                                pressedElevation = 12.dp,
+                                focusedElevation = 12.dp
+                            )
+                        ) {
+                            Text(
+                                "Delete",
+                                color = Color.White,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
+                    }
+                    item {
+                        Text(
+                            "  " +
+                                    employee.dutyEarned,
+                            color = color,
+                            fontSize = 16.sp,
+                            modifier = Modifier.padding(start=15.dp,end = 8.dp)
+                        )
+                        if (employee.dutySurrendered) {
+                            BlinkingText(text = "☑")
+                        }
+                    }
+
                 }
             }
-
-            item {
-                Text("  "+
-                        employee.dutyEarned,
-                    color = color,
-                    fontSize = 16.sp,
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                if (employee.dutySurrendered) {
-                    BlinkingText(text = "☑")
-                }
-            }
-
-        }
     }
     }
 }
@@ -494,5 +520,13 @@ fun reverseStringDate(rdate: String): String {
     }
 }
 
+fun myreverseStringDate(rdate: String): String {
+    val parts = rdate.split("/")
+    return if (parts.size >= 3) {
+        "${parts[2]}/${parts[1]}/${parts[0]}"
+    } else {
+        rdate // Return the original date if it doesn't have the expected format
+    }
+}
 
 

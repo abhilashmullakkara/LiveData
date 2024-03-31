@@ -1,0 +1,21 @@
+$dokka.format:javadoc-v1
+$dokka.linkExtension:html
+$dokka.location:com.inmobi.ads/AudioStatus.Companion///PointingToDeclaration/com/inmobi/ads/AudioStatus.Companion.html
+$dokka.location:com.inmobi.ads/InMobiAdRequestStatus.StatusCode///PointingToDeclaration/com/inmobi/ads/InMobiAdRequestStatus.StatusCode.html
+$dokka.location:com.inmobi.ads/InMobiBanner.AnimationType///PointingToDeclaration/com/inmobi/ads/InMobiBanner.AnimationType.html
+$dokka.location:com.inmobi.ads/InMobiMovableRelativeLayout.Companion///PointingToDeclaration/com/inmobi/ads/InMobiMovableRelativeLayout.Companion.html
+$dokka.location:com.inmobi.ads/InMobiNative.LockScreenListener///PointingToDeclaration/com/inmobi/ads/InMobiNative.LockScreenListener.html
+$dokka.location:com.inmobi.sdk/InMobiSdk.AgeGroup///PointingToDeclaration/com/inmobi/sdk/InMobiSdk.AgeGroup.html
+$dokka.location:com.inmobi.sdk/InMobiSdk.Education///PointingToDeclaration/com/inmobi/sdk/InMobiSdk.Education.html
+$dokka.location:com.inmobi.sdk/InMobiSdk.Gender///PointingToDeclaration/com/inmobi/sdk/InMobiSdk.Gender.html
+$dokka.location:com.inmobi.sdk/InMobiSdk.LogLevel///PointingToDeclaration/com/inmobi/sdk/InMobiSdk.LogLevel.html
+$dokka.location:com.inmobi.unifiedId/InMobiUserDataModel.Builder///PointingToDeclaration/com/inmobi/unifiedId/InMobiUserDataModel.Builder.html
+$dokka.location:com.inmobi.unifiedId/InMobiUserDataTypes.Builder///PointingToDeclaration/com/inmobi/unifiedId/InMobiUserDataTypes.Builder.html
+com.inmobi.ads
+com.inmobi.ads.banner
+com.inmobi.ads.exceptions
+com.inmobi.ads.listeners
+com.inmobi.compliance
+com.inmobi.sdk
+com.inmobi.unifiedId
+
