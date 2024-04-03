@@ -97,50 +97,6 @@ fun myCalendar(): String {
 
 
 
-//@SuppressLint("SuspiciousIndentation")
-//@Composable
-//fun myCalendar():String {
-//    val mContext = LocalContext.current
-//    val mYear1: Int
-//    val mMonth1: Int
-//    val mDay1: Int
-//    var mMonts by remember {
-//        mutableStateOf("")
-//    }
-//    var mMdays by remember {
-//        mutableStateOf("")
-//    }
-//    val mCalendar = Calendar.getInstance()
-//    mYear1 = mCalendar.get(Calendar.YEAR)
-//    mMonth1 = mCalendar.get(Calendar.MONTH)
-//    mDay1 = mCalendar.get(Calendar.DAY_OF_MONTH)
-//    mCalendar.time = Date()
-//    val mDate = remember { mutableStateOf("") }
-//    val mDatePickerDialog = DatePickerDialog(
-//        mContext,
-//        { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
-//            mMonts = if((mMonth+1)<10)
-//                "0${mMonth1+1}"
-//            else "${mMonth1+1}"
-//            mMdays = if(mDayOfMonth<10) "0${mDayOfMonth}"
-//            else "$mDayOfMonth"
-//            mDate.value = "$mYear/$mMonts/$mMdays"
-//        }, mYear1, mMonth1, mDay1
-//    )
-//        Button(onClick = {
-//            mDatePickerDialog.show()
-//        },modifier = Modifier.padding(start=10.dp),
-//            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0XFF0F9D58)) ) {
-//            Text(text = "Select Date", color = Color.White)
-//        }
-//    val rdate= reverseStringDate(rdate = mDate.value)
-//        Text(text = "Selected Date: $rdate", fontSize = 17.sp,modifier = Modifier.padding(start=10.dp)
-//        )
-//    //
-//   return mDate.value
-//}
-
-
 @Composable
 fun CircularLoadingIndicator(isLoading: Boolean) {
     if (isLoading) {

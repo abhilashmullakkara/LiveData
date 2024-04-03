@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ButtonDefaults
@@ -67,246 +68,258 @@ fun RoomData(navController:NavController) {
         var wBillNo by rememberSaveable { mutableStateOf("") }
         var crewName by rememberSaveable { mutableStateOf("") }
         var surrender by rememberSaveable { mutableStateOf(false) }
-        Column(modifier=Modifier.height(800.dp)) {
-            Row {
-            OutlinedTextField(
-                value = scheduleNo,
-                singleLine = true,
-                shape = RoundedCornerShape(80),
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                onValueChange = { newValue ->
-                    val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
-                    if (isValidText(textFieldValue)) {
-                        scheduleNo = textFieldValue.text
-                    }
-                },
-                colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedTextColor = Color.Green,
-                    focusedTextColor = Color(0xFFF4511E),
-                    cursorColor = Color.Blue,
-                    focusedContainerColor = Color(0xFF9BB9EC),
-                    focusedLabelColor = Color.Gray,
+        LazyColumn(modifier=Modifier.height(800.dp)) {
+            item{
+                Row {
+                    OutlinedTextField(
+                        value = scheduleNo,
+                        singleLine = true,
+                        shape = RoundedCornerShape(80),
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                        onValueChange = { newValue ->
+                            val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
+                            if (isValidText(textFieldValue)) {
+                                scheduleNo = textFieldValue.text
+                            }
+                        },
+                        colors = OutlinedTextFieldDefaults.colors(
+                            unfocusedTextColor = Color.Green,
+                            focusedTextColor = Color(0xFFF4511E),
+                            cursorColor = Color.Blue,
+                            focusedContainerColor = Color(0xFF9BB9EC),
+                            focusedLabelColor = Color.Gray,
 
-                    disabledContainerColor =  Color(0xFF648FD6)
-                ),
-                modifier = Modifier
-                    .fillMaxWidth(0.4f)
-                    .padding(start = 10.dp),
-                placeholder = {
-                    Text(
-                        text = "Schedule NO:",
-                        color = Color.White,
-                        fontSize = 17.sp
+                            disabledContainerColor =  Color(0xFF648FD6)
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth(0.4f)
+                            .padding(start = 10.dp),
+                        placeholder = {
+                            Text(
+                                text = "Schedule NO:",
+                                color = Color.White,
+                                fontSize = 17.sp
+                            )
+                        }
                     )
-                }
-            )
-            Spacer(modifier = Modifier.width(7.dp))
+                    Spacer(modifier = Modifier.width(7.dp))
 
-            OutlinedTextField(
-                value = dutyEearnt,
-                singleLine = true,
-                shape = RoundedCornerShape(80),
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                onValueChange = {
-                    dutyEearnt = it
-                },
-                colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedTextColor = Color.Green,
-                    focusedTextColor = Color.White,
-                    cursorColor = Color.Blue,
-                    focusedLabelColor = Color.Gray,
-                    disabledContainerColor = Color(0xFF4C94D6)
-                ),
-                modifier = Modifier
-                    .fillMaxWidth(0.8f),
-                placeholder = {
-                    Text(
-                        text = "No of duty earned:",
-                        color = Color.White,
-                        fontSize = 16.sp
-                    )
-                }
-            )
-        }
-            Spacer(modifier = Modifier.height(10.dp))
-            permedDate = myCalendar()
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                "Optional Data (below)",
-                fontSize = 17.sp,
-                color = Color.Red,
-                modifier = Modifier.padding(start = 10.dp)
-            )
-            HorizontalDivider(thickness = 5.dp, color = Color.White)
-            Spacer(modifier = Modifier.height(10.dp))
-            Text("Collection",modifier=Modifier.padding(start=20.dp),
-                color=Color.White, fontSize = 14.sp)
-            OutlinedTextField(
-                value = todayCollection,
-                singleLine = true,
-                shape = RoundedCornerShape(80),
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                onValueChange = {
-                    todayCollection = it
-                },
-                colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedTextColor = Color.Green,
-                    focusedTextColor = Color.White,
-                    cursorColor = Color.Blue,
-                    focusedLabelColor = Color.Gray,
-                    disabledContainerColor = Color(0xFF4C94D6)
-                ),
-                modifier = Modifier
-                    .fillMaxWidth(0.44f)
-                    .padding(start = 10.dp),
-                placeholder = {
-                    Text(
-                        text = "Collection:",
-                        color = Color.Black,
-                        fontSize = 14.sp
-                    )
-                }
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            Text("Way Bill No",modifier=Modifier.padding(start=20.dp),color= Color.White, fontSize = 14.sp)
-            OutlinedTextField(
-                value = wBillNo,
-                singleLine = true,
-                shape = RoundedCornerShape(80),
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                onValueChange = { newValue ->
-                    val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
-                    if (isValidText(textFieldValue)) {
-                        wBillNo = textFieldValue.text
-                    }
-                },
-                colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedTextColor = Color.Green,
-                    focusedTextColor = Color.White,
-                    cursorColor = Color.Blue,
-                    focusedLabelColor = Color.Gray,
-                    disabledContainerColor = Color(0xFF4C94D6)
-                ),
-                modifier = Modifier
-                    .fillMaxWidth(0.44f)
-                    .padding(start = 10.dp),
-                placeholder = {
-                    Text(
-                        text = "Way Bill No",
-                        color = Color.Black,
-                        fontSize = 14.sp
-                    )
-                }
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            Text("Name of the Crew",modifier=Modifier.padding(start=20.dp),color=Color.White, fontSize = 14.sp)
-            OutlinedTextField(
-                value = crewName,
-                singleLine = true,
-                shape = RoundedCornerShape(20),
-                keyboardOptions = KeyboardOptions(
-                    capitalization = KeyboardCapitalization.Characters
-                ),
-                colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedTextColor = Color.Green,
-                    focusedTextColor = Color.White,
-                    cursorColor = Color.Blue,
-                    focusedLabelColor = Color.Gray,
-                    disabledContainerColor = Color(0xFF4C94D6),
-                    focusedBorderColor = Color(0xFFF57F17),
-                            disabledBorderColor = Color.Black
-
-                ),
-              // keyboardOptions = KeyboardOptions.Default.copy(keyboardType= KeyboardType.Text).copy(capitalization = KeyboardCapitalization.Characters),
-                onValueChange = {
-                    crewName = it
-                },
-
-                modifier = Modifier
-                    .fillMaxWidth(0.44f)
-                    .padding(start = 10.dp).border(BorderStroke(2.dp, Color.Red)),
-                placeholder = {
-                    Text(
-                        text = "Name of the crew",
-                        color = Color.Black,
-                        fontSize = 14.sp
-                    )
-                }
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Row(modifier = Modifier.padding(start = 10.dp)) {
-                Surface(color = Color(0xFFA8BDE0)) {
-                    Text("If surrender, put tick ☑  ", fontWeight = FontWeight.SemiBold, fontSize = 16.sp, color = Color.Red)
-                    Spacer(modifier = Modifier.width(10.dp))
-                    Checkbox(
-                        modifier = Modifier.padding(start=290.dp,end=5.dp).fillMaxWidth(),
-                        checked = surrender,
-                        onCheckedChange = { isChecked -> surrender = isChecked },
-                        colors = CheckboxDefaults.colors(checkedColor = Color.Red) // Customize checkbox color
+                    OutlinedTextField(
+                        value = dutyEearnt,
+                        singleLine = true,
+                        shape = RoundedCornerShape(80),
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                        onValueChange = {
+                            dutyEearnt = it
+                        },
+                        colors = OutlinedTextFieldDefaults.colors(
+                            unfocusedTextColor = Color.Green,
+                            focusedTextColor = Color.White,
+                            cursorColor = Color.Blue,
+                            focusedLabelColor = Color.Gray,
+                            disabledContainerColor = Color(0xFF4C94D6)
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth(0.8f),
+                        placeholder = {
+                            Text(
+                                text = "No of duty earned:",
+                                color = Color.White,
+                                fontSize = 16.sp
+                            )
+                        }
                     )
                 }
             }
-//Spacer(modifier = Modifier.height(10.dp)) //✔✓☑ Check mark - Tick symbol 💯☐☒❎✗✘
-//            Row(modifier = Modifier.padding(start=10.dp)){
-//                Surface(color= Color(0xFFA8BDE0)) {
-//
-//                    Text("If surrender, put tick ☑  ", fontWeight = FontWeight.SemiBold ,fontSize = 16.sp,color=Color.Red)
-//                   // Spacer(modifier = Modifier.width(10.dp))
-//                 surrender= checkbox()
-//
-//                }
-//            }
+          item {
+              Spacer(modifier = Modifier.height(10.dp))
+              permedDate = myCalendar()
+              Spacer(modifier = Modifier.height(10.dp))
+              Text(
+                  "Optional Data (below)",
+                  fontSize = 17.sp,
+                  color = Color.Red,
+                  modifier = Modifier.padding(start = 10.dp)
+              )
+          }
+         item {
+             HorizontalDivider(thickness = 5.dp, color = Color.White)
+             Spacer(modifier = Modifier.height(10.dp))
+             Text("Collection",modifier=Modifier.padding(start=20.dp),
+                 color=Color.White, fontSize = 14.sp)
+
+         }
+            item{
+                OutlinedTextField(
+                    value = todayCollection,
+                    singleLine = true,
+                    shape = RoundedCornerShape(80),
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                    onValueChange = {
+                        todayCollection = it
+                    },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedTextColor = Color.Green,
+                        focusedTextColor = Color.White,
+                        cursorColor = Color.Blue,
+                        focusedLabelColor = Color.Gray,
+                        disabledContainerColor = Color(0xFF4C94D6)
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth(0.44f)
+                        .padding(start = 10.dp),
+                    placeholder = {
+                        Text(
+                            text = "Collection:",
+                            color = Color.Black,
+                            fontSize = 14.sp
+                        )
+                    }
+                )
+            }
+           item {
+               Spacer(modifier = Modifier.height(10.dp))
+               Text("Way Bill No",modifier=Modifier.padding(start=20.dp),color= Color.White, fontSize = 14.sp)
+               OutlinedTextField(
+                   value = wBillNo,
+                   singleLine = true,
+                   shape = RoundedCornerShape(80),
+                   keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                   onValueChange = { newValue ->
+                       val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
+                       if (isValidText(textFieldValue)) {
+                           wBillNo = textFieldValue.text
+                       }
+                   },
+                   colors = OutlinedTextFieldDefaults.colors(
+                       unfocusedTextColor = Color.Green,
+                       focusedTextColor = Color.White,
+                       cursorColor = Color.Blue,
+                       focusedLabelColor = Color.Gray,
+                       disabledContainerColor = Color(0xFF4C94D6)
+                   ),
+                   modifier = Modifier
+                       .fillMaxWidth(0.44f)
+                       .padding(start = 10.dp),
+                   placeholder = {
+                       Text(
+                           text = "Way Bill No",
+                           color = Color.Black,
+                           fontSize = 14.sp
+                       )
+                   }
+               )
+           }
+           item {
+               Spacer(modifier = Modifier.height(10.dp))
+               Text("Name of the Crew",modifier=Modifier.padding(start=20.dp),color=Color.White, fontSize = 14.sp)
+               OutlinedTextField(
+                   value = crewName,
+                   singleLine = true,
+                   shape = RoundedCornerShape(20),
+                   keyboardOptions = KeyboardOptions(
+                       capitalization = KeyboardCapitalization.Characters
+                   ),
+                   colors = OutlinedTextFieldDefaults.colors(
+                       unfocusedTextColor = Color.Green,
+                       focusedTextColor = Color.White,
+                       cursorColor = Color.Blue,
+                       focusedLabelColor = Color.Gray,
+                       disabledContainerColor = Color(0xFF4C94D6),
+                       focusedBorderColor = Color(0xFFF57F17),
+                       disabledBorderColor = Color.Black
+
+                   ),
+                   // keyboardOptions = KeyboardOptions.Default.copy(keyboardType= KeyboardType.Text).copy(capitalization = KeyboardCapitalization.Characters),
+                   onValueChange = {
+                       crewName = it
+                   },
+
+                   modifier = Modifier
+                       .fillMaxWidth(0.44f)
+                       .padding(start = 10.dp).border(BorderStroke(2.dp, Color.Red)),
+                   placeholder = {
+                       Text(
+                           text = "Name of the crew",
+                           color = Color.Black,
+                           fontSize = 14.sp
+                       )
+                   }
+               )
 
 
-            OutlinedButton(
-                onClick = {
+           }
+            item {
+                Spacer(modifier = Modifier.height(10.dp))
 
-                    if (scheduleNo.isNotBlank() && dutyEearnt.isNotBlank() && permedDate.isNotBlank()) {
-                        coroutineScope.launch {
-                            withContext(Dispatchers.IO) {
-                                if (todayCollection.isBlank()) todayCollection = "--.--"
-                                val employee = Employee(
-                                    dutyNo = scheduleNo,
-                                    performedOn = permedDate,
-                                    dutyEarned = dutyEearnt,
-                                    collection = todayCollection,
-                                    employeeName = crewName,
-                                    wayBillNo = wBillNo,
-                                    dutySurrendered = surrender
-                                )
-                                EmployeeDB.getInstance(context).getEmployeeDao().insert(employee)
+                Row(modifier = Modifier.padding(start = 10.dp)) {
+                    Surface(color = Color(0xFFA8BDE0)) {
+                        Text("If surrender, put tick ☑  ", fontWeight = FontWeight.SemiBold, fontSize = 16.sp, color = Color.Red)
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Checkbox(
+                            modifier = Modifier.padding(start=290.dp,end=5.dp).fillMaxWidth(),
+                            checked = surrender,
+                            onCheckedChange = { isChecked -> surrender = isChecked },
+                            colors = CheckboxDefaults.colors(checkedColor = Color.Red) // Customize checkbox color
+                        )
+                    }
+                }
+            }
 
-                                // Show the Toast on the main/UI thread
-                                GlobalScope.launch(Dispatchers.Main) {
-                                    flag=true
-                                    Toast.makeText(context, "Record inserted successfully", Toast.LENGTH_SHORT).show()
-                                }
+item {
+    OutlinedButton(
+        onClick = {
 
-                                scheduleNo = " "
-                                permedDate = " " // Make sure to set this to a valid date
-                                dutyEearnt = " "
-                                todayCollection = ""
-                                crewName = ""
-                                wBillNo = ""
-                            }
-                        }
-                    } else {
+            if (scheduleNo.isNotBlank() && dutyEearnt.isNotBlank() && permedDate.isNotBlank()) {
+                coroutineScope.launch {
+                    withContext(Dispatchers.IO) {
+                        if (todayCollection.isBlank()) todayCollection = "--.--"
+                        val employee = Employee(
+                            dutyNo = scheduleNo,
+                            performedOn = permedDate,
+                            dutyEarned = dutyEearnt,
+                            collection = todayCollection,
+                            employeeName = crewName,
+                            wayBillNo = wBillNo,
+                            dutySurrendered = surrender
+                        )
+                        EmployeeDB.getInstance(context).getEmployeeDao().insert(employee)
+
                         // Show the Toast on the main/UI thread
                         GlobalScope.launch(Dispatchers.Main) {
-                            Toast.makeText(context, "Input Record first", Toast.LENGTH_SHORT).show()
+                            flag=true
+                            Toast.makeText(context, "Record inserted successfully", Toast.LENGTH_SHORT).show()
                         }
+
+                        scheduleNo = " "
+                        permedDate = " " // Make sure to set this to a valid date
+                        dutyEearnt = " "
+                        todayCollection = ""
+                        crewName = ""
+                        wBillNo = ""
                     }
-                },
-                modifier = Modifier.padding(start = 20.dp),
-                colors = ButtonDefaults.buttonColors(Color(0xFF0F0825)),
-                border = BorderStroke(width = 3.dp, color = Color(0xFF9889CA))
-            ) {
-                Text("INSERT", fontSize = 17.sp, color = Color.White)
+                }
+            } else {
+                // Show the Toast on the main/UI thread
+                GlobalScope.launch(Dispatchers.Main) {
+                    Toast.makeText(context, "Input Record first", Toast.LENGTH_SHORT).show()
+                }
             }
-            Spacer(modifier = Modifier.height(10.dp))
-            BannerAdView(false, AdSize.BANNER)
+        },
+        modifier = Modifier.padding(start = 20.dp),
+        colors = ButtonDefaults.buttonColors(Color(0xFF0F0825)),
+        border = BorderStroke(width = 3.dp, color = Color(0xFF9889CA))
+    ) {
+        Text("INSERT", fontSize = 17.sp, color = Color.White)
+    }
+}
+            item {
+                Spacer(modifier = Modifier.height(10.dp))
+                BannerAdView(false, AdSize.BANNER)
+
+            }
+
+
 
         }
         if (flag){
@@ -314,7 +327,6 @@ fun RoomData(navController:NavController) {
         }
     }
 }
-//@SuppressLint("SuspiciousIndentation")
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun EditRoomData(rec:Int,database: Employee,navController: NavController) {
