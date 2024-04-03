@@ -25,7 +25,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -43,18 +42,15 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.abhilash.livedata.ui.ai.isValidText
 import com.abhilash.livedata.ui.theme.database.OriginalData
-import com.abhilash.livedata.ui.theme.userdatabase.CircularLoadingIndicator
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
 
 
 @SuppressLint("SuspiciousIndentation")
@@ -130,49 +126,95 @@ Surface(color = Color(0xFF071715)) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             var resultList: SnapshotStateList<OriginalData>
-            val errorMessage = remember { mutableStateOf("") }
+            val errorMessage = remember { mutableStateOf("Data not found") }
             Button(
                 onClick = {
-                    if (depoNo.isNotBlank() && scheduleNo.isNotBlank()) {
-                        kilomts = 0.0
-                        ti=0
-                        result=""
-                        etmNumbers.clear()
-                        val myRef = FirebaseDatabase.getInstance().reference.child("")
-                        fetchMyDatabase(myRef, depoNo, scheduleNo, { results ->
-                            resultList = results as SnapshotStateList<OriginalData>
-                            errorMessage.value = "" // Clear any previous error message
-                            kilomts = 0.0 // Reset kilomts variable to zero
-                            val data = StringBuffer()
-                            val etmKmr = StringBuffer()
-                            if (resultList.isNotEmpty()) {
-                                resultList.forEach {
-                                    data.append("\n")
-                                    data.append("\n" + (ti + 1).toString())
-                                    data.append("   " + it.departureTime)
-                                    data.append("   " + it.startPlace)
-                                    data.append("   " + it.via)
-                                    data.append("   " + it.destinationPlace)
-                                    data.append("   " + it.arrivalTime)
-                                    data.append("   " + it.kilometer)
-                                    kilomts += it.kilometer.toDouble()
-                                    etmKmr.append(it.etmNo)
-                                    ti += 1
-                                    flag = 1
-                                    etmNumbers.add(it.etmNo.replace("\\s+".toRegex(), ""))
+                    try {
+                        if (depoNo.isNotBlank() && scheduleNo.isNotBlank()) {
+                            kilomts = 0.0
+                            ti=0
+                            result=""
+                            etmNumbers.clear()
+                            val myRef = FirebaseDatabase.getInstance().reference.child("")
+                            fetchMyDatabase(myRef, depoNo, scheduleNo, { results ->
+                                resultList = results as SnapshotStateList<OriginalData>
+                                errorMessage.value = "" // Clear any previous error message
+                                kilomts = 0.0 // Reset kilomts variable to zero
+                                val data = StringBuffer()
+                                val etmKmr = StringBuffer()
+                                if (resultList.isNotEmpty()) {
+                                    resultList.forEach {
+                                        data.append("\n")
+                                        data.append("\n" + (ti + 1).toString())
+                                        data.append("   " + it.departureTime)
+                                        data.append("   " + it.startPlace)
+                                        data.append("   " + it.via)
+                                        data.append("   " + it.destinationPlace)
+                                        data.append("   " + it.arrivalTime)
+                                        data.append("   " + it.kilometer)
+                                        kilomts += it.kilometer.toDouble()
+                                        etmKmr.append(it.etmNo)
+                                        ti += 1
+                                        flag = 1
+                                        etmNumbers.add(it.etmNo.replace("\\s+".toRegex(), ""))
+                                    }
+                                    result = data.toString()
                                 }
-                                result = data.toString()
-                            }
-                        }, { error ->
-                            errorMessage.value = "Error: ${error.message}"
-                        })
-                    } else {
-                        kilomts = 0.0
-                        ti=0
-                        result=""
-                        etmNumbers.clear()
-                        Toast.makeText(context, "Input data first", Toast.LENGTH_SHORT).show()
+                            }, { error ->
+                                errorMessage.value = "Error: ${error.message}"
+                            })
+                        } else {
+                            kilomts = 0.0
+                            ti=0
+                            result=""
+                            etmNumbers.clear()
+                            Toast.makeText(context, "Input data first", Toast.LENGTH_SHORT).show()
+                        }
+                    } catch (e: Exception) {
+                        // Handle the exception here
+                        e.printStackTrace()
                     }
+
+//                    if (depoNo.isNotBlank() && scheduleNo.isNotBlank()) {
+//                        kilomts = 0.0
+//                        ti=0
+//                        result=""
+//                        etmNumbers.clear()
+//                        val myRef = FirebaseDatabase.getInstance().reference.child("")
+//                        fetchMyDatabase(myRef, depoNo, scheduleNo, { results ->
+//                            resultList = results as SnapshotStateList<OriginalData>
+//                            errorMessage.value = "" // Clear any previous error message
+//                            kilomts = 0.0 // Reset kilomts variable to zero
+//                            val data = StringBuffer()
+//                            val etmKmr = StringBuffer()
+//                            if (resultList.isNotEmpty()) {
+//                                resultList.forEach {
+//                                    data.append("\n")
+//                                    data.append("\n" + (ti + 1).toString())
+//                                    data.append("   " + it.departureTime)
+//                                    data.append("   " + it.startPlace)
+//                                    data.append("   " + it.via)
+//                                    data.append("   " + it.destinationPlace)
+//                                    data.append("   " + it.arrivalTime)
+//                                    data.append("   " + it.kilometer)
+//                                    kilomts += it.kilometer.toDouble()
+//                                    etmKmr.append(it.etmNo)
+//                                    ti += 1
+//                                    flag = 1
+//                                    etmNumbers.add(it.etmNo.replace("\\s+".toRegex(), ""))
+//                                }
+//                                result = data.toString()
+//                            }
+//                        }, { error ->
+//                            errorMessage.value = "Error: ${error.message}"
+//                        })
+//                    } else {
+//                        kilomts = 0.0
+//                        ti=0
+//                        result=""
+//                        etmNumbers.clear()
+//                        Toast.makeText(context, "Input data first", Toast.LENGTH_SHORT).show()
+//                    }
                 },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
@@ -180,18 +222,19 @@ Surface(color = Color(0xFF071715)) {
             }
             Text(text = "Check Internet Connection", color = Color.LightGray)
         }
-        if(flag==1){
-            var isLoading by rememberSaveable{
-                mutableStateOf(true) }
-            LaunchedEffect(isLoading) {
-                if (isLoading) {
-                    withContext(Dispatchers.Main) {
-                        delay(1200)
-                        isLoading = false
-                    }
-                }
-            }
-            CircularLoadingIndicator(isLoading)
+//        if(flag==1){
+//            var isLoading by rememberSaveable{
+//                mutableStateOf(true) }
+//            LaunchedEffect(isLoading) {
+//                if (isLoading) {
+//                    withContext(Dispatchers.Main) {
+//                        delay(1200)
+//                        isLoading = false
+//                    }
+//                }
+//            }
+            //CircularLoadingIndicator(isLoading)
+        if(result.isNotEmpty()){
             Text(" \nNo   Time  From   Via    To    Arr.Time   Kmrs\n",color= Color.White)
             Divider(color = Color.Red, thickness = 4.dp)
             Text(result, color = Color.White)
@@ -203,8 +246,13 @@ Surface(color = Color(0xFF071715)) {
         }
         else
         {
-            flag=0
+            androidx.compose.material3.Text(
+                "No matching records found.",
+                fontSize = 14.sp,
+                color = Color.White
+            )
         }
+
     }
 }
     }
