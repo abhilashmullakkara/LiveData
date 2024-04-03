@@ -60,7 +60,9 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/ap_generated_sources/debugAndroidTest/out" isTestSource="true" generated="true" />
     </content>
     <content url="file://$MODULE_DIR$/../../../app/build/generated/ksp/debugAndroidTest/java" />
-    <content url="file://$MODULE_DIR$/../../../app/build/generated/ksp/debugAndroidTest/kotlin" />
+    <content url="file://$MODULE_DIR$/../../../app/build/generated/ksp/debugAndroidTest/kotlin">
+      <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/ksp/debugAndroidTest/kotlin" isTestSource="true" generated="true" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../app/build/generated/res/resValues/androidTest/debug">
       <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/res/resValues/androidTest/debug" type="java-test-resource" />
     </content>

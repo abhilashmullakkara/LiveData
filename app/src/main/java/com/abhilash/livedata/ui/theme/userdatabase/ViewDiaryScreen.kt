@@ -191,9 +191,13 @@ fun ViewDiaryScreen(navController: NavController) {
                                 fontSize = 13.sp)
                         }
                         item {
-                            Text("RecordNo",  color=Color.White,
-                                modifier=Modifier.padding(start=15.dp),
-                                fontSize = 14.sp)
+                            Surface(color= Color(0xFF5F2751)) {
+                                Text(
+                                    "RecordNo", color = Color.White,
+                                    modifier = Modifier.padding(start = 15.dp),
+                                    fontSize = 14.sp
+                                )
+                            }
                         }
                         item {
                             Text("D/No",  color=Color.White,
@@ -305,17 +309,21 @@ fun EmployeeItem(employee: Employee ,recordNo:Int=0) {
 //            modifier = Modifier.padding(start = 5.dp),
 //            verticalAlignment = Alignment.CenterVertically
             )
-        {
+        {item{
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(text = "$recordNo )$sign ", color = Color.Green, fontSize = 11.sp)
+            Spacer(modifier = Modifier.width(10.dp))
+        }
             item {
-                Spacer(modifier = Modifier.width(25.dp))
-                Text(text = "$recordNo )$sign ", color = Color.Green, fontSize = 11.sp)
-                Spacer(modifier = Modifier.width(25.dp))
-                Text(text = "[${employee.id}]", color = color, fontSize = 16.sp)
-                Spacer(modifier = Modifier.width(15.dp))
-                Text(text = " ${employee.id}", color = color, fontSize = 16.sp)
-                Spacer(modifier = Modifier.width(55.dp))
+                Surface(color= Color(0xFF5F2751)){
+
+                    Text(text = "[${employee.id}]", color = color, fontSize = 16.sp)
+                }
+
+
             }
             item {
+                Spacer(modifier = Modifier.width(10.dp))
                 employee.dutyNo?.let { Text(it, color = color, fontSize = 16.sp) }
                 Spacer(modifier = Modifier.width(75.dp))
             }
@@ -398,12 +406,14 @@ fun EmployeeItemReduced(employee: Employee,recordNo: Int=0,onDelete:(Employee)->
                         )
                     }
                     item {
-                        Text(
-                            text = "[${employee.id}]",
-                            color = color,
-                            fontSize = 16.sp,
-                            modifier = Modifier.padding(start=10.dp,end = 8.dp)
-                        )
+                        Surface(color= Color(0xFF5F2751)) {
+                            Text(
+                                text = "[${employee.id}]",
+                                color = color,
+                                fontSize = 16.sp,
+                                modifier = Modifier.padding(start = 10.dp, end = 8.dp)
+                            )
+                        }
                     }
                     item {
                         employee.dutyNo?.let {

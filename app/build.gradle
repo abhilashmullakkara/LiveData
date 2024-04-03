@@ -17,8 +17,8 @@ android {
         applicationId "com.abhilash.livedata"
         minSdk 21
         targetSdk 34
-        versionCode 16
-        versionName "16.0"
+        versionCode 18
+        versionName "16.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
