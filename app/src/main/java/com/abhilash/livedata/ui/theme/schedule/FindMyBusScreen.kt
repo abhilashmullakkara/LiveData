@@ -1,9 +1,11 @@
 package com.abhilash.livedata.ui.theme.schedule
 
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -18,7 +20,7 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,13 +32,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.abhilash.livedata.test.NodepotSelectionScreen
 import com.abhilash.livedata.ui.ai.isValidText
 import com.abhilash.livedata.ui.theme.database.OriginalData
+import com.abhilash.livedata.ui.theme.database.depoList
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -57,7 +60,7 @@ fun FindMyBusScreen(navController: NavController) {
                     modifier = Modifier.size(48.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.Outlined.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                         contentDescription = "Arrow",
                         tint = Color.White
                     )
@@ -78,29 +81,13 @@ fun FindMyBusScreen(navController: NavController) {
                 modifier = Modifier.padding(start = 10.dp),
                 fontSize = 18.sp, color = Color.LightGray
             )
-            Row {
-                OutlinedTextField(
-                    value = depoNo,
-                    modifier = Modifier
-                        .height(60.dp)
-                        .width(120.dp)
-                        .padding(start = 20.dp),
-                    onValueChange = { newValue ->
-                        val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
-                        if (isValidText(textFieldValue)) {
-                            depoNo = textFieldValue.text
-                        }
-                    },
-                    label = { Text("Depot NO") },
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                )
-                Spacer(modifier = Modifier.width(15.dp))
+            Row(  modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)) {
+                depoNo=NodepotSelectionScreen(depoList)
+                Spacer(modifier = Modifier.width(10.dp))
                 OutlinedTextField(
                     value = destination,
-                    modifier = Modifier
-                        .height(60.dp)
-                        .width(180.dp),
-
                     onValueChange = { newValue ->
                         val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
                         if (isValidText(textFieldValue)) {

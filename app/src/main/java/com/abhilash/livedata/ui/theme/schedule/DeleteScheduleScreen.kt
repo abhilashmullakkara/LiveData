@@ -48,7 +48,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.abhilash.livedata.test.NodepotSelectionScreen
 import com.abhilash.livedata.ui.ai.displayCloudDatabase
+import com.abhilash.livedata.ui.theme.database.depoList
 import com.abhilash.livedata.ui.theme.manager.mypasswordDownloader
 import com.google.firebase.database.FirebaseDatabase
 
@@ -66,7 +68,7 @@ fun DeleteScheduleScreen(navController:NavController){
         val context= LocalContext.current
    // val keyboardController = LocalSoftwareKeyboardController.current
     var password by rememberSaveable { mutableStateOf("") }
-        Surface(color = Color(0xFF2B2D30)) {
+        Surface(color = Color(0xFF6370B8)) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -93,38 +95,13 @@ fun DeleteScheduleScreen(navController:NavController){
                     shape = RoundedCornerShape(15.dp),
                     elevation = 3.dp,
                     contentColor = Color.White,
-                    backgroundColor =Color(0xFF5A5D64)
+                    backgroundColor =Color(0xFF8189B2)
                 ) {
                     val scrollState = rememberScrollState()
                     Box(modifier = Modifier.verticalScroll(scrollState)) {
                         Column {
                             Spacer(modifier = Modifier.height(20.dp))
-                            OutlinedTextField(value = depoNo,
-                                singleLine = true,
-                                modifier = Modifier
-                                    .size(width = 175.dp, height = 51.dp)
-                                    .fillMaxWidth()
-                                    .padding(start = 20.dp),
-                                shape = RoundedCornerShape(80),
-                                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                                onValueChange = { depoNo = it },
-                                //modifier=Modifier.padding(start = 20.dp,end=250.dp),
-                                placeholder = {
-                                    Text(
-                                        text = "Enter Depo Number (eg:- KMR->34)",
-                                        color = Color.White,
-                                        fontSize = 15.sp
-                                    )
-                                },
-                                colors = TextFieldDefaults.outlinedTextFieldColors(
-                                    textColor = Color.White,
-                                    cursorColor = Color.White,
-                                    leadingIconColor = Color.White,
-                                    trailingIconColor = Color.White,
-                                    focusedBorderColor = Color.White, // Border color when focused
-                                    unfocusedBorderColor = Color.White.copy(alpha = 0.7f) // Border color when not focused
-                                )
-                            )
+                            depoNo=NodepotSelectionScreen(depoList = depoList)
                             Spacer(modifier = Modifier.height(20.dp))
                             OutlinedTextField(value = bType,
                                 singleLine = true,
@@ -183,8 +160,6 @@ fun DeleteScheduleScreen(navController:NavController){
                                     unfocusedBorderColor = Color.White.copy(alpha = 0.7f) // Border color when not focused
                                 )
                             )
-
-                           // Spacer(modifier = Modifier.height(20.dp))
                             Spacer(modifier = Modifier.height(20.dp))
                             OutlinedTextField(
                                 value = password,

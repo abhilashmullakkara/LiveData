@@ -23,7 +23,7 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,7 +42,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.abhilash.livedata.test.NodepotSelectionScreen
 import com.abhilash.livedata.ui.ai.displayCloudDatabase
+import com.abhilash.livedata.ui.theme.database.depoList
 import com.abhilash.livedata.ui.theme.manager.mypasswordDownloader
 import com.google.firebase.database.FirebaseDatabase
 
@@ -70,7 +72,7 @@ fun DeleteTripScreen(navController: NavController) {
                 navController.popBackStack("MenuScreen",inclusive = false)
             })
             {
-                Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "Arrow")
+                Icon(imageVector = Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = "Arrow")
             }
             Text(
                 "Enter Trip Information to Delete",
@@ -93,20 +95,21 @@ fun DeleteTripScreen(navController: NavController) {
                     Column(modifier = Modifier.padding(start=10.dp)) {
 
                         Spacer(modifier = Modifier.height(20.dp))
-                     OutlinedTextField(value = depoNo,
-                        singleLine = true,
-                        shape = RoundedCornerShape(80),
-                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                        onValueChange = { depoNo = it },
-                        //modifier=Modifier.padding(start = 20.dp,end=250.dp),
-                        placeholder = {
-                            Text(
-                                text = "Depo Number",
-                                color = Color.Black,
-                                fontSize = 15.sp
-                            )
-                        }
-                     )
+                        depoNo= NodepotSelectionScreen(depoList = depoList)
+//                     OutlinedTextField(value = depoNo,
+//                        singleLine = true,
+//                        shape = RoundedCornerShape(80),
+//                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+//                        onValueChange = { depoNo = it },
+//                        //modifier=Modifier.padding(start = 20.dp,end=250.dp),
+//                        placeholder = {
+//                            Text(
+//                                text = "Depo Number",
+//                                color = Color.Black,
+//                                fontSize = 15.sp
+//                            )
+//                        }
+//                     )
                      Spacer(modifier = Modifier.height(20.dp))
                      OutlinedTextField(value = bType,
                         singleLine = true,

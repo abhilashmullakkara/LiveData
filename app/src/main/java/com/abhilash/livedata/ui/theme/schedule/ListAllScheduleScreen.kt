@@ -7,11 +7,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.Card
@@ -19,8 +17,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,15 +27,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.abhilash.livedata.ui.ai.isValidText
+import com.abhilash.livedata.test.DepotSelectionScreen
 import com.abhilash.livedata.ui.theme.database.OriginalData
+import com.abhilash.livedata.ui.theme.database.depoList
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -50,7 +44,6 @@ import com.google.firebase.database.ValueEventListener
 fun ListAllScheduleScreen(navController: NavController) {
     Surface(color = Color(0xFF929FEB), modifier = Modifier.fillMaxSize()) {
         var depoNo by rememberSaveable { mutableStateOf("") }
-       // var destination by rememberSaveable { mutableStateOf("") }
         Column {
             Row {
                 IconButton(
@@ -73,29 +66,7 @@ fun ListAllScheduleScreen(navController: NavController) {
                 )
             }
             HorizontalDivider(color = Color.White)
-            OutlinedTextField(
-                value = depoNo,
-                modifier = Modifier
-                    .height(80.dp)
-                    .width(140.dp)
-                    .padding(start = 20.dp),
-                onValueChange = { newValue ->
-                    val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
-                    if (isValidText(textFieldValue)) {
-                        depoNo = textFieldValue.text
-                    }
-                },
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Color(0xFF035697),
-                    cursorColor = Color.White,
-                   focusedLeadingIconColor = Color.White,
-                    focusedTrailingIconColor = Color.White,
-                            unfocusedBorderColor = Color.White.copy(alpha = 0.7f),
-                    unfocusedTextColor = Color.Red
-                ),
-                label = { Text("Depot NO", fontSize = 15.sp, color = Color.White) },
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-            )
+            depoNo= DepotSelectionScreen(depoList = depoList)
             Spacer(modifier = Modifier.height(15.dp))
             searchAndStore(depoNo)
         }
@@ -122,7 +93,7 @@ fun searchAndStore(path: String = ""): List<Pair<String, OriginalData>> {
                 Card(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(start = 15.dp, end = 15.dp, bottom = 20.dp,top=10.dp),
+                        .padding(start = 15.dp, end = 15.dp, bottom = 20.dp, top = 10.dp),
                     shape = RoundedCornerShape(15.dp),
                     elevation = CardDefaults.cardElevation(
                         defaultElevation = 5.dp,
