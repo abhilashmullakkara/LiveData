@@ -17,8 +17,8 @@ android {
         applicationId "com.abhilash.livedata"
         minSdk 21
         targetSdk 34
-        versionCode 19
-        versionName "16.4"
+        versionCode 21
+        versionName "20.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -29,6 +29,7 @@ android {
     buildTypes {
         release {
             minifyEnabled true
+            //isShrinkResources  true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
                     'proguard-rules.pro'
         }
@@ -73,7 +74,7 @@ dependencies {
     ksp("androidx.room:room-compiler:2.6.1")
 
     implementation "androidx.compose.material3:material3:1.2.1"
-    implementation "androidx.compose.animation:animation:1.6.4"
+    implementation "androidx.compose.animation:animation:1.6.5"
     implementation "androidx.compose.material3:material3-window-size-class:1.2.1"
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
@@ -87,7 +88,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:1.6.4"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:1.6.5"
     implementation platform('com.google.firebase:firebase-bom:32.8.0')
     //Coroutine
     def coroutine_version = '1.7.1'

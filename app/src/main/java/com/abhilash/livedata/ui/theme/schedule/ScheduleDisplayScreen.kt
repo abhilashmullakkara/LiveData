@@ -17,13 +17,16 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Divider
+import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material3.DropdownMenu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
@@ -38,14 +41,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.abhilash.livedata.ui.ai.isValidText
+import com.abhilash.livedata.test.researchAndStore
+import com.abhilash.livedata.ui.theme.database.DepoData
 import com.abhilash.livedata.ui.theme.database.OriginalData
+import com.abhilash.livedata.ui.theme.database.depoList
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -56,17 +60,25 @@ import com.google.firebase.database.ValueEventListener
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun  ScheduleDisplayScreen(navController: NavController){
+    var selectedDepo by remember { mutableStateOf(DepoData(depoId = 0, depoName = "", phone = "", email = "")) }
+    var manuallyEnteredDepoNo by remember { mutableStateOf("") }
+    var expanded by remember { mutableStateOf(false) }
+
+    var selectedSchedule by remember { mutableStateOf(emptyList<Pair<String, String>>()) }
+
+    var manuallyEnteredScheduleNo by remember { mutableStateOf("") }
+    var schExpanded by remember { mutableStateOf(false) }
+    var newSchdi by remember { mutableStateOf<List<Pair<String, String>>>(emptyList()) }
 
     val context = LocalContext.current
     val etmNumbers = mutableSetOf<String>()
-    var depoNo by rememberSaveable { mutableStateOf("") }
-    var scheduleNo by rememberSaveable { mutableStateOf("") }
+   // var depoNo by rememberSaveable { mutableStateOf("") }
     var ti by rememberSaveable { mutableIntStateOf(0) }
     var flag by rememberSaveable { mutableIntStateOf(0) }
     val scroll= rememberScrollState()
     var result by rememberSaveable { mutableStateOf("") }
     var kilomts by rememberSaveable { mutableDoubleStateOf(0.0) }
-Surface(color = Color(0xFF071715)) {
+    Surface(color = Color(0xFF071715)) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -81,7 +93,7 @@ Surface(color = Color(0xFF071715)) {
             modifier = Modifier.size(48.dp)
         ) {
             Icon(
-                imageVector = Icons.Outlined.ArrowBack,
+                imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                 contentDescription = "Arrow",
                 tint = Color.White
             )
@@ -99,44 +111,113 @@ Surface(color = Color(0xFF071715)) {
                 )
                 .padding(16.dp)
         ) {
-            OutlinedTextField(
-                value = depoNo,
-                onValueChange = { newValue ->
-                    val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
-                    if (isValidText(textFieldValue)) {
-                        depoNo = textFieldValue.text
+
+            Surface(color= Color.LightGray) {
+
+
+
+                Column(modifier = Modifier.padding(16.dp)) {
+                    // Dropdown menu for selecting depot
+                    DropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        depoList.forEach { depo ->
+                           // newSchdi = researchAndStore(manuallyEnteredDepoNo)
+                            DropdownMenuItem(onClick = {
+                                expanded = false
+
+                                selectedDepo = depo
+                                manuallyEnteredDepoNo = depo.depoId.toString() // Update manually entered value
+                            }) {
+                                androidx.compose.material3.Text(" [${depo.depoId}]", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                                androidx.compose.material3.Text(depo.depoName, fontSize = 14.sp)
+                            }
+                        }
                     }
-                },
-                label = { Text("Depo NO") },
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                modifier = Modifier.fillMaxWidth()
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            OutlinedTextField(
-                value = scheduleNo,
-                onValueChange = { newValue ->
-                    val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
-                    if (isValidText(textFieldValue)) {
-                        scheduleNo = textFieldValue.text
+
+                    // Manually entered depot number field
+                    OutlinedTextField(
+                        value = manuallyEnteredDepoNo,
+                        onValueChange = { newValue ->
+                            manuallyEnteredDepoNo = newValue
+                            // You might want to validate the manually entered value here
+                        },
+                        label = { androidx.compose.material3.Text("Depo NO") },
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 16.dp),
+                        trailingIcon = {
+                            // Icon representing a dropdown arrow
+                            IconButton(onClick = {  expanded = !expanded }) {
+                                androidx.compose.material3.Icon(Icons.Filled.ArrowDropDown, contentDescription = null)
+                            }
+                        }
+                    )
+                }
+            }
+
+
+
+            Column {
+                DropdownMenu(
+                    expanded = schExpanded,
+                    onDismissRequest = { schExpanded = false }
+                ) {
+                    // scheduleList.forEach { (scheduleNo: String, originalData) ->
+                    selectedSchedule= emptyList()
+                    newSchdi = researchAndStore(manuallyEnteredDepoNo)
+                    newSchdi.forEach { (scheduleNo: String, originalData) ->
+                        selectedSchedule= emptyList()
+                        DropdownMenuItem(onClick = {
+                            schExpanded = false
+                            manuallyEnteredScheduleNo = scheduleNo
+                            selectedSchedule = selectedSchedule + (scheduleNo to originalData)
+                        }) {
+                            androidx.compose.material3.Text("$scheduleNo :$originalData")
+                        }
                     }
-                },
-                label = { Text("Schedule NO") },
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
-                modifier = Modifier.fillMaxWidth()
-            )
+                }
+                OutlinedTextField(
+                    value = manuallyEnteredScheduleNo,
+                    onValueChange = { newValue ->
+
+                        manuallyEnteredScheduleNo = newValue
+                        // You might want to validate the manually entered value here
+                    },
+                    label = { androidx.compose.material3.Text("Schedule NO") },
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp),
+                    trailingIcon = {
+                        // Icon representing a dropdown arrow
+                        IconButton(onClick = {  schExpanded = !schExpanded }) {
+                            androidx.compose.material3.Icon(
+                                Icons.Filled.ArrowDropDown,
+                                contentDescription = null
+                            )
+                        }
+                    }
+                )
+
+
+            }
             Spacer(modifier = Modifier.height(16.dp))
             var resultList: SnapshotStateList<OriginalData>
             val errorMessage = remember { mutableStateOf("Data not found") }
             Button(
                 onClick = {
                     try {
-                        if (depoNo.isNotBlank() && scheduleNo.isNotBlank()) {
+                        if (manuallyEnteredDepoNo.isNotBlank() && manuallyEnteredScheduleNo.isNotBlank()) {
                             kilomts = 0.0
                             ti=0
                             result=""
+
                             etmNumbers.clear()
                             val myRef = FirebaseDatabase.getInstance().reference.child("")
-                            fetchMyDatabase(myRef, depoNo, scheduleNo, { results ->
+                            fetchMyDatabase(myRef, manuallyEnteredDepoNo, manuallyEnteredScheduleNo, { results ->
                                 resultList = results as SnapshotStateList<OriginalData>
                                 errorMessage.value = "" // Clear any previous error message
                                 kilomts = 0.0 // Reset kilomts variable to zero
@@ -159,6 +240,11 @@ Surface(color = Color(0xFF071715)) {
                                         etmNumbers.add(it.etmNo.replace("\\s+".toRegex(), ""))
                                     }
                                     result = data.toString()
+                                    manuallyEnteredDepoNo=""
+                                    manuallyEnteredScheduleNo=""
+                                    selectedSchedule= emptyList()
+                                    newSchdi= emptyList()
+
                                 }
                             }, { error ->
                                 errorMessage.value = "Error: ${error.message}"
@@ -166,7 +252,6 @@ Surface(color = Color(0xFF071715)) {
                         } else {
                             kilomts = 0.0
                             ti=0
-                            result=""
                             etmNumbers.clear()
                             Toast.makeText(context, "Input data first", Toast.LENGTH_SHORT).show()
                         }
@@ -174,47 +259,6 @@ Surface(color = Color(0xFF071715)) {
                         // Handle the exception here
                         e.printStackTrace()
                     }
-
-//                    if (depoNo.isNotBlank() && scheduleNo.isNotBlank()) {
-//                        kilomts = 0.0
-//                        ti=0
-//                        result=""
-//                        etmNumbers.clear()
-//                        val myRef = FirebaseDatabase.getInstance().reference.child("")
-//                        fetchMyDatabase(myRef, depoNo, scheduleNo, { results ->
-//                            resultList = results as SnapshotStateList<OriginalData>
-//                            errorMessage.value = "" // Clear any previous error message
-//                            kilomts = 0.0 // Reset kilomts variable to zero
-//                            val data = StringBuffer()
-//                            val etmKmr = StringBuffer()
-//                            if (resultList.isNotEmpty()) {
-//                                resultList.forEach {
-//                                    data.append("\n")
-//                                    data.append("\n" + (ti + 1).toString())
-//                                    data.append("   " + it.departureTime)
-//                                    data.append("   " + it.startPlace)
-//                                    data.append("   " + it.via)
-//                                    data.append("   " + it.destinationPlace)
-//                                    data.append("   " + it.arrivalTime)
-//                                    data.append("   " + it.kilometer)
-//                                    kilomts += it.kilometer.toDouble()
-//                                    etmKmr.append(it.etmNo)
-//                                    ti += 1
-//                                    flag = 1
-//                                    etmNumbers.add(it.etmNo.replace("\\s+".toRegex(), ""))
-//                                }
-//                                result = data.toString()
-//                            }
-//                        }, { error ->
-//                            errorMessage.value = "Error: ${error.message}"
-//                        })
-//                    } else {
-//                        kilomts = 0.0
-//                        ti=0
-//                        result=""
-//                        etmNumbers.clear()
-//                        Toast.makeText(context, "Input data first", Toast.LENGTH_SHORT).show()
-//                    }
                 },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
@@ -222,18 +266,6 @@ Surface(color = Color(0xFF071715)) {
             }
             Text(text = "Check Internet Connection", color = Color.LightGray)
         }
-//        if(flag==1){
-//            var isLoading by rememberSaveable{
-//                mutableStateOf(true) }
-//            LaunchedEffect(isLoading) {
-//                if (isLoading) {
-//                    withContext(Dispatchers.Main) {
-//                        delay(1200)
-//                        isLoading = false
-//                    }
-//                }
-//            }
-            //CircularLoadingIndicator(isLoading)
         if(result.isNotEmpty()){
             Text(" \nNo   Time  From   Via    To    Arr.Time   Kmrs\n",color= Color.White)
             Divider(color = Color.Red, thickness = 4.dp)
@@ -252,6 +284,7 @@ Surface(color = Color(0xFF071715)) {
                 color = Color.White
             )
         }
+
 
     }
 }

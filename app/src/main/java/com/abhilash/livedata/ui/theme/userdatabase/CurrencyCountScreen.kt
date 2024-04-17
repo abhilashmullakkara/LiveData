@@ -168,16 +168,43 @@ fun add(cur: String, num: String): String {
         "0"
     }
 }
+
 @Composable
-fun sum(ten: String="0", twenty: String="0", fifty:String="0",hundred:String="0"
-,twohundred:String="0",fivehundred:String="0",coins:String="0"): String {
+fun sum(
+    ten: String = "0",
+    twenty: String = "0",
+    fifty: String = "0",
+    hundred: String = "0",
+    twohundred: String = "0",
+    fivehundred: String = "0",
+    coins: String = "0"
+): String {
     return try {
-   val total=ten.toInt()+twenty.toInt()+fifty.toInt()+hundred.toInt()+twohundred.toInt()+fivehundred.toInt()+coins.toInt()
+        val total =
+            ten.toInt() +
+                    twenty.toInt() +
+                    fifty.toInt() +
+                    hundred.toInt() +
+                    twohundred.toInt() +
+                    fivehundred.toInt() +
+                    coins.toInt()
         total.toString()
     } catch (e: NumberFormatException) {
         "0"
     }
 }
+
+
+//@Composable
+//fun sum(ten: String="0", twenty: String="0", fifty:String="0",hundred:String="0"
+//,twohundred:String="0",fivehundred:String="0",coins:String="0"): String {
+//    return try {
+//   val total=ten.toInt()+twenty.toInt()+fifty.toInt()+hundred.toInt()+twohundred.toInt()+fivehundred.toInt()+coins.toInt()
+//        total.toString()
+//    } catch (e: NumberFormatException) {
+//        "0"
+//    }
+//}
 
 @Composable
 fun readValue():String {
