@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
@@ -29,7 +30,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.abhilash.livedata.test.NodepotSelectionScreen
 import com.abhilash.livedata.ui.theme.admob.BannerAdView
+import com.abhilash.livedata.ui.theme.database.depoList
 import com.abhilash.livedata.ui.theme.schedule.AddScheduleScreen
 import com.abhilash.livedata.ui.theme.schedule.DeleteScheduleScreen
 import com.abhilash.livedata.ui.theme.schedule.DeleteTripScreen
@@ -110,28 +113,28 @@ fun PasswordScreen(onPasswordEntered: (Pass) -> Unit) {
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .padding(16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        //
-        OutlinedTextField(
-            value = deponumber,
-            onValueChange = { deponumber = it },
-            label = { Text("Enter Depo Number") },
-            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done, keyboardType = KeyboardType.Number),
-        )
+            deponumber = NodepotSelectionScreen(depoList = depoList)
+
 
         OutlinedTextField(
             value = password,
-        onValueChange ={password=it},
-        label = { Text("Enter Password") },
-        keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done, keyboardType = KeyboardType.Password),
-           visualTransformation = PasswordVisualTransformation(mask = '*')
+            modifier=Modifier.fillMaxWidth()
+            .padding(16.dp),
+            onValueChange = { password = it },
+            label = { Text("Enter Password") },
+            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Done,
+                keyboardType = KeyboardType.Password
+            ),
+            visualTransformation = PasswordVisualTransformation(mask = '*')
         )
+
 
         Spacer(modifier = Modifier.height(16.dp))
         passwordResult=mypasswordDownloader(deponumber)

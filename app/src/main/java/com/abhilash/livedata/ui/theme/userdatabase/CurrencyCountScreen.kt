@@ -1,5 +1,6 @@
 package com.abhilash.livedata.ui.theme.userdatabase
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,7 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -23,10 +24,12 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextRange
@@ -65,23 +68,32 @@ fun CurrencyCountScreen(navController:NavController) {
             ),
             shape = RoundedCornerShape(5.dp),
 
-//            backgroundColor = Color(0xFF828ED2),
-//            contentColor = Color.White
         ) {
             Column(modifier=Modifier.verticalScroll(scroll)) {
 
-
-                IconButton(onClick = {
-                    navController.popBackStack("MenuScreen", inclusive = false)
-                })
-                {
-                    Row {
-                        Icon(imageVector = Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = "Arrow")
-                        Spacer(modifier = Modifier.width(10.dp))
-                        Text("Total : $total ",fontSize = 25.sp,color= Color.Green, modifier = Modifier.padding(start=25.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    IconButton(
+                        onClick = { navController.popBackStack("MenuScreen", inclusive = false) },
+                        modifier = Modifier.padding(start = 10.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Arrow",
+                            tint = Color.White
+                        )
                     }
-
+                    Text(
+                        "Total : $total ",
+                        fontSize = 25.sp,
+                        color = Color.Green,
+                        modifier = Modifier.padding(horizontal = 15.dp)
+                    )
                 }
+                Spacer(modifier = Modifier.height(10.dp))
                 HorizontalDivider(thickness = 5.dp, color = Color.White)
                 Column {
                     Row {
@@ -90,7 +102,7 @@ fun CurrencyCountScreen(navController:NavController) {
                         Spacer(modifier = Modifier.width(5.dp))
                         ten = add("10", readValue())
                         Text(" =  $ten", fontSize = 25.sp)
-                    }
+                        }
                     Spacer(modifier = Modifier.height(5.dp))
                     HorizontalDivider()
                     Row {
@@ -99,7 +111,7 @@ fun CurrencyCountScreen(navController:NavController) {
                         Spacer(modifier = Modifier.width(5.dp))
                         twenty = add("20", readValue())
                         Text(" =  $twenty", fontSize = 25.sp)
-                    }
+                       }
                     Spacer(modifier = Modifier.height(5.dp))
                     HorizontalDivider()
                     Row {
@@ -108,7 +120,7 @@ fun CurrencyCountScreen(navController:NavController) {
                         Spacer(modifier = Modifier.width(5.dp))
                         fifty = add("50", readValue())
                         Text(" =  $fifty", fontSize = 25.sp)
-                    }
+                       }
                     Spacer(modifier = Modifier.height(5.dp))
                     HorizontalDivider()
                     Row {
@@ -117,7 +129,7 @@ fun CurrencyCountScreen(navController:NavController) {
                         Spacer(modifier = Modifier.width(5.dp))
                         hundred = add("100", readValue())
                         Text(" =  $hundred", fontSize = 25.sp)
-                    }
+                       }
                     Spacer(modifier = Modifier.height(5.dp))
                     HorizontalDivider()
                     Row {
@@ -126,7 +138,7 @@ fun CurrencyCountScreen(navController:NavController) {
                         Spacer(modifier = Modifier.width(5.dp))
                         twohundred = add("200", readValue())
                         Text(" =  $twohundred", fontSize = 25.sp)
-                    }
+                        }
                     Spacer(modifier = Modifier.height(5.dp))
                     HorizontalDivider()
                     Row {
@@ -146,7 +158,9 @@ fun CurrencyCountScreen(navController:NavController) {
                         Text(" =  $coins", fontSize = 25.sp)
                     }
                     Spacer(modifier = Modifier.height(20.dp))
-                    total=sum(ten,twenty, fifty,hundred,twohundred,fivehundred,coins)
+                    LaunchedEffect(ten,twenty, fifty, hundred, twohundred, fivehundred, coins) {
+                        total = sum(ten, twenty, fifty, hundred, twohundred, fivehundred, coins)
+                    }
                     HorizontalDivider()
                     HorizontalDivider()
                     Text("Total : $total ",fontSize = 25.sp,color= Color.Green, modifier = Modifier.padding(start=25.dp))
@@ -169,7 +183,6 @@ fun add(cur: String, num: String): String {
     }
 }
 
-@Composable
 fun sum(
     ten: String = "0",
     twenty: String = "0",
@@ -195,21 +208,10 @@ fun sum(
 }
 
 
-//@Composable
-//fun sum(ten: String="0", twenty: String="0", fifty:String="0",hundred:String="0"
-//,twohundred:String="0",fivehundred:String="0",coins:String="0"): String {
-//    return try {
-//   val total=ten.toInt()+twenty.toInt()+fifty.toInt()+hundred.toInt()+twohundred.toInt()+fivehundred.toInt()+coins.toInt()
-//        total.toString()
-//    } catch (e: NumberFormatException) {
-//        "0"
-//    }
-//}
-
 @Composable
 fun readValue():String {
-    var inputValue by rememberSaveable { mutableStateOf("") }
 
+    var inputValue by rememberSaveable { mutableStateOf("") }
     OutlinedTextField(
         value = inputValue,
         singleLine = true,
@@ -223,7 +225,6 @@ fun readValue():String {
         },
         modifier= Modifier
             .size(width = 90.dp, height = 51.dp),
-        //  modifier = Modifier.fillMaxWidth(0.45f),
         placeholder = {
             Text(
                 text = "--",
@@ -234,3 +235,5 @@ fun readValue():String {
     )
     return inputValue
 }
+
+

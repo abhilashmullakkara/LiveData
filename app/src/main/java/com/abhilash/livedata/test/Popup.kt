@@ -141,6 +141,53 @@ fun depoSchedule(depo: String = "", scheduleList: List<Pair<String, String>> = e
 }
 
 @Composable
+fun NodepotSelectionScreen(depoList: List<DepoData>):String {
+    var selectedDepo by remember { mutableStateOf(DepoData(depoId = 0, depoName = "", phone = "", email = "")) }
+    var manuallyEnteredDepoNo by remember { mutableStateOf("") }
+    var expanded by remember { mutableStateOf(false) }
+
+
+
+            // Dropdown menu for selecting depot
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false }
+            ) {
+                depoList.forEach { depo ->
+                    DropdownMenuItem(onClick = {
+                        expanded = false
+                        selectedDepo = depo
+                        manuallyEnteredDepoNo = depo.depoId.toString() // Update manually entered value
+                    }) {
+                        Text(" [${depo.depoId}]", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                        Text(depo.depoName, fontSize = 14.sp)
+                    }
+                }
+            }
+
+            // Manually entered depot number field
+            OutlinedTextField(
+                value = manuallyEnteredDepoNo,
+                onValueChange = { newValue ->
+                    manuallyEnteredDepoNo = newValue
+                    // You might want to validate the manually entered value here
+                },
+                label = { Text("Depo NO") },
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                modifier = Modifier
+                    .fillMaxWidth(0.5f),
+                   // .padding(vertical = 6.dp),
+                trailingIcon = {
+                    // Icon representing a dropdown arrow
+                    IconButton(onClick = {  expanded = !expanded }) {
+                        Icon(Icons.Filled.ArrowDropDown, contentDescription = null)
+                    }
+                }
+            )
+    return manuallyEnteredDepoNo
+}
+
+@Composable
 fun researchAndStore(path: String = ""): List<Pair<String, String>> {
     var selectedSchedule by remember { mutableStateOf(emptyList<Pair<String, String>>()) }
     var resultList by remember { mutableStateOf<List<Pair<String, OriginalData>>>(emptyList()) }

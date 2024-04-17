@@ -78,7 +78,7 @@ fun  ScheduleDisplayScreen(navController: NavController){
     val scroll= rememberScrollState()
     var result by rememberSaveable { mutableStateOf("") }
     var kilomts by rememberSaveable { mutableDoubleStateOf(0.0) }
-    Surface(color = Color(0xFF071715)) {
+    Surface(color = Color(0xFF175B52)) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -112,7 +112,7 @@ fun  ScheduleDisplayScreen(navController: NavController){
                 .padding(16.dp)
         ) {
 
-            Surface(color= Color.LightGray) {
+            Surface(color= Color.LightGray,shape= RoundedCornerShape(9.dp)) {
 
 
 
@@ -130,9 +130,11 @@ fun  ScheduleDisplayScreen(navController: NavController){
                                 selectedDepo = depo
                                 manuallyEnteredDepoNo = depo.depoId.toString() // Update manually entered value
                             }) {
-                                androidx.compose.material3.Text(" [${depo.depoId}]", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
-                                androidx.compose.material3.Text(depo.depoName, fontSize = 14.sp)
+                                androidx.compose.material3.Text(" [${depo.depoId}] :", fontSize = 16.sp, color=Color.Black,
+                                    fontWeight = FontWeight.SemiBold)
+                                androidx.compose.material3.Text(depo.depoName,color=Color.Black, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
                             }
+                            Divider()
                         }
                     }
 
@@ -158,50 +160,57 @@ fun  ScheduleDisplayScreen(navController: NavController){
                 }
             }
 
+            Spacer(modifier = Modifier.height(16.dp))
 
+            Surface(color= Color.LightGray,shape= RoundedCornerShape(9.dp)) {
+            Column(modifier = Modifier.padding(16.dp)) {
 
-            Column {
-                DropdownMenu(
-                    expanded = schExpanded,
-                    onDismissRequest = { schExpanded = false }
-                ) {
-                    // scheduleList.forEach { (scheduleNo: String, originalData) ->
-                    selectedSchedule= emptyList()
-                    newSchdi = researchAndStore(manuallyEnteredDepoNo)
-                    newSchdi.forEach { (scheduleNo: String, originalData) ->
-                        selectedSchedule= emptyList()
-                        DropdownMenuItem(onClick = {
-                            schExpanded = false
-                            manuallyEnteredScheduleNo = scheduleNo
-                            selectedSchedule = selectedSchedule + (scheduleNo to originalData)
-                        }) {
-                            androidx.compose.material3.Text("$scheduleNo :$originalData")
+                    DropdownMenu(
+                        expanded = schExpanded,
+                        onDismissRequest = { schExpanded = false }
+                    ) {
+                        // scheduleList.forEach { (scheduleNo: String, originalData) ->
+                        selectedSchedule = emptyList()
+                        newSchdi = researchAndStore(manuallyEnteredDepoNo)
+                        newSchdi.forEach { (scheduleNo: String, originalData) ->
+                            selectedSchedule = emptyList()
+                            DropdownMenuItem(onClick = {
+                                schExpanded = false
+                                manuallyEnteredScheduleNo = scheduleNo
+                                selectedSchedule = selectedSchedule + (scheduleNo to originalData)
+                            }) {
+                                androidx.compose.material3.Text(
+                                    "$scheduleNo :$originalData",
+                                    color = Color.Black,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
+                            Divider()
                         }
                     }
+                    OutlinedTextField(
+                        value = manuallyEnteredScheduleNo,
+                        onValueChange = { newValue ->
+
+                            manuallyEnteredScheduleNo = newValue
+                            // You might want to validate the manually entered value here
+                        },
+                        label = { androidx.compose.material3.Text("Schedule NO") },
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 16.dp),
+                        trailingIcon = {
+                            // Icon representing a dropdown arrow
+                            IconButton(onClick = { schExpanded = !schExpanded }) {
+                                androidx.compose.material3.Icon(
+                                    Icons.Filled.ArrowDropDown,
+                                    contentDescription = null
+                                )
+                            }
+                        }
+                    )
                 }
-                OutlinedTextField(
-                    value = manuallyEnteredScheduleNo,
-                    onValueChange = { newValue ->
-
-                        manuallyEnteredScheduleNo = newValue
-                        // You might want to validate the manually entered value here
-                    },
-                    label = { androidx.compose.material3.Text("Schedule NO") },
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 16.dp),
-                    trailingIcon = {
-                        // Icon representing a dropdown arrow
-                        IconButton(onClick = {  schExpanded = !schExpanded }) {
-                            androidx.compose.material3.Icon(
-                                Icons.Filled.ArrowDropDown,
-                                contentDescription = null
-                            )
-                        }
-                    }
-                )
-
 
             }
             Spacer(modifier = Modifier.height(16.dp))
