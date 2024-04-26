@@ -3,6 +3,7 @@ package com.abhilash.livedata.ui.theme.schedule
 
 import android.annotation.SuppressLint
 import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
@@ -24,9 +26,9 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,10 +47,13 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.abhilash.livedata.test.NodepotSelectionScreen
+import com.abhilash.livedata.test.depoSchedule
 import com.abhilash.livedata.ui.ai.displayCloudDatabase
 import com.abhilash.livedata.ui.ai.isValidText
 import com.abhilash.livedata.ui.theme.admob.BannerAdView
 import com.abhilash.livedata.ui.theme.database.OriginalData
+import com.abhilash.livedata.ui.theme.database.depoList
 import com.abhilash.livedata.ui.theme.manager.mypasswordDownloader
 import com.google.android.gms.ads.AdSize
 import com.google.firebase.database.FirebaseDatabase
@@ -78,7 +83,7 @@ fun AddScheduleScreen(navController: NavController) {
             modifier = Modifier.fillMaxWidth(),
         )
         {
-            Row {
+            Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
                 IconButton(onClick = {
                     navController.popBackStack("MenuScreen", inclusive = false)
                 })
@@ -93,70 +98,83 @@ fun AddScheduleScreen(navController: NavController) {
                 )
             }
             Divider(color = Color.White, thickness = 3.dp)
+            Spacer(modifier = Modifier.height(10.dp))
             Row {
                 Spacer(modifier = Modifier.width(7.dp))
-                OutlinedTextField(
-                    value = depoNo,
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                    onValueChange = { newValue ->
-                        val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
-                        if (isValidText(textFieldValue)) {
-                            depoNo = textFieldValue.text
-                        }
-                    },
-                    modifier = Modifier.fillMaxWidth(0.25f),
-                    placeholder = {
-                        Text(
-                            text = "DepoNO",
-                            color = Color.Black,
-                            fontSize = 14.sp
-                        )
-                    }
-                )
+                depoNo= NodepotSelectionScreen(depoList = depoList, color = Color(0xFFEEECF4),padd=0.32f)
+//                OutlinedTextField(
+//                    value = depoNo,
+//                    singleLine = true,
+//                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+//                    onValueChange = { newValue ->
+//                        val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
+//                        if (isValidText(textFieldValue)) {
+//                            depoNo = textFieldValue.text
+//                        }
+//                    },
+//                    modifier = Modifier.fillMaxWidth(0.25f),
+//                    placeholder = {
+//                        Text(
+//                            text = "DepoNO",
+//                            color = Color.Black,
+//                            fontSize = 14.sp
+//                        )
+//                    }
+//                )
                 Spacer(modifier = Modifier.width(7.dp))
+                scheduleNo= depoSchedule(depoNo, color = Color(0xF3F6F5F0),padd=0.49f)
 
-                OutlinedTextField(
-                    value = scheduleNo,
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
-                    onValueChange = { newValue ->
-                        val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
-                        if (isValidText(textFieldValue)) {
-                            scheduleNo = textFieldValue.text
-                        }
-                    },
-                    modifier = Modifier.fillMaxWidth(0.40f),
-                    placeholder = {
-                        Text(
-                            text = "ScheduleNO",
-                            color = Color.Black,
-                            fontSize = 14.sp
-                        )
-                    }
-                )
+//                OutlinedTextField(
+//
+//                    value = scheduleNo,
+//                    singleLine = true,
+//                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
+//                    onValueChange = { newValue ->
+//                        val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
+//                        if (isValidText(textFieldValue)) {
+//                            scheduleNo = textFieldValue.text
+//                        }
+//                    },
+//                    modifier = Modifier.fillMaxWidth(0.45f),
+//                    placeholder = {
+//                        Text(
+//                            text = "Schedule NO",
+//                            color = Color.Black,
+//                            fontSize = 13.sp
+//                        )
+//                    }
+//                )
                 Spacer(modifier = Modifier.width(7.dp))
-                OutlinedTextField(
-                    value = busType,
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(
-                        capitalization = KeyboardCapitalization.Characters
-                    ),
-                    onValueChange = { newValue ->
-                        val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
-                        if (isValidText(textFieldValue)) {
-                            busType = textFieldValue.text
+                Column {
+                    Text("FP/ORD/JNRUM/....", fontSize = 11.sp, color = Color.Black)
+                    OutlinedTextField(
+                        colors = TextFieldDefaults.textFieldColors(
+                            textColor = Color(0xFFD63604)
+                        ),
+                        value = busType,
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(
+                            capitalization = KeyboardCapitalization.Characters
+                        ),
+                        onValueChange = { newValue ->
+                            val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
+                            if (isValidText(textFieldValue)) {
+                                busType = textFieldValue.text
+                            }
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(end = 6.dp),
+                        placeholder = {
+
+                            Text(
+                                text = "Type",
+                                color = Color.Black,
+                                fontSize = 14.sp
+                            )
                         }
-                    },
-                    modifier = Modifier.fillMaxWidth(0.90f),
-                    placeholder = {
-                        Text(
-                            text = "Type(FP,Ord,JNT)",
-                            color = Color.Black,
-                            fontSize = 14.sp
-                        )
-                    }
-                )
+                    )
+                }
             }
             // Text("Rotate the screen or scroll left and right ", fontSize = 17.sp,color=Color.LightGray)
             Spacer(modifier = Modifier.height(30.dp))
@@ -183,6 +201,9 @@ fun AddScheduleScreen(navController: NavController) {
           item {
               Spacer(modifier = Modifier.height(20.dp))
               OutlinedTextField(value = tripNo,
+                  colors = TextFieldDefaults.textFieldColors(
+                      textColor = Color(0xFFD63604)
+                  ),
                   singleLine = true,
                   modifier = Modifier
                       .size(width = 175.dp, height = 51.dp)
@@ -199,6 +220,9 @@ fun AddScheduleScreen(navController: NavController) {
                     }
                     item {
                         OutlinedTextField(value = departureTime,
+                            colors = TextFieldDefaults.textFieldColors(
+                                textColor = Color(0xFFD63604)
+                            ),
                             singleLine = true,
                             modifier = Modifier
                                 .size(width = 175.dp, height = 51.dp)
@@ -217,6 +241,9 @@ fun AddScheduleScreen(navController: NavController) {
                     }
                     item {
                         OutlinedTextField(value = stPlace,
+                            colors = TextFieldDefaults.textFieldColors(
+                                textColor = Color(0xFFD63604)
+                            ),
                             singleLine = true,
                             modifier = Modifier
                                 .size(width = 175.dp, height = 51.dp)
@@ -235,6 +262,9 @@ fun AddScheduleScreen(navController: NavController) {
                     }
                     item {
                         OutlinedTextField(value = via, singleLine = true,
+                            colors = TextFieldDefaults.textFieldColors(
+                                textColor = Color(0xFFD63604)
+                            ),
                             modifier = Modifier
                                 .size(width = 175.dp, height = 51.dp)
                                 .padding(start = 20.dp),
@@ -254,6 +284,9 @@ fun AddScheduleScreen(navController: NavController) {
 
                     item {
                         OutlinedTextField(value = destination,
+                            colors = TextFieldDefaults.textFieldColors(
+                                textColor = Color(0xFFD63604)
+                            ),
                             singleLine = true,
                             modifier = Modifier
                                 .size(width = 175.dp, height = 51.dp)
@@ -276,6 +309,9 @@ fun AddScheduleScreen(navController: NavController) {
                     item {
 
                         OutlinedTextField(value = arrivalTime,
+                            colors = TextFieldDefaults.textFieldColors(
+                                textColor = Color(0xFFD63604)
+                            ),
                             singleLine = true,
                             modifier = Modifier
                                 .size(width = 175.dp, height = 51.dp)
@@ -295,6 +331,9 @@ fun AddScheduleScreen(navController: NavController) {
                     }
                     item {
                         OutlinedTextField(value = kilometer,
+                            colors = TextFieldDefaults.textFieldColors(
+                                textColor = Color(0xFFD63604)
+                            ),
                             singleLine = true,
                             modifier = Modifier
                                 .size(width = 175.dp, height = 51.dp)
@@ -322,6 +361,9 @@ fun AddScheduleScreen(navController: NavController) {
                         )
                         Spacer(modifier = Modifier.height(10.dp))
                         OutlinedTextField(value = etm,
+                            colors = TextFieldDefaults.textFieldColors(
+                                textColor = Color(0xFFD63604)
+                            ),
                             singleLine = true,
                             modifier = Modifier
                                 .size(width = 175.dp, height = 51.dp)
@@ -353,6 +395,9 @@ fun AddScheduleScreen(navController: NavController) {
                         Spacer(modifier = Modifier.height(10.dp))
                         Row{
                             OutlinedTextField(
+                                colors = TextFieldDefaults.textFieldColors(
+                                    textColor = Color(0xFFD63604)
+                                ),
                                 singleLine = true,
                                 modifier = Modifier
                                     .size(width = 145.dp, height = 58.dp)

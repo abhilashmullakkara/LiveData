@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +24,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -41,8 +43,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -72,6 +78,8 @@ fun  ScheduleDisplayScreen(navController: NavController){
 
     val context = LocalContext.current
     val etmNumbers = mutableSetOf<String>()
+    val myBusType: MutableSet<String> = mutableSetOf()
+    //val myBusType = mutableSetOf<String>()
    // var depoNo by rememberSaveable { mutableStateOf("") }
     var ti by rememberSaveable { mutableIntStateOf(0) }
     var flag by rememberSaveable { mutableIntStateOf(0) }
@@ -140,12 +148,15 @@ fun  ScheduleDisplayScreen(navController: NavController){
 
                     // Manually entered depot number field
                     OutlinedTextField(
+                        colors = TextFieldDefaults.textFieldColors(
+                            textColor = Color(0xFFEF0808)
+                        ),
                         value = manuallyEnteredDepoNo,
                         onValueChange = { newValue ->
                             manuallyEnteredDepoNo = newValue
                             // You might want to validate the manually entered value here
                         },
-                        label = { androidx.compose.material3.Text("Depo NO") },
+                        label = { androidx.compose.material3.Text("Depo NO",color=Color(0xFF0277BD)) },
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                         modifier = Modifier
                             .fillMaxWidth()
@@ -153,7 +164,12 @@ fun  ScheduleDisplayScreen(navController: NavController){
                         trailingIcon = {
                             // Icon representing a dropdown arrow
                             IconButton(onClick = {  expanded = !expanded }) {
-                                androidx.compose.material3.Icon(Icons.Filled.ArrowDropDown, contentDescription = null)
+                                androidx.compose.material3.Icon(
+                                    imageVector = Icons.Default.ArrowDropDown,
+                                    contentDescription = "Dropdown",
+                                    tint = Color(0xFF2E7D32) // Change the color here
+                                )
+//                                androidx.compose.material3.Icon(Icons.Filled.ArrowDropDown, contentDescription = null)
                             }
                         }
                     )
@@ -189,6 +205,9 @@ fun  ScheduleDisplayScreen(navController: NavController){
                         }
                     }
                     OutlinedTextField(
+                        colors = TextFieldDefaults.textFieldColors(
+                            textColor = Color(0xFFE10404)
+                        ),
                         value = manuallyEnteredScheduleNo,
                         onValueChange = { newValue ->
 
@@ -217,6 +236,10 @@ fun  ScheduleDisplayScreen(navController: NavController){
             var resultList: SnapshotStateList<OriginalData>
             val errorMessage = remember { mutableStateOf("Data not found") }
             Button(
+              colors= androidx.compose.material.ButtonDefaults.buttonColors(
+                  backgroundColor = Color(0xFF283593),
+                  contentColor = Color.White
+              ),
                 onClick = {
                     try {
                         if (manuallyEnteredDepoNo.isNotBlank() && manuallyEnteredScheduleNo.isNotBlank()) {
@@ -225,6 +248,7 @@ fun  ScheduleDisplayScreen(navController: NavController){
                             result=""
 
                             etmNumbers.clear()
+                            myBusType.clear()
                             val myRef = FirebaseDatabase.getInstance().reference.child("")
                             fetchMyDatabase(myRef, manuallyEnteredDepoNo, manuallyEnteredScheduleNo, { results ->
                                 resultList = results as SnapshotStateList<OriginalData>
@@ -244,6 +268,7 @@ fun  ScheduleDisplayScreen(navController: NavController){
                                         data.append("   " + it.kilometer)
                                         kilomts += it.kilometer.toDouble()
                                         etmKmr.append(it.etmNo)
+                                        myBusType.add(it.bustype.replace("\\s+".toRegex(), ""))
                                         ti += 1
                                         flag = 1
                                         etmNumbers.add(it.etmNo.replace("\\s+".toRegex(), ""))
@@ -262,6 +287,7 @@ fun  ScheduleDisplayScreen(navController: NavController){
                             kilomts = 0.0
                             ti=0
                             etmNumbers.clear()
+                            myBusType.clear()
                             Toast.makeText(context, "Input data first", Toast.LENGTH_SHORT).show()
                         }
                     } catch (e: Exception) {
@@ -276,6 +302,13 @@ fun  ScheduleDisplayScreen(navController: NavController){
             Text(text = "Check Internet Connection", color = Color.LightGray)
         }
         if(result.isNotEmpty()){
+            Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center,
+            modifier=Modifier.align(alignment = Alignment.CenterHorizontally)
+            ) {
+                UnderlinedText(myBusType)
+               // Text("Bus Type :  $myBusType ", fontSize = 19.sp, fontStyle = FontStyle.Italic,color=Color.White)
+
+            }
             Text(" \nNo   Time  From   Via    To    Arr.Time   Kmrs\n",color= Color.White)
             Divider(color = Color.Red, thickness = 4.dp)
             Text(result, color = Color.White)
@@ -318,6 +351,7 @@ fun fetchMyDatabase(
                             val scheduleNo = scheduleNoSnapshot.key as String
                             scheduleNoSnapshot.children.forEach { tripsSnapshot ->
                                 if (scheduleNo == schedule) {
+
                                     val trips = tripsSnapshot.getValue(OriginalData::class.java)
                                     if (trips != null) {
                                         resultList.add( trips)
@@ -335,6 +369,36 @@ fun fetchMyDatabase(
         }
       }
     )
+}
+@Composable
+fun UnderlinedText(myString: MutableSet<String>) {
+    if (myString.isNotEmpty()) {
+        // Define the bus type
+        val myBusType = myString.first()
+
+        // Create an AnnotatedString with an underline style
+        val annotatedText = buildAnnotatedString {
+            append("")
+            pushStyle(
+                SpanStyle(
+                    fontSize = 19.sp,
+                    fontStyle = FontStyle.Italic,
+                    color = Color.White,
+                    textDecoration = TextDecoration.Underline,
+                    background = Color(0xFFFF6F00)
+                    // textDecoration = TextDecoration.Underline // Underline style
+                )
+            )
+            append("Bus Type: $myBusType")
+            pop()
+        }
+
+        // Display the annotated text
+        Text(text = annotatedText)
+    } else {
+        // Handle the empty case if needed, e.g., display a default message or nothing
+        Text(text = "No bus type available", color = Color.Gray, fontStyle = FontStyle.Italic)
+    }
 }
 
 

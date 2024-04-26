@@ -1,6 +1,7 @@
 package com.abhilash.livedata.ui.theme.schedule
 import android.annotation.SuppressLint
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -87,15 +88,19 @@ fun DeleteTripScreen(navController: NavController) {
                     .padding(start = 10.dp, end = 10.dp, bottom = 10.dp),
                 shape = RoundedCornerShape(15.dp),
                 elevation = 3.dp,
-                contentColor = Color.Black,
-                backgroundColor = Color.White
+                border = BorderStroke(
+                    width = 2.dp,
+                    color = Color.White
+                ),
+                contentColor = Color.White,
+                backgroundColor = Color(0xFF969CCB)
             ) {
                 val scrollState = rememberScrollState()
                 Box(modifier = Modifier.verticalScroll(scrollState)) {
                     Column(modifier = Modifier.padding(start=10.dp)) {
 
                         Spacer(modifier = Modifier.height(20.dp))
-                        depoNo= NodepotSelectionScreen(depoList = depoList)
+                        depoNo= NodepotSelectionScreen(depoList = depoList,padd=0.80f)
 //                     OutlinedTextField(value = depoNo,
 //                        singleLine = true,
 //                        shape = RoundedCornerShape(80),
@@ -123,7 +128,7 @@ fun DeleteTripScreen(navController: NavController) {
                         placeholder = {
                             Text(
                                 text = "Enter Type (eg:- FP )",
-                                color = Color.Black,
+                                color =Color.White,
                                 fontSize = 15.sp
                             )
                         }
@@ -138,7 +143,7 @@ fun DeleteTripScreen(navController: NavController) {
                             placeholder = {
                                 Text(
                                     text = "Schedule No",
-                                    color = Color.Black,
+                                    color = Color.White,
                                     fontSize = 15.sp
                                 )
                             }
@@ -154,7 +159,7 @@ fun DeleteTripScreen(navController: NavController) {
                         placeholder = {
                             Text(
                                 text = "Trip Number",
-                                color = Color.Black,
+                                color = Color.White,
                                 fontSize = 15.sp
                             )
                         }

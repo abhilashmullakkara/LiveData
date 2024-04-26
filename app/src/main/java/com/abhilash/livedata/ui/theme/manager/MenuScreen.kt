@@ -1,5 +1,6 @@
 package com.abhilash.livedata.ui.theme.manager
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,6 +33,8 @@ import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -82,10 +85,23 @@ fun MenuScreen(navController: NavController) {
 
                         HorizontalDivider(thickness = 3.dp, color = Color.White)
                     }
-                    Column(modifier = Modifier.padding(start = 70.dp)) {
-                        Text(
-                            "Add/Update", color = Color.White,
-                            fontSize = 16.sp, modifier = Modifier.padding(start = 10.dp)
+                    Column(modifier = Modifier.padding(start = 70.dp,top=10.dp)) {
+                        val text = buildAnnotatedString {
+                            append("Add/Update")
+                        }
+                        val textStyle = TextStyle(
+                            color =Color.White, // Set the text color to blue
+                            fontSize = 16.sp, // Set the font size
+                            textDecoration = TextDecoration.Underline // Underline the text
+                        )
+                        ClickableText(
+                            modifier = Modifier.padding(start = 10.dp),
+                            text = text, // The text to be displayed
+                            style = textStyle, // The style to be applied to the text
+                            onClick = {
+                                // Navigate to the "AddScheduleScreen" screen when the text is clicked
+                                navController.navigate("AddScheduleScreen")
+                            }
                         )
                         IconButton(onClick = {
                             navController.navigate("AddScheduleScreen")
@@ -98,52 +114,76 @@ fun MenuScreen(navController: NavController) {
                                 "", modifier = Modifier.size(30.dp)
                             )
                         }
-                        Text("View Schedule", color = Color.White, fontSize = 16.sp)
-                        IconButton(onClick = {
-                            navController.navigate("ScheduleDisplayScreen")
+                        Column(modifier= Modifier
+                            .clickable {
+                                navController.navigate("ScheduleDisplayScreen")
+                            }
+                            .fillMaxWidth()) {
+                            Text("View Schedule", color = Color.White, fontSize = 16.sp)
+                            IconButton(onClick = {
+                                navController.navigate("ScheduleDisplayScreen")
 
-                        }, modifier = Modifier.padding(start = 20.dp))
-                        {
-                            Icon(
-                                painter = painterResource(id = R.drawable.folder_open_fill0_wght400_grad0_opsz24),
-                                "", modifier = Modifier.size(30.dp)
-                            )
+                            }, modifier = Modifier.padding(start = 20.dp))
+                            {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.folder_open_fill0_wght400_grad0_opsz24),
+                                    "", modifier = Modifier.size(30.dp)
+                                )
+                            }
                         }
-                        Text("Delete Trip", color = Color.White, fontSize = 20.sp)
 
-                        IconButton(onClick = {
-                           // navController.navigate("DeleteTripScreen")
+                      Column(modifier= Modifier
+                          .clickable {
+                              navController.navigate("DeleteTripScreenWithPassword")
+                          }
+                          .fillMaxWidth()) {
+                          Text("Delete Trip", color = Color.White, fontSize = 20.sp)
+
+                          IconButton(onClick = {
+                              // navController.navigate("DeleteTripScreen")
                               navController.navigate("DeleteTripScreenWithPassword")
 
-                        }, modifier = Modifier.padding(start = 20.dp))
-                        {
-                            Icon(
-                                painter = painterResource(id = R.drawable.content_cut_fill0_wght400_grad0_opsz24),
-                                "", modifier = Modifier.size(30.dp)
-                            )
-                        }
-                        Text("Delete Schedule", color = Color.White, fontSize = 20.sp)
-                        IconButton(onClick = {
-                            //navController.navigate("DeleteScheduleScreen")
-                            navController.navigate("DeleteScheduleScreenWithPassword")
+                          }, modifier = Modifier.padding(start = 20.dp))
+                          {
+                              Icon(
+                                  painter = painterResource(id = R.drawable.content_cut_fill0_wght400_grad0_opsz24),
+                                  "", modifier = Modifier.size(30.dp)
+                              )
+                          }
+                      }
+                       Column(modifier= Modifier
+                           .clickable {
+                               navController.navigate("DeleteScheduleScreenWithPassword")
 
-                        }, modifier = Modifier.padding(start = 20.dp))
-                        {
-                            Icon(
-                                painter = painterResource(id = R.drawable.content_cut_fill0_wght400_grad0_opsz24),
-                                "", modifier = Modifier.size(30.dp)
-                            )
-                        }
-                        Text("List All Schedule", color = Color.White, fontSize = 20.sp)
-                        IconButton(onClick = {
+                           }
+                           .fillMaxWidth()) {
+                           Text("Delete Schedule", color = Color.White, fontSize = 20.sp)
+                           IconButton(onClick = {
+                               //navController.navigate("DeleteScheduleScreen")
+                               navController.navigate("DeleteScheduleScreenWithPassword")
+
+                           }, modifier = Modifier.padding(start = 20.dp))
+                           {
+                               Icon(
+                                   painter = painterResource(id = R.drawable.content_cut_fill0_wght400_grad0_opsz24),
+                                   "", modifier = Modifier.size(30.dp)
+                               )
+                           }
+                       }
+                        Column(modifier=Modifier.clickable {
                             navController.navigate("ListAllScheduleScreen")
-                        }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.cloud_download_fill0_wght400_grad0_opsz24),
-                                "", modifier = Modifier.size(30.dp)
-                            )
-                        }
+                        }.fillMaxWidth()) {
+                            Text("List All Schedule", color = Color.White, fontSize = 20.sp)
+                            IconButton(onClick = {
+                                navController.navigate("ListAllScheduleScreen")
+                            }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.cloud_download_fill0_wght400_grad0_opsz24),
+                                    "", modifier = Modifier.size(30.dp)
+                                )
+                            }
 
+                        }
                     }
 
                     Card(
@@ -349,7 +389,7 @@ fun MenuScreen(navController: NavController) {
                      },
                      modifier = Modifier
                          .size(width = 55.dp, height = 40.dp)
-                         .padding(start =15.dp)
+                         .padding(start = 15.dp)
                  ) {
 
                      Icon(
@@ -389,7 +429,7 @@ fun MenuScreen(navController: NavController) {
                      },
                      modifier = Modifier
                          .size(width = 55.dp, height = 40.dp)
-                         .padding(start =15.dp)
+                         .padding(start = 15.dp)
                  ) {
                      Icon(
                          painter = painterResource(id = R.drawable.extension_fill0_wght400_grad0_opsz24),
