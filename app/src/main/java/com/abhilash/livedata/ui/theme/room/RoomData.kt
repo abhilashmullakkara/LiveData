@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -45,13 +46,13 @@ import com.abhilash.livedata.ui.ai.isValidText
 import com.abhilash.livedata.ui.theme.admob.BannerAdView
 import com.abhilash.livedata.ui.theme.checkbox
 import com.abhilash.livedata.ui.theme.userdatabase.myCalendar
+import com.abhilash.livedata.ui.theme.userdatabase.reverseStringDate
 import com.google.android.gms.ads.AdSize
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @OptIn(DelicateCoroutinesApi::class)
@@ -237,7 +238,8 @@ fun RoomData(navController:NavController) {
 
                    modifier = Modifier
                        .fillMaxWidth(0.44f)
-                       .padding(start = 10.dp).border(BorderStroke(2.dp, Color.Red)),
+                       .padding(start = 10.dp)
+                       .border(BorderStroke(2.dp, Color.Red)),
                    placeholder = {
                        Text(
                            text = "Name of the crew",
@@ -257,7 +259,9 @@ fun RoomData(navController:NavController) {
                         Text("If surrender, put tick ☑  ", fontWeight = FontWeight.SemiBold, fontSize = 16.sp, color = Color.Red)
                         Spacer(modifier = Modifier.width(10.dp))
                         Checkbox(
-                            modifier = Modifier.padding(start=290.dp,end=5.dp).fillMaxWidth(),
+                            modifier = Modifier
+                                .padding(start = 290.dp, end = 5.dp)
+                                .fillMaxWidth(),
                             checked = surrender,
                             onCheckedChange = { isChecked -> surrender = isChecked },
                             colors = CheckboxDefaults.colors(checkedColor = Color.Red) // Customize checkbox color
@@ -340,14 +344,29 @@ fun EditRoomData(rec:Int,database: Employee,navController: NavController) {
         var flag by rememberSaveable { mutableStateOf(false) }
         var scheduleNo by rememberSaveable { mutableStateOf(database.dutyNo) }
         var dutyEearnt by rememberSaveable { mutableStateOf(database.dutyEarned) }
-        var permedDate by rememberSaveable { mutableStateOf(database.performedOn) }
+        var permedDate: String? by rememberSaveable { mutableStateOf(null) }
         var todayCollection by rememberSaveable { mutableStateOf(database.collection) }
         var wBillNo by rememberSaveable { mutableStateOf(database.wayBillNo) }
         var crewName by rememberSaveable { mutableStateOf(database.employeeName) }
         Column(modifier=Modifier.height(800.dp)) {
-            Text("Schedule:${database.dutyNo} Duty:${database.dutyEarned} Date:${database.performedOn} " +
+            Text("Schedule:${database.dutyNo} Duty:${database.dutyEarned}" +
                     "Collection:${database.collection} WayBill:${database.wayBillNo} " +
                     " Crew: ${database.employeeName}",color= Color.White)
+            val rdate = database.performedOn?.let { reverseStringDate(rdate = it) }
+            if (rdate != null) {
+                Surface(color = Color(0xFFFF6F00)) {
+                    Text(
+                        "date:$rdate",
+                        color = Color.White,
+                        fontStyle = FontStyle.Italic,
+                        fontSize = 16.sp,
+                        modifier = Modifier.padding(start=10.dp,end = 8.dp)
+                    )
+                }
+
+            }
+
+
             Text(text = "Schedule No     No of duty earned  ", color=Color.White, fontSize = 19.sp,
                 modifier = Modifier
                     .padding(start = 10.dp, end = 10.dp)
@@ -405,7 +424,7 @@ fun EditRoomData(rec:Int,database: Employee,navController: NavController) {
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))
-            permedDate = performedDate()//myCalendar()
+            permedDate = performedDate(database.performedOn)//myCalendar()
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 "Optional Data (below)",
@@ -544,15 +563,14 @@ fun EditRoomData(rec:Int,database: Employee,navController: NavController) {
 }
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun performedDate():String{
-    val currentDate = LocalDate.now()
+fun performedDate(performedOn: String?):String? {
 
     // Define the desired date format
     val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
 
     // Format the current date as a string
-    val formattedDate = currentDate.format(formatter)
-    val dDate= myCalendar()
+    val formattedDate = performedOn?.format(formatter)
+    val dDate = myCalendar()
     return dDate.ifBlank {
         formattedDate
     }

@@ -29,15 +29,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.abhilash.livedata.test.NodepotSelectionScreen
-import com.abhilash.livedata.ui.ai.isValidText
 import com.abhilash.livedata.ui.theme.database.OriginalData
 import com.abhilash.livedata.ui.theme.database.depoList
 import com.google.firebase.database.DataSnapshot
@@ -77,28 +74,27 @@ fun FindMyBusScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(2.dp))
             Divider(color = Color.White, thickness = 1.dp)
             Text(
-                "Enter depot number to limit search within a specified depot",
+                "Enter depot number to limit search within a specified depot[erase ,]",
                 modifier = Modifier.padding(start = 10.dp),
                 fontSize = 18.sp, color = Color.LightGray
             )
             Row(  modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp)) {
-                depoNo=NodepotSelectionScreen(depoList)
+                depoNo=NodepotSelectionScreen(depoList,padd=0.5f)
                 Spacer(modifier = Modifier.width(10.dp))
                 OutlinedTextField(
                     value = destination,
                     onValueChange = { newValue ->
-                        val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
-                        if (isValidText(textFieldValue)) {
-                            destination = textFieldValue.text
-                        }
+                                    destination=newValue
+//                        }
                     },
-                    label = { Text("Destination") },
+                    label = { Text("Destination",color=Color.White, fontSize = 14.sp) },
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters),
                 )
             }
             Spacer(modifier = Modifier.height(15.dp))
+            if (destination.isNotBlank())
                searchAndStorePath(path=depoNo,destination=destination)
         }
     }

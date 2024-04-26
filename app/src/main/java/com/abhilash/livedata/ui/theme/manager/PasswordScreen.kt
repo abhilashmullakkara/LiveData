@@ -1,5 +1,6 @@
 package com.abhilash.livedata.ui.theme.manager
 
+
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,7 +43,8 @@ import com.google.android.gms.ads.AdSize
 
 @Composable
 fun AddScheduleScreenWithPassword(navController: NavController) {
-    Surface(color = Color.White) {
+
+    Surface(color = Color(0xFF3D4055)) {
         var passwordEntered by rememberSaveable { mutableStateOf(false) }
 
         if (!passwordEntered) {
@@ -57,7 +60,7 @@ fun AddScheduleScreenWithPassword(navController: NavController) {
 }
 @Composable
 fun DeleteScheduleScreenWithPassword(navController: NavController) {
-    Surface(color = Color.White) {
+    Surface(color = Color(0xFF3D4055)) {
         var passwordEntered by rememberSaveable { mutableStateOf(false) }
 
         if (!passwordEntered) {
@@ -73,7 +76,7 @@ fun DeleteScheduleScreenWithPassword(navController: NavController) {
 }
 @Composable
 fun DeleteTripScreenWithPassword(navController: NavController) {
-    Surface(color = Color.White) {
+    Surface(color = Color(0xFF3D4055)) {
         var passwordEntered by rememberSaveable { mutableStateOf(false) }
 
         if (!passwordEntered) {
@@ -90,16 +93,12 @@ fun DeleteTripScreenWithPassword(navController: NavController) {
 
 @Composable
 fun PasswordScreen(onPasswordEntered: (Pass) -> Unit) {
-    Surface(color = Color.White) {
+    Surface(color = Color(0xFF7280E7)) {
 
-        val focusManager = LocalFocusManager.current
+       val focusManager = LocalFocusManager.current
 
-        // keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-        //    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done, keyboardType = KeyboardType.Password)
     val context = LocalContext.current
         var passwordResult by rememberSaveable { mutableStateOf("") }
-
-        // val keyboardController = LocalSoftwareKeyboardController.current
     var password by rememberSaveable { mutableStateOf("") }
         var deponumber by rememberSaveable { mutableStateOf("") }
     Box(
@@ -118,20 +117,23 @@ fun PasswordScreen(onPasswordEntered: (Pass) -> Unit) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-            deponumber = NodepotSelectionScreen(depoList = depoList)
-
-
+            deponumber = NodepotSelectionScreen(depoList = depoList,padd=0.85f)
         OutlinedTextField(
+            colors = TextFieldDefaults.textFieldColors(
+                textColor = Color(0XFFD2D0AE)
+            ),
             value = password,
-            modifier=Modifier.fillMaxWidth()
-            .padding(16.dp),
+            modifier= Modifier
+                .fillMaxWidth(0.9f)
+                .padding(10.dp),
             onValueChange = { password = it },
-            label = { Text("Enter Password") },
+            label = { Text("Enter Password", color =Color(0xFFF8F8ED)) },
             keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Password
             ),
+
             visualTransformation = PasswordVisualTransformation(mask = '*')
         )
 
@@ -149,12 +151,11 @@ fun PasswordScreen(onPasswordEntered: (Pass) -> Unit) {
                     // Call the callback with the Pass object
                     onPasswordEntered(pass)
                 } else {
-                    // Show an error message or handle incorrect password
                     Toast.makeText(context, "Incorrect Password", Toast.LENGTH_SHORT).show()
                 }
             }
         ) {
-            Text("Submit")
+            Text("Submit",color=Color.White)
         }
 
     }

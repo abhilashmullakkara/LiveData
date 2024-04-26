@@ -213,6 +213,7 @@ fun readValue():String {
 
     var inputValue by rememberSaveable { mutableStateOf("") }
     OutlinedTextField(
+
         value = inputValue,
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),

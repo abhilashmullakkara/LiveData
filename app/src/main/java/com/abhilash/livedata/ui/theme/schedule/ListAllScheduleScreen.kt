@@ -31,7 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.abhilash.livedata.test.DepotSelectionScreen
+import com.abhilash.livedata.test.NodepotSelectionScreen
 import com.abhilash.livedata.ui.theme.database.OriginalData
 import com.abhilash.livedata.ui.theme.database.depoList
 import com.google.firebase.database.DataSnapshot
@@ -66,7 +66,7 @@ fun ListAllScheduleScreen(navController: NavController) {
                 )
             }
             HorizontalDivider(color = Color.White)
-            depoNo= DepotSelectionScreen(depoList = depoList)
+            depoNo= NodepotSelectionScreen(depoList = depoList,padd=0.80f) //DepotSelectionScreen(depoList = depoList)
             Spacer(modifier = Modifier.height(15.dp))
             searchAndStore(depoNo)
         }
