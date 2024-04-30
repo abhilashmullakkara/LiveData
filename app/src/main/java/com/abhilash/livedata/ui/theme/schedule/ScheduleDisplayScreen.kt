@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,12 +42,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -79,8 +75,6 @@ fun  ScheduleDisplayScreen(navController: NavController){
     val context = LocalContext.current
     val etmNumbers = mutableSetOf<String>()
     val myBusType: MutableSet<String> = mutableSetOf()
-    //val myBusType = mutableSetOf<String>()
-   // var depoNo by rememberSaveable { mutableStateOf("") }
     var ti by rememberSaveable { mutableIntStateOf(0) }
     var flag by rememberSaveable { mutableIntStateOf(0) }
     val scroll= rememberScrollState()
@@ -301,15 +295,22 @@ fun  ScheduleDisplayScreen(navController: NavController){
             }
             Text(text = "Check Internet Connection", color = Color.LightGray)
         }
+        Spacer(modifier = Modifier.height(5.dp))
         if(result.isNotEmpty()){
-            Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center,
-            modifier=Modifier.align(alignment = Alignment.CenterHorizontally)
+            Column(
+                //horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center,
+            modifier=Modifier.fillMaxSize()
             ) {
-                UnderlinedText(myBusType)
-               // Text("Bus Type :  $myBusType ", fontSize = 19.sp, fontStyle = FontStyle.Italic,color=Color.White)
+                Surface (color=Color(0xFFFF6F00),modifier= Modifier
+                    .fillMaxWidth()
+                    .padding(start = 25.dp, end = 25.dp))
+                {
+                    Text("Bus Type :  $myBusType ", fontSize = 19.sp, fontStyle = FontStyle.Italic,color=Color.White)
+
+                }
 
             }
-            Text(" \nNo   Time  From   Via    To    Arr.Time   Kmrs\n",color= Color.White)
+            Text(" \nNo   Time  From    Via    To     Arr.Time   Kmrs\n",color= Color.White)
             Divider(color = Color.Red, thickness = 4.dp)
             Text(result, color = Color.White)
             Text("\nTotal Kilometers: $kilomts", color = Color.White)
@@ -370,35 +371,6 @@ fun fetchMyDatabase(
       }
     )
 }
-@Composable
-fun UnderlinedText(myString: MutableSet<String>) {
-    if (myString.isNotEmpty()) {
-        // Define the bus type
-        val myBusType = myString.first()
 
-        // Create an AnnotatedString with an underline style
-        val annotatedText = buildAnnotatedString {
-            append("")
-            pushStyle(
-                SpanStyle(
-                    fontSize = 19.sp,
-                    fontStyle = FontStyle.Italic,
-                    color = Color.White,
-                    textDecoration = TextDecoration.Underline,
-                    background = Color(0xFFFF6F00)
-                    // textDecoration = TextDecoration.Underline // Underline style
-                )
-            )
-            append("Bus Type: $myBusType")
-            pop()
-        }
-
-        // Display the annotated text
-        Text(text = annotatedText)
-    } else {
-        // Handle the empty case if needed, e.g., display a default message or nothing
-        Text(text = "No bus type available", color = Color.Gray, fontStyle = FontStyle.Italic)
-    }
-}
 
 

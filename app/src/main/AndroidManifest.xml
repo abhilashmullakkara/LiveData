@@ -33,7 +33,7 @@
         </activity>
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-9950046999139130~1285737564"
+            android:value="ca-app-pub-9950046999139130~3464143848"
             />
     </application>
 
