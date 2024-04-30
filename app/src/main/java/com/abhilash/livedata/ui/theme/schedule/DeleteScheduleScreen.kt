@@ -184,7 +184,7 @@ fun DeleteScheduleScreen(navController:NavController) {
 
 
                            }) {
-                               Text(text = "DELETE")
+                               Text(text = "DELETE SCHEDULE")
 
                            }
 
