@@ -273,11 +273,7 @@ fun MenuScreen(navController: NavController) {
          HorizontalDivider(thickness = 3.dp, color = Color.White)
          Spacer(modifier = Modifier.height(10.dp))
          Column {
-
-
          Row {
-
-            // Spacer(modifier = Modifier.width(15.dp))
              Column(
                  verticalArrangement = Arrangement.Center, // Aligns items vertically centered
                  horizontalAlignment = Alignment.CenterHorizontally // Aligns items horizontally centered

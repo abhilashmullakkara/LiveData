@@ -9,7 +9,6 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 
-
 @SuppressLint("VisibleForTests")
 @Composable
 fun BannerAdView(isTest: Boolean = true ,banner:AdSize= AdSize.BANNER) {

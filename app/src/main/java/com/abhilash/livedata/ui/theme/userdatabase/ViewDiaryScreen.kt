@@ -1,5 +1,6 @@
 package com.abhilash.livedata.ui.theme.userdatabase
 
+
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -8,8 +9,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -19,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
@@ -438,12 +442,26 @@ fun EmployeeItemReduced(employee: Employee,recordNo: Int=0,onDelete:(Employee)->
                     }
                     item {
                         var isChecked by remember { mutableStateOf(false) }
-                        Checkbox(
-                            checked = isChecked,
-                            onCheckedChange = { isChecked = it },
-                            modifier = Modifier.padding(end = 8.dp)
-                        )
-                        TextButton(
+                        Surface(color=Color.White) {
+                            Box(
+                                modifier = Modifier
+                                    .padding(end = 2.dp)
+                                    .size(width=20.dp, height = 20.dp) // Adjust the size as needed
+                            ) {
+                                Checkbox(
+                                    checked = isChecked,
+                                    onCheckedChange = { isChecked = it },
+                                    modifier = Modifier.fillMaxSize(),
+                                    colors = CheckboxDefaults.colors(
+                                        checkmarkColor = Color.Black,
+                                        checkedColor = Color.Magenta
+                                    )
+                                )
+                            }
+
+//
+                    }
+                        TextButton(modifier = Modifier.padding(start=17.dp),
                             onClick = {
                                 if (isChecked) {
                                     coroutineScope.launch {
