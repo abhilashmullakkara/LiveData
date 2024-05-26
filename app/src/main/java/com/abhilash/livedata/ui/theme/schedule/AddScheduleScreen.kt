@@ -102,48 +102,9 @@ fun AddScheduleScreen(navController: NavController) {
             Row {
                 Spacer(modifier = Modifier.width(7.dp))
                 depoNo= NodepotSelectionScreen(depoList = depoList, color = Color(0xFFEEECF4),padd=0.32f)
-//                OutlinedTextField(
-//                    value = depoNo,
-//                    singleLine = true,
-//                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-//                    onValueChange = { newValue ->
-//                        val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
-//                        if (isValidText(textFieldValue)) {
-//                            depoNo = textFieldValue.text
-//                        }
-//                    },
-//                    modifier = Modifier.fillMaxWidth(0.25f),
-//                    placeholder = {
-//                        Text(
-//                            text = "DepoNO",
-//                            color = Color.Black,
-//                            fontSize = 14.sp
-//                        )
-//                    }
-//                )
                 Spacer(modifier = Modifier.width(7.dp))
                 scheduleNo= depoSchedule(depoNo, color = Color(0xF3F6F5F0),padd=0.49f)
 
-//                OutlinedTextField(
-//
-//                    value = scheduleNo,
-//                    singleLine = true,
-//                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
-//                    onValueChange = { newValue ->
-//                        val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
-//                        if (isValidText(textFieldValue)) {
-//                            scheduleNo = textFieldValue.text
-//                        }
-//                    },
-//                    modifier = Modifier.fillMaxWidth(0.45f),
-//                    placeholder = {
-//                        Text(
-//                            text = "Schedule NO",
-//                            color = Color.Black,
-//                            fontSize = 13.sp
-//                        )
-//                    }
-//                )
                 Spacer(modifier = Modifier.width(7.dp))
                 Column {
                     Text("FP/ORD/JNRUM/....", fontSize = 11.sp, color = Color.Black)

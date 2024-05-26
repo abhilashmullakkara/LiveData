@@ -3,18 +3,22 @@ package com.abhilash.livedata.ui.theme.manager
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.abhilash.livedata.ui.ai.AboutScreen
 import com.abhilash.livedata.ui.ai.ContactMeScreen
 import com.abhilash.livedata.ui.theme.DepoListScreen
 import com.abhilash.livedata.ui.theme.schedule.AddScheduleScreen
 import com.abhilash.livedata.ui.theme.schedule.DeleteScheduleScreen
 import com.abhilash.livedata.ui.theme.schedule.DeleteTripScreen
+import com.abhilash.livedata.ui.theme.schedule.DisplayOnlyScheduleScreen
 import com.abhilash.livedata.ui.theme.schedule.FindMyBusScreen
 import com.abhilash.livedata.ui.theme.schedule.ListAllScheduleScreen
 import com.abhilash.livedata.ui.theme.schedule.ScheduleDisplayScreen
+import com.abhilash.livedata.ui.theme.schedule.searchAndStore
 import com.abhilash.livedata.ui.theme.userdatabase.AddDutyDiaryScreen
 import com.abhilash.livedata.ui.theme.userdatabase.CurrencyCountScreen
 import com.abhilash.livedata.ui.theme.userdatabase.DeleteAllRecordScreen
@@ -90,6 +94,38 @@ fun ScreenManager(){
         }
         composable("ContactMeScreen"){
             ContactMeScreen(navController = navController)
+        }
+
+        composable(
+            "DisplayOnlyScheduleScreen/{depoNumber}/{scheduleNo}/{departureTime}/{destinationPlace}",
+            arguments = listOf(
+                navArgument("depoNumber") { type = NavType.StringType },
+                navArgument("scheduleNo") { type = NavType.StringType },
+                navArgument("departureTime") { type = NavType.StringType },
+                navArgument("destinationPlace") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val depoNumber = backStackEntry.arguments?.getString("depoNumber") ?: ""
+            val scheduleNo = backStackEntry.arguments?.getString("scheduleNo") ?: ""
+            val departureTime = backStackEntry.arguments?.getString("departureTime") ?: ""
+            val destinationPlace = backStackEntry.arguments?.getString("destinationPlace") ?: ""
+
+            DisplayOnlyScheduleScreen(
+                navController,
+                depoNumber,
+                scheduleNo,
+                departureTime,
+                destinationPlace
+            )
+        }
+
+
+
+
+
+
+        composable("searchAndStore"){
+            searchAndStore(navController=navController)
         }
     }
 }

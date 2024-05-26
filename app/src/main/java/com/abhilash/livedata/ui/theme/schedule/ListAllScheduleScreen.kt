@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.Card
@@ -68,14 +69,16 @@ fun ListAllScheduleScreen(navController: NavController) {
             HorizontalDivider(color = Color.White)
             depoNo= NodepotSelectionScreen(depoList = depoList,padd=0.80f) //DepotSelectionScreen(depoList = depoList)
             Spacer(modifier = Modifier.height(15.dp))
-            searchAndStore(depoNo)
+            searchAndStore(depoNo,navController=navController)
         }
         }
 }
 @Composable
-fun searchAndStore(path: String = ""): List<Pair<String, OriginalData>> {
+fun searchAndStore(path: String = "",navController: NavController): List<Pair<String, OriginalData>> {
     var resultList by remember { mutableStateOf<List<Pair<String, OriginalData>>>(emptyList()) }
     val errorMessage = remember { mutableStateOf("") }
+    val depo = remember { mutableStateOf("") }
+    depo.value=path
     val databaseRef = FirebaseDatabase.getInstance().reference.child("")
     fetchDatabase(databaseRef, path, { results ->
         resultList = results
@@ -105,20 +108,46 @@ fun searchAndStore(path: String = ""): List<Pair<String, OriginalData>> {
 
                     ) ,
                 ) {
+
+
+
                     LazyColumn(modifier = Modifier.padding(start = 25.dp,top=15.dp)) {
 
                         items(resultList) { (scheduleNo: String, originalData) ->
                             Surface(color=Color(0xFF4B624C)) {
-                            Text(
-                                "DutyNo $scheduleNo  :${originalData.departureTime}   ${originalData.destinationPlace} ",
-                                color = Color.White,
-                                fontSize = 17.sp,
-                                fontWeight = FontWeight.SemiBold
-                            )
+                                Button(onClick = {
+                                    try {
+                                        navController.navigate(
+                                            "DisplayOnlyScheduleScreen/${path}/${scheduleNo}/${originalData.departureTime}/${originalData.destinationPlace}"
+                                        )
+                                    } catch (e: Exception) {
+                                        errorMessage.value = "Navigation error: ${e.message}"
+                                    }
+
+
+                                  //  navController.navigate(
+                                      //  "DisplayOnlyScheduleScreen/${path}/${scheduleNo}/${originalData.departureTime}/${originalData.destinationPlace}"
+                                   // )
+                                  // navController.navigate ( "DisplayOnlyScheduleScreen/${path}/${scheduleNo}/${originalData.departureTime}/${originalData.destinationPlace}"
+
+                                   // navController.navigate("DisplayOnlyScheduleScreen")
+                                }) {
+
+
+                                Text(
+                                    "DutyNo $scheduleNo  :${originalData.departureTime}   ${originalData.destinationPlace} ",
+                                    color = Color.White,
+                                    fontSize = 17.sp,
+                                    fontWeight = FontWeight.SemiBold
+                                )
                                 HorizontalDivider(thickness = 1.dp, color = Color(0xFF9BC29D))
-                        }
+                            }
+                            }
                         }
                     }
+
+
+
                 }
             }
         }

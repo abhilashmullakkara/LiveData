@@ -24,3 +24,8 @@
   -keepclassmembers class com.abhilash.livedata.ui.theme.room** {
        *;
      }
+     # Keep all classes in the com.appnext package
+     -keep class com.appnext.** { *; }
+
+     # Do not warn about com.appnext classes
+     -dontwarn com.appnext.**
