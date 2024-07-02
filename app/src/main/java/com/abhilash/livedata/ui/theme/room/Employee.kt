@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Keep
-@Entity
+@Entity(tableName = "Employee")
 data class Employee (
      var dutyNo:String?="",
      var performedOn:String?="",
@@ -16,4 +16,17 @@ data class Employee (
      var dutySurrendered:Boolean=false,
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
 )
+
+
+//@Entity(tableName = "Employee")
+//data class Employee(
+//    @PrimaryKey(autoGenerate = true) var id: Int,
+//    val dutyNo: String,
+//    val performedOn: String,
+//    val dutyEarned: String,
+//    val collection: String,
+//    val employeeName: String,
+//    val wayBillNo: String,
+//    val dutySurrendered: Boolean=false
+//)
 

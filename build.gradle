@@ -6,10 +6,11 @@ buildscript {
     dependencies {
         classpath 'com.google.gms:google-services:4.4.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.android.tools.build:gradle:8.4.0'
+        classpath 'com.android.tools.build:gradle:8.3.0-beta02'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10'
 
-        //AGP:4.2.0-alpha07
+        //AGP:4.2.0-alpha07 8.3.0-beta02
+        //See Android Studio & AGP compatibility options.
         classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
     }
     repositories {
@@ -21,8 +22,8 @@ buildscript {
     }
 }
 plugins {
-    id 'com.android.application' version '8.4.0' apply false
-    id 'com.android.library' version '8.4.0' apply false
+    id 'com.android.application' version '8.3.0-beta02' apply false
+    id 'com.android.library' version '8.3.0-beta02' apply false
 
     id 'org.jetbrains.kotlin.android' version '1.9.10' apply false
     id 'com.google.devtools.ksp' version '1.9.10-1.0.13' apply false

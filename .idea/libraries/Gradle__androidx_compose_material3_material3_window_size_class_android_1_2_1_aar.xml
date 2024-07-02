@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.compose.material3:material3-window-size-class-android:1.2.1@aar" external-system-id="GRADLE">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-4/18f7dcac768c098cd821e088bfe17186/transformed/material3-window-size-class-release/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-4/18f7dcac768c098cd821e088bfe17186/transformed/material3-window-size-class-release/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-4/18f7dcac768c098cd821e088bfe17186/transformed/material3-window-size-class-release/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-4/db8677de2dc47801da8a167081c5cb9d/transformed/material3-window-size-class-release/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-4/db8677de2dc47801da8a167081c5cb9d/transformed/material3-window-size-class-release/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-4/db8677de2dc47801da8a167081c5cb9d/transformed/material3-window-size-class-release/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

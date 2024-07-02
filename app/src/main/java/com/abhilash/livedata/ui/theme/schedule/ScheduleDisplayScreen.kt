@@ -30,7 +30,7 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableDoubleStateOf
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -79,7 +79,7 @@ fun  ScheduleDisplayScreen(navController: NavController){
     var flag by rememberSaveable { mutableIntStateOf(0) }
     val scroll= rememberScrollState()
     var result by rememberSaveable { mutableStateOf("") }
-    var kilomts by rememberSaveable { mutableDoubleStateOf(0.0) }
+    var kilomts by rememberSaveable { mutableFloatStateOf(0.0f) }
     Surface(color = Color(0xFF175B52)) {
     Column(
         modifier = Modifier
@@ -237,7 +237,7 @@ fun  ScheduleDisplayScreen(navController: NavController){
                 onClick = {
                     try {
                         if (manuallyEnteredDepoNo.isNotBlank() && manuallyEnteredScheduleNo.isNotBlank()) {
-                            kilomts = 0.0
+                            kilomts = 0.0f
                             ti=0
                             result=""
 
@@ -247,7 +247,7 @@ fun  ScheduleDisplayScreen(navController: NavController){
                             fetchMyDatabase(myRef, manuallyEnteredDepoNo, manuallyEnteredScheduleNo, { results ->
                                 resultList = results as SnapshotStateList<OriginalData>
                                 errorMessage.value = "" // Clear any previous error message
-                                kilomts = 0.0 // Reset kilomts variable to zero
+                                kilomts = 0.0f // Reset kilomts variable to zero
                                 val data = StringBuffer()
                                 val etmKmr = StringBuffer()
                                 if (resultList.isNotEmpty()) {
@@ -260,7 +260,7 @@ fun  ScheduleDisplayScreen(navController: NavController){
                                         data.append("   " + it.destinationPlace)
                                         data.append("   " + it.arrivalTime)
                                         data.append("   " + it.kilometer)
-                                        kilomts += it.kilometer.toDouble()
+                                        kilomts += it.kilometer.toFloat()
                                         etmKmr.append(it.etmNo)
                                         myBusType.add(it.bustype.replace("\\s+".toRegex(), ""))
                                         ti += 1
@@ -278,7 +278,7 @@ fun  ScheduleDisplayScreen(navController: NavController){
                                 errorMessage.value = "Error: ${error.message}"
                             })
                         } else {
-                            kilomts = 0.0
+                            kilomts = 0.0f
                             ti=0
                             etmNumbers.clear()
                             myBusType.clear()
