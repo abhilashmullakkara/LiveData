@@ -438,7 +438,7 @@ fun MenuScreen(navController: NavController) {
          }
              Spacer(modifier = Modifier.height(45.dp))
              Row {
-                 Spacer(modifier = Modifier.width(40.dp))
+                 Spacer(modifier = Modifier.width(10.dp))
                  Button(onClick = { navController.navigate("AboutScreen") },
                      elevation = ButtonDefaults.buttonElevation(
                          defaultElevation = 30.dp
@@ -446,7 +446,7 @@ fun MenuScreen(navController: NavController) {
                  ) {
                      Text("ABOUT", color = Color.White, fontSize = 16.sp)
                  }
-                 Spacer(modifier = Modifier.width(20.dp))
+                 Spacer(modifier = Modifier.width(10.dp))
 
                  Button(onClick = { navController.navigate("ContactMeScreen") },
                      colors = ButtonDefaults.buttonColors(
@@ -460,8 +460,26 @@ fun MenuScreen(navController: NavController) {
                      Text("Contact Me", fontSize = 16.sp,color= Color.White)
 
                  }
+                 //new modification
 
 
+                 Spacer(modifier = Modifier.width(10.dp))
+
+                 Button(onClick =
+                 {
+                     //navController.navigate("ContactMeScreen")
+                 },
+                     colors = ButtonDefaults.buttonColors(
+                         containerColor = Color(0xFF8BC34A),
+                         contentColor = Color.White // text color
+                     ),elevation = ButtonDefaults.buttonElevation(
+                         defaultElevation = 20.dp
+                     )
+
+                 ) {
+                     Text("Upload ", fontSize = 14.sp,color= Color.White)
+
+                 }
 
              }
 

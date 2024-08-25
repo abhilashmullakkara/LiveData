@@ -5,46 +5,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import com.abhilash.livedata.ui.theme.room.Employee
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 
-//@Composable
-//fun passwordDownloader(depoNumber: String = "0"): String {
-//    var passwordResult by remember { mutableStateOf("nothingrecovered") }
-//
-//    val dataBase = FirebaseDatabase.getInstance("https://depopassword-default-rtdb.firebaseio.com/")
-//    val myRef = dataBase.reference
-//
-//    DisposableEffect(depoNumber) {
-//        val listener = myRef.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                val data = StringBuffer()
-//
-//                snapshot.children.forEach { childSnapshot ->
-//                   // data.append("  " + childSnapshot.child("depoId").value)
-//                    data.append(childSnapshot.child("password").value)
-//                }
-//
-//                passwordResult = if (data.isNotEmpty()) data.toString() else "nothingrecovered"
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                // Handle error if needed
-//            }
-//        })
-//
-//        // Cleanup the listener when the effect is disposed
-//        onDispose {
-//            myRef.removeEventListener(listener)
-//        }
-//    }
-//
-//    return passwordResult
-//}
 
 
 
@@ -87,5 +56,12 @@ fun mypasswordDownloader(depoNumber: String = "0"): String {
     return passwordResult
 }
 
+@Composable
+fun uploadDiary(){
+    var employeeInfo by rememberSaveable {
+        mutableStateOf<List<Employee>>(emptyList())
+    }
+
+}
 
 
