@@ -18,15 +18,9 @@ data class Employee (
 )
 
 
-//@Entity(tableName = "Employee")
-//data class Employee(
-//    @PrimaryKey(autoGenerate = true) var id: Int,
-//    val dutyNo: String,
-//    val performedOn: String,
-//    val dutyEarned: String,
-//    val collection: String,
-//    val employeeName: String,
-//    val wayBillNo: String,
-//    val dutySurrendered: Boolean=false
-//)
+
+
+
+
+
 
