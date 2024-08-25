@@ -8,9 +8,6 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.android.tools.build:gradle:8.5.2'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10'
-
-        //AGP:4.2.0-alpha07 8.3.0-beta02
-        //See Android Studio & AGP compatibility options.
         classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
     }
     repositories {
@@ -29,8 +26,5 @@ plugins {
     id 'com.google.devtools.ksp' version '1.9.10-1.0.13' apply false
 
 }
-//
-//repositories {
-//}
 
 

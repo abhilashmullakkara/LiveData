@@ -18,8 +18,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.TextFieldDefaults.BackgroundOpacity
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
@@ -42,9 +48,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.abhilash.livedata.ui.theme.manager.UploadDiary
+import com.abhilash.livedata.ui.theme.manager.appendDiary
 import com.abhilash.livedata.ui.theme.room.Employee
 import com.abhilash.livedata.ui.theme.room.EmployeeDB
 import com.abhilash.livedata.ui.theme.share.SendWhatsAppMessage
@@ -54,11 +64,16 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun ViewDiaryScreen(navController: NavController) {
+    var append by rememberSaveable { mutableStateOf(false) }
     var flag by rememberSaveable { mutableStateOf(false) }
+    var clicked by rememberSaveable { mutableStateOf(false) }
     var share by rememberSaveable { mutableStateOf(false) }
     var ascend by rememberSaveable { mutableStateOf(false) }
     var result by rememberSaveable { mutableStateOf("") }
     var toast by rememberSaveable { mutableStateOf(false) }
+    var penNumber by rememberSaveable {
+        mutableStateOf("")
+    }
     val coroutineScope = rememberCoroutineScope()
     val context= LocalContext.current
     var isDetailed by rememberSaveable { mutableStateOf(true) }
@@ -71,14 +86,14 @@ fun ViewDiaryScreen(navController: NavController) {
             Row {
                 TextButton(
                     onClick = {
-                        navController.popBackStack("MenuScreen",inclusive = false)
+                        navController.popBackStack("MenuScreen", inclusive = false)
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                         contentDescription = "Arrow",
-                        tint= Color.White
+                        tint = Color.White
                     )
                     Text(
                         "For detailed view rotate the screen ",
@@ -88,11 +103,11 @@ fun ViewDiaryScreen(navController: NavController) {
                 }
             }
 
-            Text(
-                "Repeated press in the button shows ascending/ descending order ",
-                fontSize = 12.sp,
-                color = Color.LightGray
-            )
+//            Text(
+//                "Repeated press in the button shows ascending/ descending order ",
+//                fontSize = 12.sp,
+//                color = Color.LightGray
+//            )
             Row(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 modifier = Modifier.fillMaxWidth()
@@ -106,31 +121,35 @@ fun ViewDiaryScreen(navController: NavController) {
                             employeeInfo = emptyList()
                             employeeInfo = if (ascend) {
                                 ascend = false
-                                employeeInfo + EmployeeDB.getInstance(context).getEmployeeDao().displaylast()
+                                employeeInfo + EmployeeDB.getInstance(context).getEmployeeDao()
+                                    .displaylast()
                             } else {
                                 ascend = true
-                                employeeInfo + EmployeeDB.getInstance(context).getEmployeeDao().display()
+                                employeeInfo + EmployeeDB.getInstance(context).getEmployeeDao()
+                                    .display()
                             }
 
                             for (employee in employeeInfo) {
-                                val rdate = employee.performedOn?.let { myreverseStringDate(rdate = it) }
-                               // itemCount++
+                                val rdate =
+                                    employee.performedOn?.let { myreverseStringDate(rdate = it) }
+                                // itemCount++
                                 data.append("\n   " + employee.id + ")            " + employee.dutyNo + "          " + rdate + "          " + employee.dutyEarned)
                                 data.append(" " + employee.wayBillNo + " " + employee.employeeName + " " + employee.collection)
                             }
 
                             result = data.toString()
                         }
+
                     },
                     modifier = Modifier
-                        .padding(horizontal = 16.dp, vertical = 8.dp) // Adjust padding as needed
+                        .padding(horizontal = 14.dp, vertical = 8.dp) // Adjust padding as needed
                         .weight(1f),
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = Color.White,
                         containerColor = Color(0xFF456890)
                     )
                 ) {
-                    Text("View ", color = Color.White, fontSize = 16.sp)
+                    Text("View ", color = Color.White, fontSize = 14.sp)
                 }
 
                 OutlinedButton(
@@ -141,14 +160,20 @@ fun ViewDiaryScreen(navController: NavController) {
                         coroutineScope.launch {
                             employeeInfo = if (ascend) {
                                 ascend = false
-                                employeeInfo + EmployeeDB.getInstance(context).getEmployeeDao().displaylast()
+                                employeeInfo + EmployeeDB.getInstance(context).getEmployeeDao()
+                                    .displaylast()
                             } else {
                                 ascend = true
-                                employeeInfo + EmployeeDB.getInstance(context).getEmployeeDao().display()
+                                employeeInfo + EmployeeDB.getInstance(context).getEmployeeDao()
+                                    .display()
                             }
                             if (!toast) {
                                 toast = true
-                                Toast.makeText(context, "Rotate the screen for better experience", Toast.LENGTH_SHORT-1000).show()
+                                Toast.makeText(
+                                    context,
+                                    "Rotate the screen for better experience",
+                                    Toast.LENGTH_SHORT - 1000
+                                ).show()
                             }
                         }
                     },
@@ -160,7 +185,7 @@ fun ViewDiaryScreen(navController: NavController) {
                         containerColor = Color(0xFF456890)
                     )
                 ) {
-                    Text("Detailed View ", color = Color.White, fontSize = 16.sp)
+                    Text("Detailed View ", color = Color.White, fontSize = 14.sp)
                 }
 
                 OutlinedButton(
@@ -175,84 +200,169 @@ fun ViewDiaryScreen(navController: NavController) {
                         containerColor = Color(0xFF456890)
                     )
                 ) {
-                    Text("Share ", color = Color.White, fontSize = 16.sp)
+                    Text("Share ", color = Color.White, fontSize = 14.sp)
                 }
             }
-                Surface(color=Color(0xFF456890),
-                    shape = RoundedCornerShape(topEnd = 15.dp,
-                        topStart = 25.dp, bottomEnd = 25.dp, bottomStart = 25.dp))
-                {
-                   // Spacer(modifier = Modifier.height(5.dp))
-                    LazyRow(modifier = Modifier
+            Surface(
+                color = Color(0xFF456890),
+                shape = RoundedCornerShape(
+                    topEnd = 15.dp,
+                    topStart = 25.dp, bottomEnd = 25.dp, bottomStart = 25.dp
+                )
+            )
+            {
+                // Spacer(modifier = Modifier.height(5.dp))
+                LazyRow(
+                    modifier = Modifier
                         .padding(start = 5.dp)
                         .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        item {
-                            Text("S/L",  color=Color.Green,
-                                modifier=Modifier.padding(start=5.dp),
-                                fontSize = 13.sp)
-                        }
-                        item {
-                            Surface(color= Color(0xFF5F2751)) {
-                                Text(
-                                    "RecordNo", color = Color.White,
-                                    modifier = Modifier.padding(start = 15.dp),
-                                    fontSize = 14.sp
-                                )
-                            }
-                        }
-                        item {
-                            Text("D/No",  color=Color.White,
-                                modifier=Modifier.padding(start=15.dp),
-                                fontSize = 14.sp)
-                        }
-                        item {
-                            Text("Performed on",  color=Color.White,
-                                modifier=Modifier.padding(start=15.dp),
-                                fontSize = 14.sp)
-                        }
-                        item {
-
-                            Text("Duty earned",  color=Color.White,
-                                modifier=Modifier.padding(start=15.dp),
-                                fontSize = 14.sp)
-                        }
-                        item {
-
-                            Text("W/B no",  color=Color.White,
-                                modifier=Modifier.padding(start=15.dp),
-                                fontSize = 14.sp)
-                        }
-                        item {
-
-                            Text("CrewName",  color=Color.White,
-                                modifier=Modifier.padding(start=15.dp),
-                                fontSize = 14.sp)
-                        }
-                        item {
-                            Text("Collection",  color=Color.White,
-                                modifier=Modifier.padding(start=15.dp),
-                                fontSize = 14.sp)
-                        }
-
-
-
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    item {
+                        Text(
+                            "S/L", color = Color.Green,
+                            modifier = Modifier.padding(start = 5.dp),
+                            fontSize = 13.sp
+                        )
                     }
-                }
+                    item {
+                        Surface(color = Color(0xFF5F2751)) {
+                            Text(
+                                "RecordNo", color = Color.White,
+                                modifier = Modifier.padding(start = 15.dp),
+                                fontSize = 14.sp
+                            )
+                        }
+                    }
+                    item {
+                        Text(
+                            "D/No", color = Color.White,
+                            modifier = Modifier.padding(start = 15.dp),
+                            fontSize = 14.sp
+                        )
+                    }
+                    item {
+                        Text(
+                            "Performed on", color = Color.White,
+                            modifier = Modifier.padding(start = 15.dp),
+                            fontSize = 14.sp
+                        )
+                    }
+                    item {
 
+                        Text(
+                            "Duty earned", color = Color.White,
+                            modifier = Modifier.padding(start = 15.dp),
+                            fontSize = 14.sp
+                        )
+                    }
+                    item {
+
+                        Text(
+                            "W/B no", color = Color.White,
+                            modifier = Modifier.padding(start = 15.dp),
+                            fontSize = 14.sp
+                        )
+                    }
+                    item {
+
+                        Text(
+                            "CrewName", color = Color.White,
+                            modifier = Modifier.padding(start = 15.dp),
+                            fontSize = 14.sp
+                        )
+                    }
+                    item {
+                        Text(
+                            "Collection", color = Color.White,
+                            modifier = Modifier.padding(start = 15.dp),
+                            fontSize = 14.sp
+                        )
+                    }
+
+
+                }
+            }
+
+            OutlinedTextField(
+                colors = TextFieldDefaults.textFieldColors(
+                    textColor = Color(0xFFD63604),
+                    backgroundColor= MaterialTheme.colors. onSurface. copy(alpha = BackgroundOpacity)
+                ),
+                singleLine = true,
+                modifier = Modifier
+                    .size(width = 145.dp, height = 58.dp)
+                    .fillMaxWidth()
+                    .padding(start = 20.dp),
+                value = penNumber,
+                onValueChange = { penNumber= it },
+                label = { Text("Pen number",fontSize = 15.sp, color = Color.White) },
+               // keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
+                //visualTransformation = PasswordVisualTransformation('*'),
+
+                )
+
+Text(penNumber)
             EmployeeList(
                 employees = employeeInfo,
                 context = context,
                 result = result,
                 share = share,
                 isDetailed = isDetailed,
-                onDelete = {
-                        employeeToDelete ->
+                onDelete = { employeeToDelete ->
                     employeeInfo = employeeInfo.filterNot { it.id == employeeToDelete.id }
                 }
             )
+           Row {
+            if (employeeInfo.isNotEmpty()) {
+                Button(
+                    onClick =
+                    {
+                        clicked = true
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF8BC34A),
+                        contentColor = Color.White // text color
+                    ), elevation = ButtonDefaults.buttonElevation(
+                        defaultElevation = 20.dp
+                    )
+
+                ) {
+                    Text("Upload ", fontSize = 14.sp, color = Color.White)
+
+                }
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+            if (employeeInfo.isNotEmpty())
+                Button(
+                    onClick =
+                    {
+                        append = true
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFFFC107),
+                        contentColor = Color.White // text color
+                    ), elevation = ButtonDefaults.buttonElevation(
+                        defaultElevation = 20.dp
+                    )
+
+                ) {
+                    Text("Append", fontSize = 14.sp, color = Color.White)
+
+                }
+        }
+        }
+
+        if(clicked){
+            UploadDiary(employeeInfo,penNumber)
+            clicked=false
+            Toast.makeText(context, "Uploaded...", Toast.LENGTH_SHORT-1000).show()
+        }
+        if(append){
+            appendDiary(employeeInfo,penNumber)
+            append=false
+            Toast.makeText(context, "Appended successfully...", Toast.LENGTH_SHORT-1000).show()
         }
     }
 }
@@ -309,9 +419,6 @@ fun EmployeeItem(employee: Employee ,recordNo:Int=0) {
             .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
-
-//            modifier = Modifier.padding(start = 5.dp),
-//            verticalAlignment = Alignment.CenterVertically
             )
         {item{
             Spacer(modifier = Modifier.width(10.dp))
@@ -323,9 +430,7 @@ fun EmployeeItem(employee: Employee ,recordNo:Int=0) {
 
                     Text(text = "[${employee.id}]", color = color, fontSize = 16.sp)
                 }
-
-
-            }
+                  }
             item {
                 Spacer(modifier = Modifier.width(10.dp))
                 employee.dutyNo?.let { Text(it, color = color, fontSize = 16.sp) }
@@ -353,8 +458,6 @@ fun EmployeeItem(employee: Employee ,recordNo:Int=0) {
                    BlinkingText(text = "☑")
                }
            }
-
-
         }
     }
     }
@@ -446,7 +549,7 @@ fun EmployeeItemReduced(employee: Employee,recordNo: Int=0,onDelete:(Employee)->
                             Box(
                                 modifier = Modifier
                                     .padding(end = 2.dp)
-                                    .size(width=20.dp, height = 20.dp) // Adjust the size as needed
+                                    .size(width = 20.dp, height = 20.dp) // Adjust the size as needed
                             ) {
                                 Checkbox(
                                     checked = isChecked,
@@ -522,18 +625,18 @@ fun EmployeeItemReduced(employee: Employee,recordNo: Int=0,onDelete:(Employee)->
 
 private fun getSurfaceColor(month: Int): Color {
     return when (month) {
-        1 -> Color(0xFF8FBAE4)
-        2 -> Color(0xFF3D9BF7)
-        3 -> Color(0xFF929EAA)
+        1 -> Color(0xFF305477)
+        2 -> Color(0xFF021C35)
+        3 -> Color(0xFFA509C0)
         4 -> Color(0xFF07427B)
         5 -> Color(0xFF325A82)
-        6 -> Color(0xFFC9D7E4)
+        6 -> Color(0xFF534B04)
         7 -> Color(0xFF318DE7)
         8 -> Color(0xFF475460)
         9 -> Color(0xFF0580F8)
         10 -> Color(0xFF6C38F0)
         11 -> Color(0xFF361F7D)
-        12 -> Color(0xFF6DC9B3)
+        12 -> Color(0xFF1C2C0E)
         else -> Color(0xFF2F4255)
     }
 }
