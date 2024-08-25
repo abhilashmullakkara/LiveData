@@ -465,21 +465,7 @@ fun MenuScreen(navController: NavController) {
 
                  Spacer(modifier = Modifier.width(10.dp))
 
-                 Button(onClick =
-                 {
-                     //navController.navigate("ContactMeScreen")
-                 },
-                     colors = ButtonDefaults.buttonColors(
-                         containerColor = Color(0xFF8BC34A),
-                         contentColor = Color.White // text color
-                     ),elevation = ButtonDefaults.buttonElevation(
-                         defaultElevation = 20.dp
-                     )
 
-                 ) {
-                     Text("Upload ", fontSize = 14.sp,color= Color.White)
-
-                 }
 
              }
 
