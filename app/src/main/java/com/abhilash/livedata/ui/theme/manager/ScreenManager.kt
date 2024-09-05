@@ -11,6 +11,7 @@ import androidx.navigation.navArgument
 import com.abhilash.livedata.ui.ai.AboutScreen
 import com.abhilash.livedata.ui.ai.ContactMeScreen
 import com.abhilash.livedata.ui.theme.DepoListScreen
+import com.abhilash.livedata.ui.theme.room.ReadDataFromCloud
 import com.abhilash.livedata.ui.theme.schedule.AddScheduleScreen
 import com.abhilash.livedata.ui.theme.schedule.DeleteScheduleScreen
 import com.abhilash.livedata.ui.theme.schedule.DeleteTripScreen
@@ -94,6 +95,11 @@ fun ScreenManager(){
         }
         composable("ContactMeScreen"){
             ContactMeScreen(navController = navController)
+        }
+
+        //new
+        composable("ReadDataFromCloud"){
+            ReadDataFromCloud(navController = navController)
         }
 
         composable(

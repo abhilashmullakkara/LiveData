@@ -72,7 +72,7 @@ fun ViewDiaryScreen(navController: NavController) {
     var result by rememberSaveable { mutableStateOf("") }
     var toast by rememberSaveable { mutableStateOf(false) }
     var penNumber by rememberSaveable {
-        mutableStateOf("")
+        mutableStateOf("G")
     }
     val coroutineScope = rememberCoroutineScope()
     val context= LocalContext.current
@@ -303,7 +303,7 @@ fun ViewDiaryScreen(navController: NavController) {
 
                 )
 
-Text(penNumber)
+Text(penNumber,color=Color.White, fontSize = 14.sp)
             EmployeeList(
                 employees = employeeInfo,
                 context = context,
@@ -364,6 +364,7 @@ Text(penNumber)
             append=false
             Toast.makeText(context, "Appended successfully...", Toast.LENGTH_SHORT-1000).show()
         }
+
     }
 }
 
