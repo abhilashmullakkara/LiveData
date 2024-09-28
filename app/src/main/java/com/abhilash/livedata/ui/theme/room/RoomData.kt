@@ -94,12 +94,12 @@ fun RoomData(navController:NavController) {
                         ),
                         modifier = Modifier
                             .fillMaxWidth(0.4f)
-                            .padding(start = 10.dp),
+                            .padding(start = 7.dp),
                         placeholder = {
                             Text(
                                 text = "Schedule NO:",
                                 color = Color.White,
-                                fontSize = 17.sp
+                                fontSize = 14.sp
                             )
                         }
                     )
@@ -121,12 +121,13 @@ fun RoomData(navController:NavController) {
                             disabledContainerColor = Color(0xFF4C94D6)
                         ),
                         modifier = Modifier
-                            .fillMaxWidth(0.8f),
+                            .fillMaxWidth(0.8f)
+                            .padding(start = 7.dp),
                         placeholder = {
                             Text(
                                 text = "No of duty earned:",
                                 color = Color.White,
-                                fontSize = 16.sp
+                                fontSize = 14.sp
                             )
                         }
                     )
@@ -213,11 +214,11 @@ fun RoomData(navController:NavController) {
            }
            item {
                Spacer(modifier = Modifier.height(10.dp))
-               Text("Name of the Crew",modifier=Modifier.padding(start=20.dp),color=Color.White, fontSize = 14.sp)
+               Text("Crew Name",modifier=Modifier.padding(start=20.dp),color=Color.White, fontSize = 14.sp)
                OutlinedTextField(
                    value = crewName,
                    singleLine = true,
-                   shape = RoundedCornerShape(20),
+                   shape = RoundedCornerShape(80),
                    keyboardOptions = KeyboardOptions(
                        capitalization = KeyboardCapitalization.Characters
                    ),
@@ -238,11 +239,11 @@ fun RoomData(navController:NavController) {
 
                    modifier = Modifier
                        .fillMaxWidth(0.44f)
-                       .padding(start = 10.dp)
-                       .border(BorderStroke(2.dp, Color.Red)),
+                       .padding(start = 10.dp),
+                       //.border(BorderStroke(2.dp, Color.Red)),
                    placeholder = {
                        Text(
-                           text = "Name of the crew",
+                           text = "Dvr/Cdr Name",
                            color = Color.Black,
                            fontSize = 14.sp
                        )
