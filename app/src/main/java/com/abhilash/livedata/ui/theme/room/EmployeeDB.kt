@@ -7,19 +7,6 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-//@Database(entities = [Employee::class], version = 2,exportSchema = false)
-//abstract class EmployeeDB:RoomDatabase (){
-//    abstract fun getEmployeeDao(): EmployeeDao
-//    companion object {
-//        private var INSTANCE: EmployeeDB?=null
-//        fun getInstance(context: Context): EmployeeDB {
-//        if (INSTANCE ==null){
-//            INSTANCE =Room.databaseBuilder(context.applicationContext, EmployeeDB::class.java,"Employeedb.db").build()
-//        }
-//         return INSTANCE!!
-//        }
-//    }
-//}
 
 
 @Database(entities = [Employee::class], version = 2, exportSchema = false)

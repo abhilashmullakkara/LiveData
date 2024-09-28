@@ -18,7 +18,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TextFieldDefaults
@@ -48,8 +47,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -64,18 +61,13 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun ViewDiaryScreen(navController: NavController) {
-    var append by rememberSaveable { mutableStateOf(false) }
     var flag by rememberSaveable { mutableStateOf(false) }
-    var clicked by rememberSaveable { mutableStateOf(false) }
     var share by rememberSaveable { mutableStateOf(false) }
     var ascend by rememberSaveable { mutableStateOf(false) }
     var result by rememberSaveable { mutableStateOf("") }
     var toast by rememberSaveable { mutableStateOf(false) }
-    var penNumber by rememberSaveable {
-        mutableStateOf("G")
-    }
     val coroutineScope = rememberCoroutineScope()
-    val context= LocalContext.current
+    val context = LocalContext.current
     var isDetailed by rememberSaveable { mutableStateOf(true) }
     var employeeInfo by rememberSaveable {
         mutableStateOf<List<Employee>>(emptyList())
@@ -103,13 +95,8 @@ fun ViewDiaryScreen(navController: NavController) {
                 }
             }
 
-//            Text(
-//                "Repeated press in the button shows ascending/ descending order ",
-//                fontSize = 12.sp,
-//                color = Color.LightGray
-//            )
             Row(
-                horizontalArrangement = Arrangement.SpaceEvenly,
+                horizontalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 OutlinedButton(
@@ -142,8 +129,8 @@ fun ViewDiaryScreen(navController: NavController) {
 
                     },
                     modifier = Modifier
-                        .padding(horizontal = 14.dp, vertical = 8.dp) // Adjust padding as needed
-                        .weight(1f),
+                        .weight(1f)
+                        .padding(horizontal = 10.dp),
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = Color.White,
                         containerColor = Color(0xFF456890)
@@ -179,13 +166,13 @@ fun ViewDiaryScreen(navController: NavController) {
                     },
                     modifier = Modifier
                         .weight(1f)
-                        .padding(horizontal = 8.dp),
+                        .padding(horizontal = 5.dp),
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = Color.White,
                         containerColor = Color(0xFF456890)
                     )
                 ) {
-                    Text("Detailed View ", color = Color.White, fontSize = 14.sp)
+                    Text("More..", color = Color.White, fontSize = 14.sp)
                 }
 
                 OutlinedButton(
@@ -284,26 +271,6 @@ fun ViewDiaryScreen(navController: NavController) {
 
                 }
             }
-
-            OutlinedTextField(
-                colors = TextFieldDefaults.textFieldColors(
-                    textColor = Color(0xFFD63604),
-                    backgroundColor= MaterialTheme.colors. onSurface. copy(alpha = BackgroundOpacity)
-                ),
-                singleLine = true,
-                modifier = Modifier
-                    .size(width = 145.dp, height = 58.dp)
-                    .fillMaxWidth()
-                    .padding(start = 20.dp),
-                value = penNumber,
-                onValueChange = { penNumber= it },
-                label = { Text("Pen number",fontSize = 15.sp, color = Color.White) },
-               // keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
-                //visualTransformation = PasswordVisualTransformation('*'),
-
-                )
-
-Text(penNumber,color=Color.White, fontSize = 14.sp)
             EmployeeList(
                 employees = employeeInfo,
                 context = context,
@@ -314,60 +281,10 @@ Text(penNumber,color=Color.White, fontSize = 14.sp)
                     employeeInfo = employeeInfo.filterNot { it.id == employeeToDelete.id }
                 }
             )
-           Row {
-            if (employeeInfo.isNotEmpty()) {
-                Button(
-                    onClick =
-                    {
-                        clicked = true
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF8BC34A),
-                        contentColor = Color.White // text color
-                    ), elevation = ButtonDefaults.buttonElevation(
-                        defaultElevation = 20.dp
-                    )
 
-                ) {
-                    Text("Upload ", fontSize = 14.sp, color = Color.White)
-
-                }
-            }
-            Spacer(modifier = Modifier.width(10.dp))
-            if (employeeInfo.isNotEmpty())
-                Button(
-                    onClick =
-                    {
-                        append = true
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFFFC107),
-                        contentColor = Color.White // text color
-                    ), elevation = ButtonDefaults.buttonElevation(
-                        defaultElevation = 20.dp
-                    )
-
-                ) {
-                    Text("Append", fontSize = 14.sp, color = Color.White)
-
-                }
         }
-        }
-
-        if(clicked){
-            UploadDiary(employeeInfo,penNumber)
-            clicked=false
-            Toast.makeText(context, "Uploaded...", Toast.LENGTH_SHORT-1000).show()
-        }
-        if(append){
-            appendDiary(employeeInfo,penNumber)
-            append=false
-            Toast.makeText(context, "Appended successfully...", Toast.LENGTH_SHORT-1000).show()
-        }
-
     }
 }
-
 @Composable
 fun EmployeeList(
     employees: List<Employee>,
@@ -377,7 +294,28 @@ fun EmployeeList(
     isDetailed: Boolean,
     onDelete: (Employee) -> Unit
 ) {
-
+    var append by rememberSaveable { mutableStateOf(false) }
+    var clicked by rememberSaveable { mutableStateOf(false) }
+    var penNumber by rememberSaveable {
+        mutableStateOf("G")
+    }
+//    OutlinedTextField(
+//        colors = TextFieldDefaults.textFieldColors(
+//            textColor = Color(0xFFD63604),
+//            backgroundColor= MaterialTheme.colors. onSurface. copy(alpha = BackgroundOpacity)
+//        ),
+//        singleLine = true,
+//        modifier = Modifier
+//            .size(width = 145.dp, height = 58.dp)
+//            .fillMaxWidth()
+//            .padding(start = 20.dp),
+//        value = penNumber,
+//        onValueChange = { penNumber= it },
+//        label = { Text("Pen number",fontSize = 15.sp, color = Color.White) },
+//        // keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
+//        //visualTransformation = PasswordVisualTransformation('*'),
+//
+//    )
     LazyColumn  {
         item {
             if(share) {
@@ -399,6 +337,53 @@ fun EmployeeList(
                 }
                 HorizontalDivider(color = Color.LightGray)
             }
+//        item{
+//
+//            Button(
+//                onClick =
+//                {
+//                    clicked = true
+//                },
+//                colors = ButtonDefaults.buttonColors(
+//                    containerColor = Color(0xFF8BC34A),
+//                    contentColor = Color.White // text color
+//                ), elevation = ButtonDefaults.buttonElevation(
+//                    defaultElevation = 20.dp
+//                )
+//
+//            ) {
+//                Text("Cloud Upload ", fontSize = 14.sp, color = Color.White)
+//
+//            }
+//        }
+//        item {
+//            Button(
+//                onClick =
+//                {
+//                    append = true
+//                },
+//                colors = ButtonDefaults.buttonColors(
+//                    containerColor = Color(0xFFFFC107),
+//                    contentColor = Color.White // text color
+//                ), elevation = ButtonDefaults.buttonElevation(
+//                    defaultElevation = 20.dp
+//                )
+//
+//            ) {
+//                Text("Cloud Append", fontSize = 14.sp, color = Color.White)
+//
+//            }
+//            if(clicked){
+//                UploadDiary(employees,penNumber)
+//                clicked=false
+//                Toast.makeText(context, "Uploaded...", Toast.LENGTH_SHORT-1000).show()
+//            }
+//            if(append){
+//                appendDiary(employees,penNumber)
+//                append=false
+//                Toast.makeText(context, "Appended successfully...", Toast.LENGTH_SHORT-1000).show()
+//            }
+//        }
         }
 
         }
@@ -421,11 +406,12 @@ fun EmployeeItem(employee: Employee ,recordNo:Int=0) {
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
             )
-        {item{
+        {
+            item{
             Spacer(modifier = Modifier.width(10.dp))
             Text(text = "$recordNo )$sign ", color = Color.Green, fontSize = 11.sp)
             Spacer(modifier = Modifier.width(10.dp))
-        }
+                 }
             item {
                 Surface(color= Color(0xFF5F2751)){
 

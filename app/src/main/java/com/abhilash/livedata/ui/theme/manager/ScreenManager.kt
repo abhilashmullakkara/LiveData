@@ -98,6 +98,11 @@ fun ScreenManager(){
         }
 
         //new
+
+        composable("RegisterScreen"){
+            RegisterScreen(navController = navController)
+        }
+
         composable("ReadDataFromCloud"){
             ReadDataFromCloud(navController = navController)
         }
