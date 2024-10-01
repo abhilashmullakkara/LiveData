@@ -74,7 +74,7 @@ fun FindMyBusScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(2.dp))
             Divider(color = Color.White, thickness = 1.dp)
             Text(
-                "Enter depot number to limit search within a specified depot[erase ,]",
+                "Enter depot number to limit search within a specified depot",
                 modifier = Modifier.padding(start = 10.dp),
                 fontSize = 18.sp, color = Color.LightGray
             )

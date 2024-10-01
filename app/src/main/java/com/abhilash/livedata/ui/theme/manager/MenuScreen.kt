@@ -1,5 +1,6 @@
 package com.abhilash.livedata.ui.theme.manager
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,16 +13,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material.TextButton
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ButtonDefaults.textButtonColors
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardDefaults.cardColors
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -365,6 +370,46 @@ fun MenuScreen(navController: NavController) {
                                         }
 
                                     }
+                                    Column(
+                                        verticalArrangement = Arrangement.Center, // Aligns items vertically centered
+                                        horizontalAlignment = Alignment.CenterHorizontally // Aligns items horizontally centered
+                                    ) {
+                                        ClickableText(
+                                            text = AnnotatedString("Merge"),
+                                            modifier = Modifier
+                                                .padding(start = 16.dp),
+                                            onClick = {
+                                               navController.navigate("MergeFromCloudScreen")
+                                            },
+                                            style = TextStyle(fontSize = 14.sp, color = Color.White)
+                                        )
+
+
+                                        TextButton(
+                                            onClick = {
+                                                navController.navigate("MergeFromCloudScreen")
+
+                                            },
+//                                            colors = ButtonDefaults.textButtonColors(
+//                                                containerColor = MaterialTheme.colorScheme.surface, // Background color
+//                                                contentColor = MaterialTheme.colorScheme.primary // Text and icon color
+//                                            )
+                                        ) {
+                                            Row(
+                                                verticalAlignment = Alignment.CenterVertically,
+                                                horizontalArrangement = Arrangement.spacedBy(8.dp) // Space between the image and text
+                                            ) {
+                                                Image(
+                                                    painter = painterResource(id = R.drawable.dall_e_2024_10_01_16_01_17___a_m), // Your image resource
+                                                    contentDescription = "Your image description",
+                                                    modifier = Modifier.size(24.dp) // Set the size of the image
+                                                )
+                                               // Text(text = "Your Button Text") // Text beside the image
+                                            }
+                                        }
+
+
+                                    }
 
                                 }//Row end
 
@@ -564,7 +609,7 @@ fun MenuScreen(navController: NavController) {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(10.dp)
-                                .height(150.dp), // Adjust the height as needed
+                                .height(100.dp), // Adjust the height as needed
                             colors = cardColors(
                                 containerColor = Color(0xFF648FD6),
                             ),
@@ -574,37 +619,10 @@ fun MenuScreen(navController: NavController) {
                             ),
                             shape = RoundedCornerShape(5.dp),
                         ){
-                            Spacer(modifier = Modifier.height(10.dp))
+                            Spacer(modifier = Modifier.height(20.dp))
                             Row {
 
-                                Spacer(modifier = Modifier.width(8.dp))
-
-
-                                //new modification
-                                Spacer(modifier = Modifier.width(8.dp))
-
-                                Button(
-                                    onClick = {
-                                        //navController.navigate("ReadDataFromCloud")
-                                              },
-                                    colors = ButtonDefaults.buttonColors(
-                                        containerColor = Color(0xFF651FFF),
-                                        contentColor = Color.White // text color
-                                    ), elevation = ButtonDefaults.buttonElevation(
-                                        defaultElevation = 20.dp,
-                                        disabledElevation = 12.dp
-                                    )
-
-                                ) {
-                                    Text("View from cloud", fontSize = 12.sp, color = Color.White)
-
-                                }
-
-
-                                Spacer(modifier = Modifier.width(10.dp))
-
-
-
+                                Spacer(modifier = Modifier.width(5.dp))
 
                                 Button(
                                     onClick = {
@@ -619,16 +637,11 @@ fun MenuScreen(navController: NavController) {
                                     )
 
                                 ) {
-                                    Text("Register", fontSize = 15.sp, color = Color(0xFFD5ED9F))
+                                    Text("Register", fontSize = 14.sp, color = Color(0xFFD5ED9F))
 
                                 }
-                            }
 
-
-                            Spacer(modifier = Modifier.height(10.dp))
-
-                            Row {
-                                Spacer(modifier = Modifier.width(17.dp))
+                                Spacer(modifier = Modifier.width(5.dp))
 
                             Button(onClick = { navController.navigate("ContactMeScreen") },
                                 colors = ButtonDefaults.buttonColors(
@@ -639,16 +652,16 @@ fun MenuScreen(navController: NavController) {
                                 )
 
                             ) {
-                                Text("Contact Me", fontSize = 15.sp,color= Color.White)
+                                Text("Contact Me", fontSize = 14.sp,color= Color.White)
 
                             }
-                                Spacer(modifier = Modifier.width(15.dp))
+                                Spacer(modifier = Modifier.width(5.dp))
                             Button(onClick = { navController.navigate("AboutScreen") },
                                 elevation = ButtonDefaults.buttonElevation(
                                     defaultElevation = 30.dp
                                 )
                             ) {
-                                Text("ABOUT", color = Color.White, fontSize = 15.sp)
+                                Text("ABOUT", color = Color.White, fontSize = 12.sp)
                             }
                             }
 
@@ -703,3 +716,18 @@ fun TextShadow(text:String) {
     )
 }
 
+@Composable
+fun CircularButton(onClick: () -> Unit, buttonText: String="Click") {
+    Button(
+        onClick = onClick,
+        shape = CircleShape, // This ensures the button is shaped like a circle
+        modifier = Modifier
+            .size(35.dp), // Set size to be the same for width and height (this ensures it's a circle)
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color(0xFFFFFF00),
+            contentColor = Color.White // text color
+        )
+    ) {
+        Text(text = buttonText, color = Color.White, fontSize = 12.sp)
+    }
+}
