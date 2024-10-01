@@ -17,14 +17,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material.TextFieldDefaults.BackgroundOpacity
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
@@ -50,8 +46,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.abhilash.livedata.ui.theme.manager.UploadDiary
-import com.abhilash.livedata.ui.theme.manager.appendDiary
 import com.abhilash.livedata.ui.theme.room.Employee
 import com.abhilash.livedata.ui.theme.room.EmployeeDB
 import com.abhilash.livedata.ui.theme.share.SendWhatsAppMessage
@@ -75,30 +69,37 @@ fun ViewDiaryScreen(navController: NavController) {
 
     Surface(color = Color(0xFF232C5F)) {
         Column {
-            Row {
+            Row(modifier = Modifier.fillMaxWidth()) {
                 TextButton(
                     onClick = {
                         navController.popBackStack("MenuScreen", inclusive = false)
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    shape = CircleShape,
+
+                    colors = ButtonDefaults.buttonColors(
+                        contentColor = Color.White,
+                        containerColor = Color(0xFF708CAD)
+                    ),
+                   modifier = Modifier.size(45.dp)
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                         contentDescription = "Arrow",
-                        tint = Color.White
+                        tint = Color.White,
+                        modifier = Modifier.size(45.dp)
                     )
-                    Text(
-                        "For detailed view rotate the screen ",
-                        color = Color.LightGray,
-                        fontSize = 12.sp
-                    )
+//                    Text(
+//                        "For detailed view rotate the screen ",
+//                        color = Color.LightGray,
+//                        fontSize = 12.sp
+//                    )
                 }
-            }
+           // }
 
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxWidth()
-            ) {
+//            Row(
+//                horizontalArrangement = Arrangement.Center,
+//                modifier = Modifier.fillMaxWidth()
+//            ) {
                 OutlinedButton(
                     onClick = {
                         flag = !flag
@@ -128,9 +129,11 @@ fun ViewDiaryScreen(navController: NavController) {
                         }
 
                     },
-                    modifier = Modifier
+                    shape = RoundedCornerShape(10.dp),
+
+                     modifier = Modifier
                         .weight(1f)
-                        .padding(horizontal = 10.dp),
+                        .padding(horizontal = 5.dp),
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = Color.White,
                         containerColor = Color(0xFF456890)
@@ -164,6 +167,8 @@ fun ViewDiaryScreen(navController: NavController) {
                             }
                         }
                     },
+                    shape = RoundedCornerShape(10.dp),
+
                     modifier = Modifier
                         .weight(1f)
                         .padding(horizontal = 5.dp),
@@ -179,9 +184,10 @@ fun ViewDiaryScreen(navController: NavController) {
                     onClick = {
                         share = !share
                     },
+                    shape = RoundedCornerShape(10.dp),
                     modifier = Modifier
-                        .weight(1f)
-                        .padding(start = 8.dp, end = 16.dp),
+                      //  .weight(1f)
+                        .padding(start = 5.dp, end = 6.dp),
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = Color.White,
                         containerColor = Color(0xFF456890)
@@ -190,12 +196,13 @@ fun ViewDiaryScreen(navController: NavController) {
                     Text("Share ", color = Color.White, fontSize = 14.sp)
                 }
             }
+
             Surface(
                 color = Color(0xFF456890),
-                shape = RoundedCornerShape(
-                    topEnd = 15.dp,
-                    topStart = 25.dp, bottomEnd = 25.dp, bottomStart = 25.dp
-                )
+//                shape = RoundedCornerShape(
+//                    topEnd = 15.dp,
+//                    topStart = 25.dp, bottomEnd = 25.dp, bottomStart = 25.dp
+//                )
             )
             {
                 // Spacer(modifier = Modifier.height(5.dp))
@@ -203,8 +210,8 @@ fun ViewDiaryScreen(navController: NavController) {
                     modifier = Modifier
                         .padding(start = 5.dp)
                         .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
+//                    horizontalArrangement = Arrangement.Center,
+//                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     item {
                         Text(
@@ -282,6 +289,9 @@ fun ViewDiaryScreen(navController: NavController) {
                 }
             )
 
+
+
+
         }
     }
 }
@@ -299,23 +309,6 @@ fun EmployeeList(
     var penNumber by rememberSaveable {
         mutableStateOf("G")
     }
-//    OutlinedTextField(
-//        colors = TextFieldDefaults.textFieldColors(
-//            textColor = Color(0xFFD63604),
-//            backgroundColor= MaterialTheme.colors. onSurface. copy(alpha = BackgroundOpacity)
-//        ),
-//        singleLine = true,
-//        modifier = Modifier
-//            .size(width = 145.dp, height = 58.dp)
-//            .fillMaxWidth()
-//            .padding(start = 20.dp),
-//        value = penNumber,
-//        onValueChange = { penNumber= it },
-//        label = { Text("Pen number",fontSize = 15.sp, color = Color.White) },
-//        // keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
-//        //visualTransformation = PasswordVisualTransformation('*'),
-//
-//    )
     LazyColumn  {
         item {
             if(share) {

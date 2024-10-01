@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.abhilash.livedata.R
+import com.abhilash.livedata.ui.cloud.mypasswordDownloader
 import com.abhilash.livedata.ui.theme.admob.BannerAdView
 import com.google.android.gms.ads.AdSize
 
@@ -65,7 +66,7 @@ fun MenuScreen(navController: NavController) {
                             Text("വേല", fontSize = 20.sp, color = Color.White)
                             Text("KSRTC Duty Diary", fontSize = 12.sp, color = Color.White)
                             Text(" ", fontSize = 10.sp)
-                            val ver=mypasswordDownloader("0")
+                            val ver= mypasswordDownloader("0")
                             Text(ver, fontSize = 15.sp,color=Color.Yellow)
                             Spacer(modifier = Modifier.height(10.dp))
                             BannerAdView(false, AdSize.FULL_BANNER)
@@ -83,7 +84,7 @@ fun MenuScreen(navController: NavController) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(10.dp)
-                            .height(150.dp), // Adjust the height as needed
+                            .height(190.dp), // Adjust the height as needed
                         colors = cardColors(
                             containerColor = Color(0xFF648FD6),
                         ),
@@ -263,6 +264,109 @@ fun MenuScreen(navController: NavController) {
 
 
                                 }
+                                Row {
+
+
+                                Column(
+                                    verticalArrangement = Arrangement.Center, // Aligns items vertically centered
+                                    horizontalAlignment = Alignment.CenterHorizontally // Aligns items horizontally centered
+                                ) {
+                                    ClickableText(
+                                        text = AnnotatedString("View Cloud"),
+                                        modifier = Modifier
+                                            .padding(start = 16.dp),
+                                        onClick = {
+                                            navController.navigate("ReadDataFromCloud")
+                                            // navController.navigate("DeleteAllRecordScreen")
+                                        },
+                                        style = TextStyle(fontSize = 14.sp, color = Color.White)
+                                    )
+
+                                    IconButton(
+                                        onClick = {
+                                            navController.navigate("ReadDataFromCloud")
+                                            // navController.navigate("DeleteAllRecordScreen")
+                                        },
+                                        modifier = Modifier
+                                            .size(width = 55.dp, height = 40.dp)
+                                            .padding(start = 15.dp)
+                                    ) {
+
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.cloud_upload_fill0_wght400_grad0_opsz24),
+                                            "", modifier = Modifier.size(28.dp), tint = Color.Yellow
+                                        )
+                                        // Spacer(modifier = Modifier.height(25.dp))
+
+                                    }
+
+                                }
+                                    Column(
+                                        verticalArrangement = Arrangement.Center, // Aligns items vertically centered
+                                        horizontalAlignment = Alignment.CenterHorizontally // Aligns items horizontally centered
+                                    ) {
+                                        ClickableText(
+                                            text = AnnotatedString("Delete Cloud"),
+                                            modifier = Modifier
+                                                .padding(start = 16.dp),
+                                            onClick = {
+                                                 navController.navigate("DeleteCloudScreen")
+                                            },
+                                            style = TextStyle(fontSize = 14.sp, color = Color.White)
+                                        )
+
+                                        IconButton(
+                                            onClick = {
+                                                navController.navigate("DeleteCloudScreen")
+                                            },
+                                            modifier = Modifier
+                                                .size(width = 55.dp, height = 40.dp)
+                                                .padding(start = 15.dp)
+                                        ) {
+
+                                            Icon(
+                                                painter = painterResource(id = R.drawable.cloud_upload_fill0_wght400_grad0_opsz24),
+                                                "", modifier = Modifier.size(28.dp), tint = Color.Red
+                                            )
+                                            // Spacer(modifier = Modifier.height(25.dp))
+
+                                        }
+
+                                    }
+                                    Column(
+                                        verticalArrangement = Arrangement.Center, // Aligns items vertically centered
+                                        horizontalAlignment = Alignment.CenterHorizontally // Aligns items horizontally centered
+                                    ) {
+                                        ClickableText(
+                                            text = AnnotatedString("Append Cloud"),
+                                            modifier = Modifier
+                                                .padding(start = 16.dp),
+                                            onClick = {
+                                                 navController.navigate("AppendCloudScreen")
+                                            },
+                                            style = TextStyle(fontSize = 14.sp, color = Color.White)
+                                        )
+
+                                        IconButton(
+                                            onClick = {
+                                                navController.navigate("AppendCloudScreen")
+                                            },
+                                            modifier = Modifier
+                                                .size(width = 55.dp, height = 40.dp)
+                                                .padding(start = 15.dp)
+                                        ) {
+
+                                            Icon(
+                                                painter = painterResource(id = R.drawable.cloud_upload_fill0_wght400_grad0_opsz24),
+                                                "", modifier = Modifier.size(28.dp), tint = Color.Green
+                                            )
+                                            // Spacer(modifier = Modifier.height(25.dp))
+
+                                        }
+
+                                    }
+
+                                }//Row end
 
 
                             }
@@ -480,7 +584,9 @@ fun MenuScreen(navController: NavController) {
                                 Spacer(modifier = Modifier.width(8.dp))
 
                                 Button(
-                                    onClick = { navController.navigate("ReadDataFromCloud") },
+                                    onClick = {
+                                        //navController.navigate("ReadDataFromCloud")
+                                              },
                                     colors = ButtonDefaults.buttonColors(
                                         containerColor = Color(0xFF651FFF),
                                         contentColor = Color.White // text color
