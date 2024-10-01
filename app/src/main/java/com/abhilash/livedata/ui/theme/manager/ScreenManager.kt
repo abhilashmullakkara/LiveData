@@ -12,6 +12,7 @@ import com.abhilash.livedata.ui.ai.AboutScreen
 import com.abhilash.livedata.ui.ai.ContactMeScreen
 import com.abhilash.livedata.ui.cloud.AppendCloudScreen
 import com.abhilash.livedata.ui.cloud.DeleteCloudScreen
+import com.abhilash.livedata.ui.cloud.MergeFromCloudScreen
 import com.abhilash.livedata.ui.theme.DepoListScreen
 import com.abhilash.livedata.ui.cloud.ReadDataFromCloud
 import com.abhilash.livedata.ui.cloud.RegisterScreen
@@ -101,6 +102,9 @@ fun ScreenManager(){
         }
 
         //new
+        composable("MergeFromCloudScreen"){
+            MergeFromCloudScreen(navController = navController)
+        }
         composable("DeleteCloudScreen"){
             DeleteCloudScreen(navController = navController)
         }

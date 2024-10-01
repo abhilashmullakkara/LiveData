@@ -100,7 +100,10 @@ fun myCalendar(): String {
 @Composable
 fun CircularLoadingIndicator(isLoading: Boolean) {
     if (isLoading) {
-        CircularProgressIndicator()
+        CircularProgressIndicator(
+            color = Color.Red, // Set the color to your desired color
+            strokeWidth = 4.dp
+        )
     }
     }
 
