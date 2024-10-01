@@ -33,6 +33,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.abhilash.livedata.test.NodepotSelectionScreen
+import com.abhilash.livedata.ui.cloud.mypasswordDownloader
 import com.abhilash.livedata.ui.theme.admob.BannerAdView
 import com.abhilash.livedata.ui.theme.database.depoList
 import com.abhilash.livedata.ui.theme.schedule.AddScheduleScreen
@@ -139,7 +140,7 @@ fun PasswordScreen(onPasswordEntered: (Pass) -> Unit) {
 
 
         Spacer(modifier = Modifier.height(16.dp))
-        passwordResult=mypasswordDownloader(deponumber)
+        passwordResult= mypasswordDownloader(deponumber)
         Button(
             onClick = {
                 // Check if the password is correct

@@ -10,8 +10,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.abhilash.livedata.ui.ai.AboutScreen
 import com.abhilash.livedata.ui.ai.ContactMeScreen
+import com.abhilash.livedata.ui.cloud.AppendCloudScreen
+import com.abhilash.livedata.ui.cloud.DeleteCloudScreen
 import com.abhilash.livedata.ui.theme.DepoListScreen
-import com.abhilash.livedata.ui.theme.room.ReadDataFromCloud
+import com.abhilash.livedata.ui.cloud.ReadDataFromCloud
+import com.abhilash.livedata.ui.cloud.RegisterScreen
 import com.abhilash.livedata.ui.theme.schedule.AddScheduleScreen
 import com.abhilash.livedata.ui.theme.schedule.DeleteScheduleScreen
 import com.abhilash.livedata.ui.theme.schedule.DeleteTripScreen
@@ -98,13 +101,19 @@ fun ScreenManager(){
         }
 
         //new
+        composable("DeleteCloudScreen"){
+            DeleteCloudScreen(navController = navController)
+        }
 
         composable("RegisterScreen"){
             RegisterScreen(navController = navController)
         }
-
+        composable("AppendCloudScreen"){
+            AppendCloudScreen(navController = navController)
+        }
         composable("ReadDataFromCloud"){
             ReadDataFromCloud(navController = navController)
+
         }
 
         composable(
