@@ -4,10 +4,10 @@ import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -30,6 +30,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -332,236 +333,379 @@ item {
         }
     }
 }
+//@RequiresApi(Build.VERSION_CODES.O)
+//@Composable
+//fun EditRoomData(rec:Int,database: Employee,navController: NavController) {
+//    Surface(color = Color(0xFF6776CA)) {
+//        database.dutySurrendered=false
+//        val context = LocalContext.current
+//        val coroutineScope = rememberCoroutineScope()
+//        var surrender by rememberSaveable {
+//            mutableStateOf(false)
+//        }
+//        var flag by rememberSaveable { mutableStateOf(false) }
+//        var scheduleNo by rememberSaveable { mutableStateOf(database.dutyNo) }
+//        var dutyEearnt by rememberSaveable { mutableStateOf(database.dutyEarned) }
+//        var permedDate: String? by rememberSaveable { mutableStateOf(null) }
+//        var todayCollection by rememberSaveable { mutableStateOf(database.collection) }
+//        var wBillNo by rememberSaveable { mutableStateOf(database.wayBillNo) }
+//        var crewName by rememberSaveable { mutableStateOf(database.employeeName) }
+//        Column(modifier=Modifier.height(800.dp)) {
+//            Text("Schedule:${database.dutyNo} Duty:${database.dutyEarned}" +
+//                    "Collection:${database.collection} WayBill:${database.wayBillNo} " +
+//                    " Crew: ${database.employeeName}",color= Color.White)
+//            val rdate = database.performedOn?.let { reverseStringDate(rdate = it) }
+//            if (rdate != null) {
+//                Surface(color = Color(0xFFFF6F00)) {
+//                    Text(
+//                        "date:$rdate",
+//                        color = Color.White,
+//                        fontStyle = FontStyle.Italic,
+//                        fontSize = 16.sp,
+//                        modifier = Modifier.padding(start=10.dp,end = 8.dp)
+//                    )
+//                }
+//
+//            }
+//
+//
+//            Text(text = "Schedule No     No of duty earned  ", color=Color.White, fontSize = 19.sp,
+//                modifier = Modifier
+//                    .padding(start = 10.dp, end = 10.dp)
+//                    .fillMaxWidth())
+//            Row {
+//                scheduleNo?.let {
+//                    OutlinedTextField(
+//                        value = it,
+//                        singleLine = true,
+//                        shape = RoundedCornerShape(80),
+//                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+//                        onValueChange = { newValue ->
+//                            val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
+//                            if (isValidText(textFieldValue)) {
+//                                scheduleNo = textFieldValue.text
+//                            }
+//                        },
+//                        modifier = Modifier
+//                            .fillMaxWidth(0.4f)
+//                            .padding(start = 10.dp),
+//                        placeholder = {
+//                            database.dutyNo?.let { d->
+//                                Text(
+//                                    text = d,
+//                                    color = Color.White,
+//                                    fontSize = 17.sp
+//                                )
+//                            }
+//                        }
+//                    )
+//                }
+//                Spacer(modifier = Modifier.width(7.dp))
+//
+//                dutyEearnt?.let {
+//                    OutlinedTextField(
+//                        value = it,
+//                        singleLine = true,
+//                        shape = RoundedCornerShape(80),
+//                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+//                        onValueChange = {earnt ->
+//                            dutyEearnt = earnt
+//                        },
+//                        modifier = Modifier
+//                            .fillMaxWidth(0.8f),
+//                        placeholder = {
+//                            database.dutyEarned?.let { it1 ->
+//                                Text(
+//                                    text = it1,
+//                                    color = Color.White,
+//                                    fontSize = 16.sp
+//                                )
+//                            }
+//                        }
+//                    )
+//                }
+//            }
+//            Spacer(modifier = Modifier.height(10.dp))
+//            permedDate = performedDate(database.performedOn)//myCalendar()
+//            Spacer(modifier = Modifier.height(10.dp))
+//            Text(
+//                "Optional Data (below)",
+//                fontSize = 17.sp,
+//                color = Color.Red,
+//                modifier = Modifier.padding(start = 10.dp)
+//            )
+//            HorizontalDivider(thickness = 5.dp, color = Color.White)
+//            Spacer(modifier = Modifier.height(10.dp))
+//            Text("Collection",modifier=Modifier.padding(start=20.dp),
+//                color=Color.White, fontSize = 14.sp)
+//            todayCollection?.let {
+//                OutlinedTextField(
+//                    value = it,
+//                    singleLine = true,
+//                    shape = RoundedCornerShape(80),
+//                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+//                    onValueChange = {collect ->
+//                        todayCollection = collect
+//                    },
+//                    modifier = Modifier
+//                        .fillMaxWidth(0.44f)
+//                        .padding(start = 10.dp),
+//                    placeholder = {
+//                        database.collection?.let { it1 ->
+//                            Text(
+//                                text = it1,
+//                                color = Color.Black,
+//                                fontSize = 14.sp
+//                            )
+//                        }
+//                    }
+//                )
+//            }
+//            Spacer(modifier = Modifier.height(10.dp))
+//            Text("Way Bill No",modifier=Modifier.padding(start=20.dp),color= Color.White, fontSize = 14.sp)
+//            wBillNo?.let {
+//                OutlinedTextField(
+//                    value = it,
+//                    singleLine = true,
+//                    shape = RoundedCornerShape(80),
+//                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+//                    onValueChange = { newValue ->
+//                        val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
+//                        if (isValidText(textFieldValue)) {
+//                            wBillNo = textFieldValue.text
+//                        }
+//                    },
+//                    modifier = Modifier
+//                        .fillMaxWidth(0.44f)
+//                        .padding(start = 10.dp),
+//                    placeholder = {
+//                        database.wayBillNo?.let { it1 ->
+//                            Text(
+//                                text = it1,
+//                                color = Color.Black,
+//                                fontSize = 14.sp
+//                            )
+//                        }
+//                    }
+//                )
+//            }
+//            Spacer(modifier = Modifier.height(10.dp))
+//            Text("Name of the Crew",modifier=Modifier.padding(start=20.dp),color=Color.White, fontSize = 14.sp)
+//            crewName?.let {
+//                OutlinedTextField(
+//                    value = it,
+//                    singleLine = true,
+//                    shape = RoundedCornerShape(80),
+//                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
+//                    onValueChange = { cname ->
+//                        crewName = cname
+//                    },
+//                    modifier = Modifier
+//                        .fillMaxWidth(0.44f)
+//                        .padding(start = 10.dp),
+//                    placeholder = {
+//                        database.employeeName?.let { it1 ->
+//                            Text(
+//                                text = it1,
+//                                color = Color.Black,
+//                                fontSize = 14.sp
+//                            )
+//                        }
+//                    }
+//                )
+//            }
+//            Spacer(modifier = Modifier.height(10.dp)) //✔✓☑ Check mark - Tick symbol 💯☐☒❎✗✘
+//            Row(modifier = Modifier.padding(start=10.dp)){
+//                Surface(color= Color(0xFFA8BDE0)) {
+//                    Text("If duty Surrendered,please put tick ☑  ", fontWeight = FontWeight.SemiBold ,fontSize = 16.sp,color=Color.Red)
+//                    // Spacer(modifier = Modifier.width(10.dp))
+//                    surrender= checkbox()
+//                }
+//            }
+//            OutlinedButton(onClick = {
+//                flag=true
+//                coroutineScope.launch {
+//                      //  if (todayCollection.isBlank()) todayCollection = "--.--"
+//                         val database1 = Employee(
+//                            dutyNo = scheduleNo,
+//                            performedOn = permedDate,
+//                            dutyEarned = dutyEearnt,
+//                            collection = todayCollection,
+//                            employeeName  =crewName,
+//                            wayBillNo = wBillNo,
+//                             dutySurrendered=surrender,
+//                             id=rec
+//
+//                        )
+//                       // EmployeeDB.getInstance(context).getEmployeeDao().updateEmployee(database1)
+//                        EmployeeDB.getInstance(context).getEmployeeDao().insert(database1)
+//                        Toast.makeText(context, "Record inserted successfully", Toast.LENGTH_SHORT)
+//                            .show()
+//                    }
+//            },modifier=Modifier.padding(start=20.dp),colors=ButtonDefaults.buttonColors(Color(
+//                0xFF0F0825
+//            )
+//            ), border = BorderStroke(width = 3.dp, color = Color(0xFF9889CA))
+//            ) {
+//                Text("INSERT", fontSize = 17.sp,color=Color.White)
+//            }
+//            if(flag){
+//                scheduleNo=""
+//                permedDate= ""
+//                todayCollection=""
+//                wBillNo=""
+//                dutyEearnt= ""
+//                todayCollection=""
+//                crewName=""
+//                surrender=false
+//                navController.popBackStack("MenuScreen",inclusive = false)
+//                //navController.navigate("EditDutyDiaryScreen")
+//            }
+//        }
+//    }
+//}
+
+
+
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun EditRoomData(rec:Int,database: Employee,navController: NavController) {
+fun EditRoomData(rec: Int, database: Employee, navController: NavController) {
+
+
+    val employeeState = rememberSaveable(stateSaver = EmployeeSaver) {
+        mutableStateOf(
+            Employee(
+                dutyNo = "41",
+                performedOn = "2024/12/07",
+                dutyEarned = "2",
+                collection = "--.--",
+                employeeName = "",
+                wayBillNo = "",
+                dutySurrendered = false,
+                id = 2
+            )
+        )
+    }
+
+
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+
+    var scheduleNo by rememberSaveable { mutableStateOf(database.dutyNo ?: "") }
+    var dutyEarned by rememberSaveable { mutableStateOf(database.dutyEarned ?: "") }
+    var performedDate by rememberSaveable { mutableStateOf(database.performedOn ?: "") }
+    var todayCollection by rememberSaveable { mutableStateOf(database.collection ?: "") }
+    var wayBillNo by rememberSaveable { mutableStateOf(database.wayBillNo ?: "") }
+    var crewName by rememberSaveable { mutableStateOf(database.employeeName ?: "") }
+    var dutySurrendered by rememberSaveable { mutableStateOf(database.dutySurrendered) }
+    var isInsertClicked by rememberSaveable { mutableStateOf(false) }
+
     Surface(color = Color(0xFF6776CA)) {
-        database.dutySurrendered=false
-        val context = LocalContext.current
-        val coroutineScope = rememberCoroutineScope()
-        var surrender by rememberSaveable {
-            mutableStateOf(false)
-        }
-        var flag by rememberSaveable { mutableStateOf(false) }
-        var scheduleNo by rememberSaveable { mutableStateOf(database.dutyNo) }
-        var dutyEearnt by rememberSaveable { mutableStateOf(database.dutyEarned) }
-        var permedDate: String? by rememberSaveable { mutableStateOf(null) }
-        var todayCollection by rememberSaveable { mutableStateOf(database.collection) }
-        var wBillNo by rememberSaveable { mutableStateOf(database.wayBillNo) }
-        var crewName by rememberSaveable { mutableStateOf(database.employeeName) }
-        Column(modifier=Modifier.height(800.dp)) {
-            Text("Schedule:${database.dutyNo} Duty:${database.dutyEarned}" +
-                    "Collection:${database.collection} WayBill:${database.wayBillNo} " +
-                    " Crew: ${database.employeeName}",color= Color.White)
-            val rdate = database.performedOn?.let { reverseStringDate(rdate = it) }
-            if (rdate != null) {
-                Surface(color = Color(0xFFFF6F00)) {
-                    Text(
-                        "date:$rdate",
-                        color = Color.White,
-                        fontStyle = FontStyle.Italic,
-                        fontSize = 16.sp,
-                        modifier = Modifier.padding(start=10.dp,end = 8.dp)
-                    )
-                }
-
-            }
-
-
-            Text(text = "Schedule No     No of duty earned  ", color=Color.White, fontSize = 19.sp,
-                modifier = Modifier
-                    .padding(start = 10.dp, end = 10.dp)
-                    .fillMaxWidth())
-            Row {
-                scheduleNo?.let {
-                    OutlinedTextField(
-                        value = it,
-                        singleLine = true,
-                        shape = RoundedCornerShape(80),
-                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                        onValueChange = { newValue ->
-                            val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
-                            if (isValidText(textFieldValue)) {
-                                scheduleNo = textFieldValue.text
-                            }
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth(0.4f)
-                            .padding(start = 10.dp),
-                        placeholder = {
-                            database.dutyNo?.let { d->
-                                Text(
-                                    text = d,
-                                    color = Color.White,
-                                    fontSize = 17.sp
-                                )
-                            }
-                        }
-                    )
-                }
-                Spacer(modifier = Modifier.width(7.dp))
-
-                dutyEearnt?.let {
-                    OutlinedTextField(
-                        value = it,
-                        singleLine = true,
-                        shape = RoundedCornerShape(80),
-                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                        onValueChange = {earnt ->
-                            dutyEearnt = earnt
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth(0.8f),
-                        placeholder = {
-                            database.dutyEarned?.let { it1 ->
-                                Text(
-                                    text = it1,
-                                    color = Color.White,
-                                    fontSize = 16.sp
-                                )
-                            }
-                        }
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            permedDate = performedDate(database.performedOn)//myCalendar()
-            Spacer(modifier = Modifier.height(10.dp))
+        Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
             Text(
-                "Optional Data (below)",
-                fontSize = 17.sp,
-                color = Color.Red,
-                modifier = Modifier.padding(start = 10.dp)
+                text = "Edit Employee Data",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(bottom = 16.dp)
             )
-            HorizontalDivider(thickness = 5.dp, color = Color.White)
-            Spacer(modifier = Modifier.height(10.dp))
-            Text("Collection",modifier=Modifier.padding(start=20.dp),
-                color=Color.White, fontSize = 14.sp)
-            todayCollection?.let {
-                OutlinedTextField(
-                    value = it,
-                    singleLine = true,
-                    shape = RoundedCornerShape(80),
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                    onValueChange = {collect ->
-                        todayCollection = collect
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth(0.44f)
-                        .padding(start = 10.dp),
-                    placeholder = {
-                        database.collection?.let { it1 ->
-                            Text(
-                                text = it1,
-                                color = Color.Black,
-                                fontSize = 14.sp
-                            )
-                        }
-                    }
-                )
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            Text("Way Bill No",modifier=Modifier.padding(start=20.dp),color= Color.White, fontSize = 14.sp)
-            wBillNo?.let {
-                OutlinedTextField(
-                    value = it,
-                    singleLine = true,
-                    shape = RoundedCornerShape(80),
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                    onValueChange = { newValue ->
-                        val textFieldValue = TextFieldValue(newValue, TextRange(newValue.length))
-                        if (isValidText(textFieldValue)) {
-                            wBillNo = textFieldValue.text
-                        }
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth(0.44f)
-                        .padding(start = 10.dp),
-                    placeholder = {
-                        database.wayBillNo?.let { it1 ->
-                            Text(
-                                text = it1,
-                                color = Color.Black,
-                                fontSize = 14.sp
-                            )
-                        }
-                    }
-                )
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            Text("Name of the Crew",modifier=Modifier.padding(start=20.dp),color=Color.White, fontSize = 14.sp)
-            crewName?.let {
-                OutlinedTextField(
-                    value = it,
-                    singleLine = true,
-                    shape = RoundedCornerShape(80),
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
-                    onValueChange = { cname ->
-                        crewName = cname
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth(0.44f)
-                        .padding(start = 10.dp),
-                    placeholder = {
-                        database.employeeName?.let { it1 ->
-                            Text(
-                                text = it1,
-                                color = Color.Black,
-                                fontSize = 14.sp
-                            )
-                        }
-                    }
-                )
-            }
-            Spacer(modifier = Modifier.height(10.dp)) //✔✓☑ Check mark - Tick symbol 💯☐☒❎✗✘
-            Row(modifier = Modifier.padding(start=10.dp)){
-                Surface(color= Color(0xFFA8BDE0)) {
-                    Text("If duty Surrendered,please put tick ☑  ", fontWeight = FontWeight.SemiBold ,fontSize = 16.sp,color=Color.Red)
-                    // Spacer(modifier = Modifier.width(10.dp))
-                    surrender= checkbox()
-                }
-            }
-            OutlinedButton(onClick = {
-                flag=true
-                coroutineScope.launch {
-                      //  if (todayCollection.isBlank()) todayCollection = "--.--"
-                         val database1 = Employee(
-                            dutyNo = scheduleNo,
-                            performedOn = permedDate,
-                            dutyEarned = dutyEearnt,
-                            collection = todayCollection,
-                            employeeName  =crewName,
-                            wayBillNo = wBillNo,
-                             dutySurrendered=surrender,
-                             id=rec
 
-                        )
-                       // EmployeeDB.getInstance(context).getEmployeeDao().updateEmployee(database1)
-                        EmployeeDB.getInstance(context).getEmployeeDao().insert(database1)
-                        Toast.makeText(context, "Record inserted successfully", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-            },modifier=Modifier.padding(start=20.dp),colors=ButtonDefaults.buttonColors(Color(
-                0xFF0F0825
+            // Schedule Number
+            OutlinedTextField(
+                value = scheduleNo,
+                onValueChange = { scheduleNo = it },
+                label = { Text("Schedule No") },
+                modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+                singleLine = true
             )
-            ), border = BorderStroke(width = 3.dp, color = Color(0xFF9889CA))
-            ) {
-                Text("INSERT", fontSize = 17.sp,color=Color.White)
+
+            // Duty Earned
+            OutlinedTextField(
+                value = dutyEarned,
+                onValueChange = { dutyEarned = it },
+                label = { Text("Duty Earned") },
+                modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+                singleLine = true
+            )
+
+            // Collection
+            OutlinedTextField(
+                value = todayCollection,
+                onValueChange = { todayCollection = it },
+                label = { Text("Collection") },
+                modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+                singleLine = true
+            )
+
+            // Way Bill No
+            OutlinedTextField(
+                value = wayBillNo,
+                onValueChange = { wayBillNo = it },
+                label = { Text("Way Bill No") },
+                modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+                singleLine = true
+            )
+
+            // Crew Name
+            OutlinedTextField(
+                value = crewName,
+                onValueChange = { crewName = it },
+                label = { Text("Crew Name") },
+                modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+                singleLine = true
+            )
+            performedDate = performedDate(database.performedOn).toString()//myCalendar()
+            // Duty Surrendered Checkbox
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Checkbox(
+                    checked = dutySurrendered,
+                    onCheckedChange = { dutySurrendered = it }
+                )
+                Text(
+                    text = "Duty Surrendered",
+                    color = Color.White,
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(start = 8.dp)
+                )
             }
-            if(flag){
-                scheduleNo=""
-                permedDate= ""
-                todayCollection=""
-                wBillNo=""
-                dutyEearnt= ""
-                todayCollection=""
-                crewName=""
-                surrender=false
-                navController.navigate("EditDutyDiaryScreen")
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Insert Button
+            OutlinedButton(
+                onClick = {
+                    isInsertClicked = true
+                    coroutineScope.launch {
+                        val updatedEmployee = Employee(
+                            id = rec,
+                            dutyNo = scheduleNo,
+                            performedOn = performedDate,
+                            dutyEarned = dutyEarned,
+                            collection = todayCollection,
+                            employeeName = crewName,
+                            wayBillNo = wayBillNo,
+                            dutySurrendered = dutySurrendered
+                        )
+                        EmployeeDB.getInstance(context).getEmployeeDao().insert(updatedEmployee)
+
+                        Toast.makeText(
+                            context,
+                            "Record inserted successfully",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        navController.popBackStack("MenuScreen", inclusive = false)
+                    }
+                },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(Color(0xFF0F0825)),
+                border = BorderStroke(width = 1.dp, color = Color.White)
+            ) {
+                Text("Insert", color = Color.White, fontSize = 16.sp)
             }
         }
     }
 }
+
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun performedDate(performedOn: String?):String? {

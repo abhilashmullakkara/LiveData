@@ -19,14 +19,12 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.TextButton
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonDefaults.textButtonColors
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardDefaults.cardColors
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -345,7 +343,7 @@ fun MenuScreen(navController: NavController) {
                                         ClickableText(
                                             text = AnnotatedString("Append Cloud"),
                                             modifier = Modifier
-                                                .padding(start = 16.dp),
+                                                .padding(start = 13.dp),
                                             onClick = {
                                                  navController.navigate("AppendCloudScreen")
                                             },
@@ -377,7 +375,7 @@ fun MenuScreen(navController: NavController) {
                                         ClickableText(
                                             text = AnnotatedString("Merge"),
                                             modifier = Modifier
-                                                .padding(start = 16.dp),
+                                                .padding(start = 13.dp),
                                             onClick = {
                                                navController.navigate("MergeFromCloudScreen")
                                             },
