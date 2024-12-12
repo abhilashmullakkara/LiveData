@@ -304,11 +304,11 @@ fun EmployeeList(
     isDetailed: Boolean,
     onDelete: (Employee) -> Unit
 ) {
-    var append by rememberSaveable { mutableStateOf(false) }
-    var clicked by rememberSaveable { mutableStateOf(false) }
-    var penNumber by rememberSaveable {
-        mutableStateOf("G")
-    }
+//    var append by rememberSaveable { mutableStateOf(false) }
+//    var clicked by rememberSaveable { mutableStateOf(false) }
+//    var penNumber by rememberSaveable {
+//        mutableStateOf("G")
+//    }
     LazyColumn  {
         item {
             if(share) {
@@ -330,53 +330,7 @@ fun EmployeeList(
                 }
                 HorizontalDivider(color = Color.LightGray)
             }
-//        item{
-//
-//            Button(
-//                onClick =
-//                {
-//                    clicked = true
-//                },
-//                colors = ButtonDefaults.buttonColors(
-//                    containerColor = Color(0xFF8BC34A),
-//                    contentColor = Color.White // text color
-//                ), elevation = ButtonDefaults.buttonElevation(
-//                    defaultElevation = 20.dp
-//                )
-//
-//            ) {
-//                Text("Cloud Upload ", fontSize = 14.sp, color = Color.White)
-//
-//            }
-//        }
-//        item {
-//            Button(
-//                onClick =
-//                {
-//                    append = true
-//                },
-//                colors = ButtonDefaults.buttonColors(
-//                    containerColor = Color(0xFFFFC107),
-//                    contentColor = Color.White // text color
-//                ), elevation = ButtonDefaults.buttonElevation(
-//                    defaultElevation = 20.dp
-//                )
-//
-//            ) {
-//                Text("Cloud Append", fontSize = 14.sp, color = Color.White)
-//
-//            }
-//            if(clicked){
-//                UploadDiary(employees,penNumber)
-//                clicked=false
-//                Toast.makeText(context, "Uploaded...", Toast.LENGTH_SHORT-1000).show()
-//            }
-//            if(append){
-//                appendDiary(employees,penNumber)
-//                append=false
-//                Toast.makeText(context, "Appended successfully...", Toast.LENGTH_SHORT-1000).show()
-//            }
-//        }
+
         }
 
         }

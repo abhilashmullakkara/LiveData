@@ -163,9 +163,9 @@ fun DeleteCloudScreen(navController: NavController) {
                 EmplistAppend(
                     employees = employeeInfo,
                     pen=newEmploy.value.penNumber,
-                    onDelete = { employeeToDelete ->
-                        employeeInfo = employeeInfo.filterNot { it.id == employeeToDelete.id }
-                    }
+//                    onDelete = { employeeToDelete ->
+//                        employeeInfo = employeeInfo.filterNot { it.id == employeeToDelete.id }
+//                    }
                 )
 
             }

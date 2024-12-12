@@ -100,7 +100,7 @@ fun ReadDataFromCloud(navController: NavController) {
 
             val newEmploy = EmployePen(penNumber = penNumberInput, password = passwordInput)
             val pass = myPenPasswordDownloader(employePen = newEmploy)
-
+         if(passwordInput!="")
           if (passwordInput==pass) {
                 val databaseReference = FirebaseDatabase.getInstance("https://mydutydiary-default-rtdb.firebaseio.com/").getReference(penNumberInput)
 
@@ -119,7 +119,10 @@ fun ReadDataFromCloud(navController: NavController) {
                     }
                 })
             }
-            else Text("Password is incorrect or not registered",color=Color(0xFFC6FF00), fontSize = 12.sp)
+            else {
+                searchResult= emptyList()
+              Text("Password is incorrect or not registered",color=Color(0xFFC6FF00), fontSize = 12.sp)
+            }
 
             if (errorMessage != null) {
                 Text(

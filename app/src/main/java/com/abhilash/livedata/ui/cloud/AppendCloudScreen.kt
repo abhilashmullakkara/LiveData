@@ -86,7 +86,7 @@ fun AppendCloudScreen(navController: NavController) {
 
 
             // Properly declare the MutableState
-            var newEmploy: MutableState<EmployePen> = remember {
+            val newEmploy: MutableState<EmployePen> = remember {
                 mutableStateOf(EmployePen(penNumber = "", password = ""))
             }
 
@@ -134,6 +134,7 @@ fun AppendCloudScreen(navController: NavController) {
             )
 
 val pas= verifyPassword(penNumberInput = newEmploy.value.penNumber, passwordInput =newEmploy.value.password )
+            Text(pas.toString(),color=Color.White)
 
             if (pas){
                 OutlinedButton(
@@ -172,13 +173,12 @@ val pas= verifyPassword(penNumberInput = newEmploy.value.penNumber, passwordInpu
                 if (flag) {
                     Toast.makeText(context, "Appended successfully...", Toast.LENGTH_SHORT).show()
                     flag=false
-                    navController.popBackStack("MenuScreen", inclusive = false)
+                   // navController.popBackStack("MenuScreen", inclusive = false)
 
                 }
 
 
             }
-
 
         }
     }
@@ -187,18 +187,22 @@ val pas= verifyPassword(penNumberInput = newEmploy.value.penNumber, passwordInpu
 
 
 @Composable
-fun verifyPassword(penNumberInput:String,passwordInput:String):Boolean{
+fun verifyPassword(penNumberInput:String="",passwordInput:String=""):Boolean{
 
     val newEmploy = EmployePen(penNumber = penNumberInput, password = passwordInput)
     val pass = myPenPasswordDownloader(employePen = newEmploy)
-
-    return if (passwordInput==pass) {
-        true
+if(passwordInput!="")
+    if (passwordInput==pass) {
+        return true
     }
-    else
-        false
-
+    else {
+        return false
+    }
+    return false
 }
+
+
+
 @Composable
 fun Emplist(
     employees: List<Employee>,
@@ -234,7 +238,7 @@ fun Emplist(
 fun EmplistAppend(
     employees: List<Employee>,
     pen:String="",
-    onDelete: (Employee) -> Unit
+    //onDelete: (Employee) -> Unit
 ) {
     LazyColumn  {
         item {
