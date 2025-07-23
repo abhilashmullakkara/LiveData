@@ -1,0 +1,4 @@
+androidx.compose.foundation
+string autofill
+string tooltip_description
+string tooltip_label

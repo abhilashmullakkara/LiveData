@@ -1,0 +1,9 @@
+androidx.compose.material3.windowsizeclass.AndroidWindowSizeClass_androidKt
+androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+androidx.compose.material3.windowsizeclass.TestOnly_jvmKt
+androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
+androidx.compose.material3.windowsizeclass.WindowHeightSizeClass$Companion
+androidx.compose.material3.windowsizeclass.WindowSizeClass
+androidx.compose.material3.windowsizeclass.WindowSizeClass$Companion
+androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+androidx.compose.material3.windowsizeclass.WindowWidthSizeClass$Companion

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding='utf-8' standalone='no'?>
+<resources>
+<!-- blaze-out/k8-opt/genfiles/java/com/google/android/gmscore/integ/client/admob-impl/res/values-sr/strings.xml -->
+<eat-comment/>
+<string name="native_body">Садржај</string>
+<string name="native_headline">Наслов</string>
+<string name="native_media_view">Приказ медија</string>
+<string name="notifications_permission_confirm">Дозволи</string>
+<string name="notifications_permission_decline">Не дозволи</string>
+<string name="notifications_permission_title">Желите да дозволите апликацији да вам шаље обавештења?</string>
+<string name="offline_dialog_image_description">Икона</string>
+<string name="offline_dialog_text">Хвала вам на интересовању.\nПоделићемо више информација када поново будете онлајн.</string>
+<string name="offline_notification_title">Поново сте онлајн! Хајде да наставимо тамо где смо стали</string>
+<string name="offline_notification_title_with_advertiser">Поново сте онлајн! Сазнајте више о оглашивачу: %s</string>
+<string name="offline_opt_in_confirm">Потврди</string>
+<string name="offline_opt_in_decline">Не, хвала</string>
+<string name="offline_opt_in_message">Послаћемо вам обавештење са линком до сајта оглашавача.</string>
+<string name="offline_opt_in_title">Отворите оглас кад поново будете онлајн.</string>
+<string name="s1">Чување слике</string>
+<string name="s2">Желите ли да дозволите да оглас сачува слику у Галерији слика?</string>
+<string name="s3">Прихвати</string>
+<string name="s4">Одбиј</string>
+<string name="s5">Прављење догађаја у календару</string>
+<string name="s6">Желите ли да дозволите да оглас направи догађај у календару?</string>
+<string name="s7">Пробни оглас</string>
+<string name="watermark_label_prefix">AdMob - </string>
+</resources>

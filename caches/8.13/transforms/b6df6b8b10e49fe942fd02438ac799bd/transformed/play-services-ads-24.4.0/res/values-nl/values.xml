@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding='utf-8' standalone='no'?>
+<resources>
+<!-- blaze-out/k8-opt/genfiles/java/com/google/android/gmscore/integ/client/admob-impl/res/values-nl/strings.xml -->
+<eat-comment/>
+<string name="native_body">Tekstgedeelte</string>
+<string name="native_headline">Kop</string>
+<string name="native_media_view">Mediacontent</string>
+<string name="notifications_permission_confirm">Toestaan</string>
+<string name="notifications_permission_decline">Niet toestaan</string>
+<string name="notifications_permission_title">App toestaan om je meldingen te sturen?</string>
+<string name="offline_dialog_image_description">Icoon</string>
+<string name="offline_dialog_text">Bedankt voor je interesse.\nWe delen meer zodra je weer online bent.</string>
+<string name="offline_notification_title">Je bent weer online. Laten we verder gaan waar we waren gebleven.</string>
+<string name="offline_notification_title_with_advertiser">Je bent weer online. Ga verder met leren over %s.</string>
+<string name="offline_opt_in_confirm">OK</string>
+<string name="offline_opt_in_decline">Nee, bedankt</string>
+<string name="offline_opt_in_message">We sturen je een melding met een link naar de site van de adverteerder.</string>
+<string name="offline_opt_in_title">Advertentie openen als je weer online bent</string>
+<string name="s1">Afbeelding opslaan</string>
+<string name="s2">Advertentie toestaan om afbeelding op te slaan in fotogalerij?</string>
+<string name="s3">Accepteren</string>
+<string name="s4">Weigeren</string>
+<string name="s5">Agenda-afspraak maken</string>
+<string name="s6">Advertentie toestaan om een agenda-afspraak te maken?</string>
+<string name="s7">Testadvertentie</string>
+<string name="watermark_label_prefix">AdMob - </string>
+</resources>

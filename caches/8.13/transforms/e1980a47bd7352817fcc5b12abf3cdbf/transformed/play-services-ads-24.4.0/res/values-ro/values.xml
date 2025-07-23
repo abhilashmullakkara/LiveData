@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding='utf-8' standalone='no'?>
+<resources>
+<!-- blaze-out/k8-opt/genfiles/java/com/google/android/gmscore/integ/client/admob-impl/res/values-ro/strings.xml -->
+<eat-comment/>
+<string name="native_body">Conținut</string>
+<string name="native_headline">Titlu</string>
+<string name="native_media_view">Afișarea fișierului media</string>
+<string name="notifications_permission_confirm">Permite</string>
+<string name="notifications_permission_decline">Nu permite</string>
+<string name="notifications_permission_title">Permiți aplicației să îți trimită notificări?</string>
+<string name="offline_dialog_image_description">Pictogramă</string>
+<string name="offline_dialog_text">Îți mulțumim pentru interes.\nÎți vom oferi mai multe informații când revii online.</string>
+<string name="offline_notification_title">Ești iar online! Reia de unde ai rămas</string>
+<string name="offline_notification_title_with_advertiser">Ești iar online! Continuă să afli mai multe despre %s</string>
+<string name="offline_opt_in_confirm">OK</string>
+<string name="offline_opt_in_decline">Nu</string>
+<string name="offline_opt_in_message">Îți vom trimite o notificare cu un link la site-ul advertiserului.</string>
+<string name="offline_opt_in_title">Deschide anunțul când revii online.</string>
+<string name="s1">Salvează imaginea</string>
+<string name="s2">Permiți ca anunțul să stocheze imaginea în Galeria de fotografii?</string>
+<string name="s3">Acceptă</string>
+<string name="s4">Refuză</string>
+<string name="s5">Creează un eveniment în calendar</string>
+<string name="s6">Permiți ca anunțul să creeze un eveniment în calendar?</string>
+<string name="s7">Anunț de probă</string>
+<string name="watermark_label_prefix">AdMob – </string>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding='utf-8' standalone='no'?>
+<resources>
+<!-- blaze-out/k8-opt/genfiles/java/com/google/android/gmscore/integ/client/admob-impl/res/values-ar/strings.xml -->
+<eat-comment/>
+<string name="native_body">النص</string>
+<string name="native_headline">العنوان</string>
+<string name="native_media_view">عرض الوسائط</string>
+<string name="notifications_permission_confirm">السماح</string>
+<string name="notifications_permission_decline">عدم السماح</string>
+<string name="notifications_permission_title">هل تريد السماح للتطبيق بإرسال إشعارات إليك؟</string>
+<string name="offline_dialog_image_description">رمز</string>
+<string name="offline_dialog_text">‏نشكرك على اهتمامك.\nسنشارك المزيد من المعلومات بعد إعادة الاتصال بالإنترنت.</string>
+<string name="offline_notification_title">تمت إعادة الاتصال بالإنترنت وبإمكانك الآن الاستئناف من حيث توقفت</string>
+<string name="offline_notification_title_with_advertiser">تمت إعادة الاتصال بالإنترنت وبإمكانك الآن مواصلة التعرّف على \"%s\"</string>
+<string name="offline_opt_in_confirm">حسنًا</string>
+<string name="offline_opt_in_decline">لا، شكرًا</string>
+<string name="offline_opt_in_message">سنرسل إليك إشعارًا يحتوي على رابط إلى الموقع الإلكتروني للمعلِن.</string>
+<string name="offline_opt_in_title">فتح العنوان عند إعادة الاتصال بالإنترنت</string>
+<string name="s1">حفظ الصورة</string>
+<string name="s2">هل تريد السماح للإعلان بتخزين الصورة في معرض الصور؟</string>
+<string name="s3">قبول</string>
+<string name="s4">رفض</string>
+<string name="s5">إنشاء حدث تقويم</string>
+<string name="s6">هل تريد السماح للإعلان بإنشاء حدث تقويم؟</string>
+<string name="s7">إعلان تجريبي</string>
+<string name="watermark_label_prefix">AdMob - </string>
+</resources>
