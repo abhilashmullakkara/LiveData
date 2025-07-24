@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding='utf-8' standalone='no'?>
+<resources>
+<!-- blaze-out/k8-opt/genfiles/java/com/google/android/gmscore/integ/client/admob-impl/res/values-bg/strings.xml -->
+<eat-comment/>
+<string name="native_body">Основен текст</string>
+<string name="native_headline">Заглавие</string>
+<string name="native_media_view">Преглед на мултимедийния файл</string>
+<string name="notifications_permission_confirm">Разрешаване</string>
+<string name="notifications_permission_decline">Забраняване</string>
+<string name="notifications_permission_title">Разрешавате ли на приложението да ви изпраща известия?</string>
+<string name="offline_dialog_image_description">Икона</string>
+<string name="offline_dialog_text">Благодарим за проявения интерес.\nЩе споделим още информация, когато отново сте онлайн.</string>
+<string name="offline_notification_title">Отново сте онлайн! Да продължим оттам, откъдето прекъснахме</string>
+<string name="offline_notification_title_with_advertiser">Отново сте онлайн! Продължете обучението за %s</string>
+<string name="offline_opt_in_confirm">ОК</string>
+<string name="offline_opt_in_decline">Не</string>
+<string name="offline_opt_in_message">Ще ви изпратим известие с връзка към сайта на рекламодателя.</string>
+<string name="offline_opt_in_title">Отворете рекламата, когато отново сте онлайн.</string>
+<string name="s1">Запазване на изображението</string>
+<string name="s2">Да се разреши ли на рекламата да съхрани изображение в галерията със снимки?</string>
+<string name="s3">Приемам</string>
+<string name="s4">Отхвърлям</string>
+<string name="s5">Създаване на събитие в календара</string>
+<string name="s6">Да се разреши ли на рекламата да създаде събитие в календара?</string>
+<string name="s7">Тестова реклама</string>
+<string name="watermark_label_prefix">AdMob – </string>
+</resources>

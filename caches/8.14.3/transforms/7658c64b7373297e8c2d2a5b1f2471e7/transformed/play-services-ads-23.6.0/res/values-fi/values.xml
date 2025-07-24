@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding='utf-8' standalone='no'?>
+<resources>
+<!-- blaze-out/k8-opt/genfiles/java/com/google/android/gmscore/integ/client/admob-impl/res/values-fi/strings.xml -->
+<eat-comment/>
+<string name="native_body">Tekstiosa</string>
+<string name="native_headline">Otsikko</string>
+<string name="native_media_view">Medianäkymä</string>
+<string name="notifications_permission_confirm">Salli</string>
+<string name="notifications_permission_decline">Älä salli</string>
+<string name="notifications_permission_title">Haluatko sallia sovellusilmoitukset?</string>
+<string name="offline_dialog_image_description">Kuvake</string>
+<string name="offline_dialog_text">Kiitos kiinnostuksestasi.\nSaat lisätietoa, kun olet taas yhteydessä verkkoon.</string>
+<string name="offline_notification_title">Olet taas yhteydessä verkkoon. Jatka siitä mihin jäit.</string>
+<string name="offline_notification_title_with_advertiser">Olet taas yhteydessä verkkoon. Lue lisää: %s</string>
+<string name="offline_opt_in_confirm">OK</string>
+<string name="offline_opt_in_decline">Ei kiitos</string>
+<string name="offline_opt_in_message">Lähetämme sinulle ilmoituksen, jossa on linkki mainostajan sivustolle.</string>
+<string name="offline_opt_in_title">Avaa mainos, kun olet taas yhteydessä verkkoon.</string>
+<string name="s1">Tallenna kuva</string>
+<string name="s2">Myönnetäänkö mainokselle oikeus tallentaa kuva galleriaan?</string>
+<string name="s3">Hyväksy</string>
+<string name="s4">Hylkää</string>
+<string name="s5">Luo kalenteritapahtuma</string>
+<string name="s6">Myönnetäänkö mainokselle oikeus luoda kalenteritapahtuma?</string>
+<string name="s7">Testimainos</string>
+<string name="watermark_label_prefix">AdMob - </string>
+</resources>

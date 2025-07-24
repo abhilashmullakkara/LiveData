@@ -4,20 +4,20 @@ val depoList=listOf(
     DepoData(
         depoId = 1,
         depoName = "ADOOR",
-        phone = " 0473-4224764",
+        phone = "9188933740",
         email = "adr@kerala.gov.in"
 
     ),
     DepoData (
      depoId=2,
     depoName = "ALAPPUZHA",
-    phone="0477-2252501",
+    phone="9188933748",
      email="alp@kerala.gov.in"
     ),
     DepoData(
         depoId = 3,
         depoName = "ALUVA",
-        phone = "0484-2624242",
+        phone = "9188933776",
         email = "alv@kerala.gov.in"
     ),
     DepoData(
@@ -29,7 +29,7 @@ val depoList=listOf(
     DepoData(
         depoId = 5,
         depoName = "ANKAMALI",
-        phone = "0484-2453050",
+        phone = "9188933778",
         email = "ank@kerala.gov.in"
     ),
     DepoData(
@@ -41,13 +41,13 @@ val depoList=listOf(
     DepoData(
         depoId = 7,
         depoName = "ARYANKAVU",
-        phone = " 0475-2211300",
+        phone = "9188933727",
         email = "ark@kerala.gov.in"
     ),
     DepoData(
         depoId = 8,
         depoName = "ATTINGAL",
-        phone = " 0470-2622202",
+        phone = "9188933701",
         email = "atl@kerala.gov.in"
     ),
     DepoData(
@@ -190,7 +190,7 @@ val depoList=listOf(
     DepoData(
         32,
         "KATTAPPANA",
-        "0486-8252333",
+        "9188933766",
         "ktp@kerala.gov.in"
     ),
     DepoData(
@@ -303,13 +303,13 @@ val depoList=listOf(
     DepoData(
         51,
         "MOOLAMATTOM",
-        "0486-22520450",
+        "9188933770",
         "mlt@kerala.gov.in"
     ),
     DepoData(
         52	,
         "MOOVATTUPUZHA",
-        "0485-2832321",
+        "9188933785",
         "mvp@kerala.gov.in"
     ),
     DepoData(
@@ -519,13 +519,13 @@ val depoList=listOf(
     DepoData(
         87,
         "TVM CENTRAL" ,
-        "0471-2323886",
+        "9188933717",
         "tvm@kerala.gov.in"
     ),
     DepoData(
         88	,
         "TVM CITY ",
-        "0471-2575495",
+        "9188933718",
         "cty@kerala.gov.in"
     ),
     DepoData(
@@ -555,57 +555,32 @@ val depoList=listOf(
     DepoData(
         93,
         "VELLARADA",
-        "0471-2242029",
+        "9188933721",
         "vrd@kerala.gov.in"
     ),
     DepoData(
         94	,
         "VENJARAMOODU",
-        "0472-2874141",
+        "9188933723",
         "vjd@kerala.gov.in"
     ),
     DepoData(
         95,
         "VIKASBHAVAN",
-        "0471-2307890",
+        "9188933726",
         "vkb@kerala.gov.in"
     ),
     DepoData(
         96,
         "VITHURA" ,
-        "0472-2858686",
+        "9188933724",
         "vtr@kerala.gov.in"
     ),
     DepoData(
         97,
         "VIZHINJAM" ,
-        "0471-2481365",
+        "9188933725",
         "vzm@kerala.gov.in"
     )
 
 )
-
-
-
-//Dist: TVM
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, VELLARADA
-//
-//Zone:SOUTH
-//Dist: TVM
-//
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, VENJARAMOODU
-//
-//Zone:SOUTH
-//Dist: TVM
-//
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, VIKASBHAVAN
-//
-//Zone:SOUTH
-//Dist: TVM
-//
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, VITHURA
-//
-//Zone:SOUTH
-//Dist: TVM
-//
-//OFFICE OF THE ASSISTANT TRANSPORT OFFICER, KSRTC, VIZHINJAM

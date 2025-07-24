@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding='utf-8' standalone='no'?>
+<resources>
+<!-- blaze-out/k8-opt/genfiles/java/com/google/android/gmscore/integ/client/admob-impl/res/values-hu/strings.xml -->
+<eat-comment/>
+<string name="native_body">Törzs</string>
+<string name="native_headline">Címsor</string>
+<string name="native_media_view">Médianézet</string>
+<string name="notifications_permission_confirm">Engedélyezés</string>
+<string name="notifications_permission_decline">Tiltás</string>
+<string name="notifications_permission_title">Engedélyezi, hogy az alkalmazás értesítéseket küldjön Önnek?</string>
+<string name="offline_dialog_image_description">Ikon</string>
+<string name="offline_dialog_text">Köszönjük érdeklődését!\nAmint újra online lesz, bővebb tájékoztatást fog kapni.</string>
+<string name="offline_notification_title">Újra van internetkapcsolata. Folytassuk onnan, ahol abbahagytuk.</string>
+<string name="offline_notification_title_with_advertiser">Újra van internetkapcsolata. Ismerje meg részletesebben a következőt: %s.</string>
+<string name="offline_opt_in_confirm">OK</string>
+<string name="offline_opt_in_decline">Nem</string>
+<string name="offline_opt_in_message">Értesítést küldünk, amelyben a hirdető webhelyére mutató link szerepel.</string>
+<string name="offline_opt_in_title">Megnyithatja a hirdetést akkor, amikor újra online lesz.</string>
+<string name="s1">Kép mentése</string>
+<string name="s2">Engedélyezi a hirdetés számára a kép tárolását a Képgalériában?</string>
+<string name="s3">Elfogadás</string>
+<string name="s4">Elutasítás</string>
+<string name="s5">Naptáresemény létrehozása</string>
+<string name="s6">Engedélyezi a hirdetés számára naptáresemény létrehozását?</string>
+<string name="s7">Teszthirdetés</string>
+<string name="watermark_label_prefix">AdMob – </string>
+</resources>

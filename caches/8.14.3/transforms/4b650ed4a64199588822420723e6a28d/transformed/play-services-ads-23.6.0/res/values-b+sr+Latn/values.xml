@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding='utf-8' standalone='no'?>
+<resources>
+<!-- blaze-out/k8-opt/genfiles/java/com/google/android/gmscore/integ/client/admob-impl/res/values-b+sr+Latn/strings.xml -->
+<eat-comment/>
+<string name="native_body">Sadržaj</string>
+<string name="native_headline">Naslov</string>
+<string name="native_media_view">Prikaz medija</string>
+<string name="notifications_permission_confirm">Dozvoli</string>
+<string name="notifications_permission_decline">Ne dozvoli</string>
+<string name="notifications_permission_title">Želite da dozvolite aplikaciji da vam šalje obaveštenja?</string>
+<string name="offline_dialog_image_description">Ikona</string>
+<string name="offline_dialog_text">Hvala vam na interesovanju.\nPodelićemo više informacija kada ponovo budete onlajn.</string>
+<string name="offline_notification_title">Ponovo ste onlajn! Hajde da nastavimo tamo gde smo stali</string>
+<string name="offline_notification_title_with_advertiser">Ponovo ste onlajn! Saznajte više o oglašivaču: %s</string>
+<string name="offline_opt_in_confirm">Potvrdi</string>
+<string name="offline_opt_in_decline">Ne, hvala</string>
+<string name="offline_opt_in_message">Poslaćemo vam obaveštenje sa linkom do sajta oglašavača.</string>
+<string name="offline_opt_in_title">Otvorite oglas kad ponovo budete onlajn.</string>
+<string name="s1">Čuvanje slike</string>
+<string name="s2">Želite li da dozvolite da oglas sačuva sliku u Galeriji slika?</string>
+<string name="s3">Prihvati</string>
+<string name="s4">Odbij</string>
+<string name="s5">Pravljenje događaja u kalendaru</string>
+<string name="s6">Želite li da dozvolite da oglas napravi događaj u kalendaru?</string>
+<string name="s7">Probni oglas</string>
+<string name="watermark_label_prefix">AdMob - </string>
+</resources>

@@ -4,7 +4,7 @@ buildscript {
         kotlin_version = '1.9.23'//1.8.21
     }
     dependencies {
-        classpath 'com.google.gms:google-services:4.4.2'
+        classpath 'com.google.gms:google-services:4.4.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.android.tools.build:gradle:8.11.1'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10'
