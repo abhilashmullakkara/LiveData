@@ -5,6 +5,8 @@ import android.app.DatePickerDialog
 import android.widget.DatePicker
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
@@ -18,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -30,31 +33,46 @@ import java.util.Calendar
 import java.util.Date
 
 @Composable
-fun AddDutyDiaryScreen(navController: NavController){
-    Surface(color=Color(0xFF6776CA)) {
-    Column(
-    )
-    {
-        Row()
-        {
-            IconButton(onClick = {
-                navController.popBackStack("MenuScreen",inclusive = false)
-            })
-            {
-                Icon(imageVector = Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = "Arrow")
+fun AddDutyDiaryScreen(navController: NavController) {
+    Surface(
+        color = Color(0xFF6776CA),
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            // Header Row with Back Button
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp, vertical = 4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                IconButton(
+                    onClick = {
+                        navController.popBackStack("MenuScreen", inclusive = false)
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+                        contentDescription = "Back Arrow",
+                        tint = Color.White
+                    )
+                }
+                Text(
+                    text = "Enter Information",
+                    fontSize = 19.sp,
+                    color = Color(0xFFC8C8CE),
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(start = 8.dp)
+                )
             }
-            Text(
-                "Enter Information", fontSize = 19.sp,
-                color = Color(0xFFC8C8CE),
-                fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(10.dp)
-            )
 
+            // Main Content
+            RoomData(navController)
         }
-        RoomData(navController)
-    }
     }
 }
-
 
 @SuppressLint("SuspiciousIndentation")
 @Composable

@@ -2,6 +2,7 @@ package com.abhilash.livedata.ui.theme.manager
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,15 +14,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material.TextButton
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardDefaults.cardColors
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -34,11 +32,9 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -47,48 +43,47 @@ import com.abhilash.livedata.ui.cloud.mypasswordDownloader
 import com.abhilash.livedata.ui.theme.admob.BannerAdView
 import com.google.android.gms.ads.AdSize
 
+
+                //THIS SCREEN IS CORRECTED ON 27/10/2025
 @Composable
 fun MenuScreen(navController: NavController) {
     Surface(modifier = Modifier.fillMaxSize(), color = Color(0xFF779FE4)) {
         Column {
+            // Header Card
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(2.dp)
-                    .height(148.dp), // Adjust the height as needed
-                colors = cardColors(
+                    .height(148.dp),
+                colors = CardDefaults.cardColors(
                     containerColor = Color(0xFF075E54),
                     disabledContainerColor = Color(0xFF075E54),
                     disabledContentColor = Color.Transparent
                 ),
             ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Surface(color = Color(0xFF075E54), modifier = Modifier.fillMaxWidth()) {
-
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text("വേല", fontSize = 20.sp, color = Color.White)
-                            Text("KSRTC Duty Diary", fontSize = 12.sp, color = Color.White)
-                            Text(" ", fontSize = 10.sp)
-                            val ver= mypasswordDownloader("0")
-                            Text(ver, fontSize = 15.sp,color=Color.Yellow)
-                            Spacer(modifier = Modifier.height(10.dp))
-                            BannerAdView(false, AdSize.FULL_BANNER)
-                        }
-
-                    }
-
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("വേല", fontSize = 20.sp, color = Color.White)
+                    Text("KSRTC Duty Diary", fontSize = 12.sp, color = Color.White)
+                    Spacer(modifier = Modifier.height(10.dp))
+                    val ver = mypasswordDownloader("0")
+                    Text(ver, fontSize = 15.sp, color = Color.Yellow)
+                    Spacer(modifier = Modifier.height(10.dp))
+                    BannerAdView(false, AdSize.FULL_BANNER)
                 }
-
             }
+
             LazyColumn {
+                // DUTY DIARY Card
                 item {
                     Spacer(modifier = Modifier.height(10.dp))
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(10.dp)
-                            .height(190.dp), // Adjust the height as needed
-                        colors = cardColors(
+                            .padding(10.dp),
+                        colors = CardDefaults.cardColors(
                             containerColor = Color(0xFF648FD6),
                         ),
                         elevation = CardDefaults.cardElevation(
@@ -97,584 +92,278 @@ fun MenuScreen(navController: NavController) {
                         ),
                         shape = RoundedCornerShape(5.dp),
                     ) {
-                        Column {
-                            Column(modifier = Modifier.padding(start = 70.dp)) {
+                        Column(modifier = Modifier.padding(8.dp)) {
+                            // Title
+                            Column(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
                                 TextShadow(text = "DUTY DIARY")
                             }
                             HorizontalDivider(thickness = 3.dp, color = Color.White)
                             Spacer(modifier = Modifier.height(10.dp))
-                            Column {
-                                Row {
-                                    Column(
-                                        verticalArrangement = Arrangement.Center, // Aligns items vertically centered
-                                        horizontalAlignment = Alignment.CenterHorizontally // Aligns items horizontally centered
-                                    ) {
-                                        ClickableText(
-                                            text = AnnotatedString("Add Duty"),
-                                            modifier = Modifier
-                                                .padding(start = 15.dp),
-                                            onClick = {
-                                                navController.navigate("AddDutyDiaryScreen")
-                                            },
-                                            style = TextStyle(fontSize = 17.sp, color = Color.White)
-                                        )
 
-                                        IconButton(
-                                            onClick = {
-                                                navController.navigate("AddDutyDiaryScreen")
-                                            },
-                                            modifier = Modifier
-                                                .size(width = 55.dp, height = 40.dp)
-                                                .padding(start = 15.dp)
-                                        ) {
-                                            Icon(
-                                                painter = painterResource(id = R.drawable.note_add_fill0_wght400_grad0_opsz24),
-                                                contentDescription = "Add Duty Icon", // Provide content description for accessibility
-                                                modifier = Modifier.size(28.dp)
-                                            )
-                                        }
-                                    }
-
-                                    Column(
-                                        verticalArrangement = Arrangement.Center, // Aligns items vertically centered
-                                        horizontalAlignment = Alignment.CenterHorizontally // Aligns items horizontally centered
-                                    ) {
-                                        ClickableText(
-                                            text = AnnotatedString("View"),
-                                            modifier = Modifier
-                                                .padding(start = 15.dp),
-                                            onClick = {
-                                                navController.navigate("ViewDiaryScreen")
-                                            },
-                                            style = TextStyle(fontSize = 17.sp, color = Color.White)
-                                        )
-                                        IconButton(
-                                            onClick = {
-                                                navController.navigate("ViewDiaryScreen")
-                                            },
-                                            modifier = Modifier
-                                                .size(width = 55.dp, height = 40.dp)
-                                                .padding(start = 15.dp)
-                                        ) {
-                                            Icon(
-                                                painter = painterResource(id = R.drawable.home_work_fill0_wght400_grad0_opsz24),
-                                                "view", modifier = Modifier.size(28.dp)
-                                            )
-                                        }
-                                    }
-
-                                    Column(
-                                        verticalArrangement = Arrangement.Center, // Aligns items vertically centered
-                                        horizontalAlignment = Alignment.CenterHorizontally // Aligns items horizontally centered
-                                    ) {
-                                        ClickableText(
-                                            text = AnnotatedString("Delete"),
-                                            modifier = Modifier
-                                                .padding(start = 15.dp),
-                                            onClick = {
-                                                navController.navigate("DeleteRecordScreen")
-                                            },
-                                            style = TextStyle(fontSize = 17.sp, color = Color.White)
-                                        )
-
-                                        IconButton(
-                                            onClick = {
-                                                navController.navigate("DeleteRecordScreen")
-                                            },
-                                            modifier = Modifier
-                                                .size(width = 55.dp, height = 40.dp)
-                                                .padding(start = 15.dp)
-                                        ) {
-                                            Icon(
-                                                painter = painterResource(id = R.drawable.content_cut_fill0_wght400_grad0_opsz24),
-                                                "delete", modifier = Modifier.size(28.dp)
-                                            )
-                                        }
-                                    }
-
-
-                                    //  Spacer(modifier = Modifier.width(15.dp))
-
-
-                                    Column(
-                                        verticalArrangement = Arrangement.Center, // Aligns items vertically centered
-                                        horizontalAlignment = Alignment.CenterHorizontally // Aligns items horizontally centered
-                                    ) {
-                                        ClickableText(
-                                            text = AnnotatedString("DELETE"),
-                                            modifier = Modifier
-                                                .padding(start = 16.dp),
-                                            onClick = {
-                                                navController.navigate("DeleteAllRecordScreen")
-                                            },
-                                            style = TextStyle(fontSize = 14.sp, color = Color.White)
-                                        )
-
-                                        IconButton(
-                                            onClick = {
-                                                navController.navigate("DeleteAllRecordScreen")
-                                            },
-                                            modifier = Modifier
-                                                .size(width = 55.dp, height = 40.dp)
-                                                .padding(start = 15.dp)
-                                        ) {
-
-                                            Icon(
-                                                painter = painterResource(id = R.drawable.content_cut_fill0_wght400_grad0_opsz24),
-                                                "", modifier = Modifier.size(28.dp), tint = Color.Red
-                                            )
-                                            // Spacer(modifier = Modifier.height(25.dp))
-
-                                        }
-                                        ClickableText(
-                                            text = AnnotatedString("ALL"),
-                                            modifier = Modifier
-                                                .padding(start = 13.dp),
-                                            onClick = {
-                                                navController.navigate("DeleteAllRecordScreen")
-                                            },
-                                            style = TextStyle(fontSize = 16.sp, color = Color.White)
-                                        )
-                                    }
-
-                                    Column(
-                                        verticalArrangement = Arrangement.Center, // Aligns items vertically centered
-                                        horizontalAlignment = Alignment.CenterHorizontally // Aligns items horizontally centered
-                                    ) {
-                                        ClickableText(
-                                            text = AnnotatedString("Edit Diary"),
-                                            modifier = Modifier
-                                                .padding(start = 15.dp),
-                                            onClick = {
-                                                navController.navigate("EditDutyDiaryScreen")
-                                            },
-                                            style = TextStyle(fontSize = 17.sp, color = Color.White)
-                                        )
-                                        IconButton(
-                                            onClick = {
-                                                navController.navigate("EditDutyDiaryScreen")
-                                            },
-                                            modifier = Modifier
-                                                .size(width = 55.dp, height = 40.dp)
-                                                .padding(start = 15.dp)
-                                        ) {
-                                            Icon(
-                                                painter = painterResource(id = R.drawable.extension_fill0_wght400_grad0_opsz24),
-                                                "edit duty diary", modifier = Modifier.size(28.dp)
-                                            )
-                                        }
-                                    }
-
-
-                                }
-                                Row {
-
-
-                                Column(
-                                    verticalArrangement = Arrangement.Center, // Aligns items vertically centered
-                                    horizontalAlignment = Alignment.CenterHorizontally // Aligns items horizontally centered
-                                ) {
-                                    ClickableText(
-                                        text = AnnotatedString("View Cloud"),
-                                        modifier = Modifier
-                                            .padding(start = 16.dp),
-                                        onClick = {
-                                            navController.navigate("ReadDataFromCloud")
-                                            // navController.navigate("DeleteAllRecordScreen")
-                                        },
-                                        style = TextStyle(fontSize = 14.sp, color = Color.White)
-                                    )
-
-                                    IconButton(
-                                        onClick = {
-                                            navController.navigate("ReadDataFromCloud")
-                                            // navController.navigate("DeleteAllRecordScreen")
-                                        },
-                                        modifier = Modifier
-                                            .size(width = 55.dp, height = 40.dp)
-                                            .padding(start = 15.dp)
-                                    ) {
-
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.cloud_upload_fill0_wght400_grad0_opsz24),
-                                            "", modifier = Modifier.size(28.dp), tint = Color.Yellow
-                                        )
-                                        // Spacer(modifier = Modifier.height(25.dp))
-
-                                    }
-
-                                }
-                                    Column(
-                                        verticalArrangement = Arrangement.Center, // Aligns items vertically centered
-                                        horizontalAlignment = Alignment.CenterHorizontally // Aligns items horizontally centered
-                                    ) {
-                                        ClickableText(
-                                            text = AnnotatedString("Delete Cloud"),
-                                            modifier = Modifier
-                                                .padding(start = 16.dp),
-                                            onClick = {
-                                                 navController.navigate("DeleteCloudScreen")
-                                            },
-                                            style = TextStyle(fontSize = 14.sp, color = Color.White)
-                                        )
-
-                                        IconButton(
-                                            onClick = {
-                                                navController.navigate("DeleteCloudScreen")
-                                            },
-                                            modifier = Modifier
-                                                .size(width = 55.dp, height = 40.dp)
-                                                .padding(start = 15.dp)
-                                        ) {
-
-                                            Icon(
-                                                painter = painterResource(id = R.drawable.cloud_upload_fill0_wght400_grad0_opsz24),
-                                                "", modifier = Modifier.size(28.dp), tint = Color.Red
-                                            )
-                                            // Spacer(modifier = Modifier.height(25.dp))
-
-                                        }
-
-                                    }
-                                    Column(
-                                        verticalArrangement = Arrangement.Center, // Aligns items vertically centered
-                                        horizontalAlignment = Alignment.CenterHorizontally // Aligns items horizontally centered
-                                    ) {
-                                        ClickableText(
-                                            text = AnnotatedString("Append Cloud"),
-                                            modifier = Modifier
-                                                .padding(start = 13.dp),
-                                            onClick = {
-                                                 navController.navigate("AppendCloudScreen")
-                                            },
-                                            style = TextStyle(fontSize = 14.sp, color = Color.White)
-                                        )
-
-                                        IconButton(
-                                            onClick = {
-                                                navController.navigate("AppendCloudScreen")
-                                            },
-                                            modifier = Modifier
-                                                .size(width = 55.dp, height = 40.dp)
-                                                .padding(start = 15.dp)
-                                        ) {
-
-                                            Icon(
-                                                painter = painterResource(id = R.drawable.cloud_upload_fill0_wght400_grad0_opsz24),
-                                                "", modifier = Modifier.size(28.dp), tint = Color.Green
-                                            )
-                                            // Spacer(modifier = Modifier.height(25.dp))
-
-                                        }
-
-                                    }
-                                    Column(
-                                        verticalArrangement = Arrangement.Center, // Aligns items vertically centered
-                                        horizontalAlignment = Alignment.CenterHorizontally // Aligns items horizontally centered
-                                    ) {
-                                        ClickableText(
-                                            text = AnnotatedString("Merge"),
-                                            modifier = Modifier
-                                                .padding(start = 13.dp),
-                                            onClick = {
-                                               navController.navigate("MergeFromCloudScreen")
-                                            },
-                                            style = TextStyle(fontSize = 14.sp, color = Color.White)
-                                        )
-
-
-                                        TextButton(
-                                            onClick = {
-                                                navController.navigate("MergeFromCloudScreen")
-
-                                            },
-//                                            colors = ButtonDefaults.textButtonColors(
-//                                                containerColor = MaterialTheme.colorScheme.surface, // Background color
-//                                                contentColor = MaterialTheme.colorScheme.primary // Text and icon color
-//                                            )
-                                        ) {
-                                            Row(
-                                                verticalAlignment = Alignment.CenterVertically,
-                                                horizontalArrangement = Arrangement.spacedBy(8.dp) // Space between the image and text
-                                            ) {
-                                                Image(
-                                                    painter = painterResource(id = R.drawable.dall_e_2024_10_01_16_01_17___a_m), // Your image resource
-                                                    contentDescription = "Your image description",
-                                                    modifier = Modifier.size(24.dp) // Set the size of the image
-                                                )
-                                               // Text(text = "Your Button Text") // Text beside the image
-                                            }
-                                        }
-
-
-                                    }
-
-                                }//Row end
-
-
+                            // First Row of Options
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .horizontalScroll(rememberScrollState()),
+                                horizontalArrangement = Arrangement.SpaceEvenly
+                            ) {
+                                MenuOption(
+                                    text = "Add Duty",
+                                    iconRes = R.drawable.note_add_fill0_wght400_grad0_opsz24,
+                                    onClick = { navController.navigate("AddDutyDiaryScreen") }
+                                )
+                                MenuOption(
+                                    text = "View",
+                                    iconRes = R.drawable.home_work_fill0_wght400_grad0_opsz24,
+                                    onClick = { navController.navigate("ViewDiaryScreen") }
+                                )
+                                MenuOption(
+                                    text = "Delete",
+                                    iconRes = R.drawable.content_cut_fill0_wght400_grad0_opsz24,
+                                    onClick = { navController.navigate("DeleteRecordScreen") }
+                                )
+                                MenuOption(
+                                    text = "DELETE ALL",
+                                    iconRes = R.drawable.content_cut_fill0_wght400_grad0_opsz24,
+                                    onClick = { navController.navigate("DeleteAllRecordScreen") },
+                                    iconTint = Color.Red,
+                                    textSize = 12.sp
+                                )
+                                MenuOption(
+                                    text = "Edit Diary",
+                                    iconRes = R.drawable.extension_fill0_wght400_grad0_opsz24,
+                                    onClick = { navController.navigate("EditDutyDiaryScreen") }
+                                )
                             }
 
+                            Spacer(modifier = Modifier.height(10.dp))
 
+                            // Second Row of Options
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .horizontalScroll(rememberScrollState()),
+                                horizontalArrangement = Arrangement.SpaceEvenly
+                            ) {
+                                MenuOption(
+                                    text = "View Cloud",
+                                    iconRes = R.drawable.cloud_upload_fill0_wght400_grad0_opsz24,
+                                    onClick = { navController.navigate("ReadDataFromCloud") },
+                                    iconTint = Color.Yellow,
+                                    textSize = 14.sp
+                                )
+                                MenuOption(
+                                    text = "Delete Cloud",
+                                    iconRes = R.drawable.cloud_upload_fill0_wght400_grad0_opsz24,
+                                    onClick = { navController.navigate("DeleteCloudScreen") },
+                                    iconTint = Color.Red,
+                                    textSize = 14.sp
+                                )
+                                MenuOption(
+                                    text = "Append Cloud",
+                                    iconRes = R.drawable.cloud_upload_fill0_wght400_grad0_opsz24,
+                                    onClick = { navController.navigate("AppendCloudScreen") },
+                                    iconTint = Color.Green,
+                                    textSize = 14.sp
+                                )
+                                // Merge with custom image
+                                Column(
+                                    verticalArrangement = Arrangement.Center,
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    modifier = Modifier.padding(horizontal = 8.dp)
+                                ) {
+                                    Text(
+                                        text = "Merge",
+                                        color = Color.White,
+                                        fontSize = 14.sp,
+                                        modifier = Modifier.clickable {
+                                            navController.navigate("MergeFromCloudScreen")
+                                        }
+                                    )
+                                    IconButton(
+                                        onClick = { navController.navigate("MergeFromCloudScreen") }
+                                    ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.dall_e_2024_10_01_16_01_17___a_m),
+                                            contentDescription = "Merge",
+                                            modifier = Modifier.size(28.dp)
+                                        )
+                                    }
+                                }
+                            }
                         }
-
                     }
                 }
 
+                // SCHEDULE Section
                 item {
-                    Column(modifier = Modifier.padding(start = 70.dp)) {
-                        TextShadow(text = "SCHEDULE")
-                    }
-                    Column {
-
-                        HorizontalDivider(thickness = 3.dp, color = Color.White)
-                    }
-                    Column(modifier = Modifier.padding(start = 70.dp, top = 10.dp)) {
-                        val text = buildAnnotatedString {
-                            append("Add/Update")
-                        }
-                        @Suppress("DEPRECATION") val textStyle = TextStyle(
-                            color = Color.White, // Set the text color to blue
-                            fontSize = 16.sp, // Set the font size
-                            textDecoration = TextDecoration.Underline // Underline the text
-                        ).apply {
-                            ClickableText(
-                                modifier = Modifier.padding(start = 10.dp),
-                                text = text, // The text to be displayed
-                                style = this, // The style to be applied to the text
-                                onClick = {
-                                    // Navigate to the "AddScheduleScreen" screen when the text is clicked
-                                    navController.navigate("AddScheduleScreen")
-                                }
-                            )
-                        }
-                        IconButton(onClick = {
-                            navController.navigate("AddScheduleScreen")
-                            //navController.navigate("AddScheduleScreenWithPassword")
-
-                        }, modifier = Modifier.padding(start = 20.dp))
-                        {
-                            Icon(
-                                painter = painterResource(id = R.drawable.cloud_upload_fill0_wght400_grad0_opsz24),
-                                "", modifier = Modifier.size(30.dp)
-                            )
-                        }
-                        Column(modifier = Modifier
-                            .clickable {
-                                navController.navigate("ScheduleDisplayScreen")
-                            }
-                            .fillMaxWidth()) {
-                            Text("View Schedule", color = Color.White, fontSize = 16.sp)
-                            IconButton(onClick = {
-                                navController.navigate("ScheduleDisplayScreen")
-
-                            }, modifier = Modifier.padding(start = 20.dp))
-                            {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.folder_open_fill0_wght400_grad0_opsz24),
-                                    "", modifier = Modifier.size(30.dp)
-                                )
-                            }
-                        }
-
-                        Column(modifier = Modifier
-                            .clickable {
-                                navController.navigate("DeleteTripScreenWithPassword")
-                            }
-                            .fillMaxWidth()) {
-                            Text("Delete Trip", color = Color.White, fontSize = 20.sp)
-
-                            IconButton(onClick = {
-                                // navController.navigate("DeleteTripScreen")
-                                navController.navigate("DeleteTripScreenWithPassword")
-
-                            }, modifier = Modifier.padding(start = 20.dp))
-                            {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.content_cut_fill0_wght400_grad0_opsz24),
-                                    "", modifier = Modifier.size(30.dp)
-                                )
-                            }
-                        }
-                        Column(modifier = Modifier
-                            .clickable {
-                                navController.navigate("DeleteScheduleScreenWithPassword")
-
-                            }
-                            .fillMaxWidth()) {
-                            Text("Delete Schedule", color = Color.White, fontSize = 20.sp)
-                            IconButton(onClick = {
-                                //navController.navigate("DeleteScheduleScreen")
-                                navController.navigate("DeleteScheduleScreenWithPassword")
-
-                            }, modifier = Modifier.padding(start = 20.dp))
-                            {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.content_cut_fill0_wght400_grad0_opsz24),
-                                    "", modifier = Modifier.size(30.dp)
-                                )
-                            }
-                        }
-                        Column(modifier = Modifier
-                            .clickable {
-                                navController.navigate("ListAllScheduleScreen")
-                            }
-                            .fillMaxWidth()) {
-                            Text("List All Schedule", color = Color.White, fontSize = 20.sp)
-                            IconButton(onClick = {
-                                navController.navigate("ListAllScheduleScreen")
-                            }) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.cloud_download_fill0_wght400_grad0_opsz24),
-                                    "", modifier = Modifier.size(30.dp)
-                                )
-                            }
-
-                        }
-                    }
-
+                    Spacer(modifier = Modifier.height(10.dp))
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(10.dp)
-                            .height(260.dp),
-                        // Adjust the height as needed
-                        colors = cardColors(
+                            .padding(10.dp),
+                        colors = CardDefaults.cardColors(
                             containerColor = Color(0xFF648FD6),
                         ),
                         elevation = CardDefaults.cardElevation(
                             defaultElevation = 5.dp,
                             focusedElevation = 8.dp
                         ),
-                        // backgroundColor = Color(0xFF648FD6),
-                        shape = RoundedCornerShape(5.dp)
-                        //shape = RoundedCornerShape(5.dp),
+                        shape = RoundedCornerShape(5.dp),
                     ) {
-                        Column {
-                            Column(modifier = Modifier.padding(start = 70.dp)) {
-                                TextShadow(text = "UTILITY ")
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Column(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                TextShadow(text = "SCHEDULE")
                             }
-                            Column {
+                            HorizontalDivider(thickness = 3.dp, color = Color.White)
+                            Spacer(modifier = Modifier.height(10.dp))
 
-                                HorizontalDivider(thickness = 3.dp, color = Color.White)
-                            }
-                            Column(modifier = Modifier.padding(start = 70.dp)) {
-                                Text("Find my bus", color = Color.White, fontSize = 16.sp)
-                                IconButton(onClick = {
-                                    navController.navigate("FindMyBusScreen")
-
-                                }, modifier = Modifier.padding(start = 20.dp))
-                                {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.manage_search_fill0_wght400_grad0_opsz24),
-                                        "", modifier = Modifier.size(30.dp)
-                                    )
-                                }
-                                Text("Depo List", color = Color.White, fontSize = 16.sp)
-                                IconButton(onClick = {
-                                    navController.navigate("DepoListScreen")
-
-                                }, modifier = Modifier.padding(start = 20.dp))
-                                {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.saved_search_fill0_wght400_grad0_opsz24),
-                                        "", modifier = Modifier.size(30.dp)
-                                    )
-                                }
-                                Text("CURRENCY COUNT", color = Color.White, fontSize = 16.sp)
-                                IconButton(onClick = {
-                                    navController.navigate("CurrencyCountScreen")
-                                }) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.note_add_fill0_wght400_grad0_opsz24),
-                                        "", modifier = Modifier.size(30.dp)
-                                    )
-                                }
-                            }
-
-
+                            ScheduleMenuItem(
+                                text = "Add/Update",
+                                iconRes = R.drawable.cloud_upload_fill0_wght400_grad0_opsz24,
+                                onClick = { navController.navigate("AddScheduleScreen") }
+                            )
+                            ScheduleMenuItem(
+                                text = "View Schedule",
+                                iconRes = R.drawable.folder_open_fill0_wght400_grad0_opsz24,
+                                onClick = { navController.navigate("ScheduleDisplayScreen") }
+                            )
+                            ScheduleMenuItem(
+                                text = "Delete Trip",
+                                iconRes = R.drawable.content_cut_fill0_wght400_grad0_opsz24,
+                                onClick = { navController.navigate("DeleteTripScreenWithPassword") }
+                            )
+                            ScheduleMenuItem(
+                                text = "Delete Schedule",
+                                iconRes = R.drawable.content_cut_fill0_wght400_grad0_opsz24,
+                                onClick = { navController.navigate("DeleteScheduleScreenWithPassword") }
+                            )
+                            ScheduleMenuItem(
+                                text = "List All Schedule",
+                                iconRes = R.drawable.cloud_download_fill0_wght400_grad0_opsz24,
+                                onClick = { navController.navigate("ListAllScheduleScreen") }
+                            )
                         }
                     }
                 }
 
-                    //Room
+                // UTILITY Section
+                item {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = Color(0xFF648FD6),
+                        ),
+                        elevation = CardDefaults.cardElevation(
+                            defaultElevation = 5.dp,
+                            focusedElevation = 8.dp
+                        ),
+                        shape = RoundedCornerShape(5.dp)
+                    ) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Column(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                TextShadow(text = "UTILITY")
+                            }
+                            HorizontalDivider(thickness = 3.dp, color = Color.White)
+                            Spacer(modifier = Modifier.height(10.dp))
 
+                            ScheduleMenuItem(
+                                text = "Find my bus",
+                                iconRes = R.drawable.manage_search_fill0_wght400_grad0_opsz24,
+                                onClick = { navController.navigate("FindMyBusScreen") }
+                            )
+                            ScheduleMenuItem(
+                                text = "Depo List",
+                                iconRes = R.drawable.saved_search_fill0_wght400_grad0_opsz24,
+                                onClick = { navController.navigate("DepoListScreen") }
+                            )
+                            ScheduleMenuItem(
+                                text = "CURRENCY COUNT",
+                                iconRes = R.drawable.note_add_fill0_wght400_grad0_opsz24,
+                                onClick = { navController.navigate("CurrencyCountScreen") }
+                            )
+                        }
+                    }
+                }
 
-
-
-
-                    item {
-                        Card(
+                // Buttons Section
+                item {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = Color(0xFF648FD6),
+                        ),
+                        elevation = CardDefaults.cardElevation(
+                            defaultElevation = 5.dp,
+                            focusedElevation = 8.dp
+                        ),
+                        shape = RoundedCornerShape(5.dp),
+                    ) {
+                        Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(10.dp)
-                                .height(100.dp), // Adjust the height as needed
-                            colors = cardColors(
-                                containerColor = Color(0xFF648FD6),
-                            ),
-                            elevation = CardDefaults.cardElevation(
-                                defaultElevation = 5.dp,
-                                focusedElevation = 8.dp
-                            ),
-                            shape = RoundedCornerShape(5.dp),
-                        ){
-                            Spacer(modifier = Modifier.height(20.dp))
-                            Row {
+                                .padding(16.dp),
+                            horizontalArrangement = Arrangement.SpaceEvenly
+                        ) {
+                            Button(
+                                onClick = { navController.navigate("RegisterScreen") },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = Color(0xFF00712D),
+                                    contentColor = Color.White
+                                ),
+                                elevation = ButtonDefaults.buttonElevation(
+                                    defaultElevation = 20.dp,
+                                    disabledElevation = 12.dp
+                                )
+                            ) {
+                                Text("Register", fontSize = 14.sp, color = Color(0xFFD5ED9F))
+                            }
 
-                                Spacer(modifier = Modifier.width(5.dp))
-
-                                Button(
-                                    onClick = {
-                                        navController.navigate("RegisterScreen")
-                                    },
-                                    colors = ButtonDefaults.buttonColors(
-                                        containerColor = Color(0xFF00712D),
-                                        contentColor = Color.White// text color
-                                    ), elevation = ButtonDefaults.buttonElevation(
-                                        defaultElevation = 20.dp,
-                                        disabledElevation = 12.dp
-                                    )
-
-                                ) {
-                                    Text("Register", fontSize = 14.sp, color = Color(0xFFD5ED9F))
-
-                                }
-
-                                Spacer(modifier = Modifier.width(5.dp))
-
-                            Button(onClick = { navController.navigate("ContactMeScreen") },
+                            Button(
+                                onClick = { navController.navigate("ContactMeScreen") },
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = Color(0xFFFF6F00),
-                                    contentColor = Color.White // text color
-                                ),elevation = ButtonDefaults.buttonElevation(
+                                    contentColor = Color.White
+                                ),
+                                elevation = ButtonDefaults.buttonElevation(
                                     defaultElevation = 20.dp
                                 )
-
                             ) {
-                                Text("Contact Me", fontSize = 14.sp,color= Color.White)
-
+                                Text("Contact Me", fontSize = 14.sp, color = Color.White)
                             }
-                                Spacer(modifier = Modifier.width(5.dp))
-                            Button(onClick = { navController.navigate("AboutScreen") },
+
+                            Button(
+                                onClick = { navController.navigate("AboutScreen") },
                                 elevation = ButtonDefaults.buttonElevation(
                                     defaultElevation = 30.dp
                                 )
                             ) {
                                 Text("ABOUT", color = Color.White, fontSize = 12.sp)
                             }
-                            }
-
                         }
                     }
+                }
 
-
-
+                // Ad Banner
                 item {
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(10.dp)
-                            .height(100.dp), // Adjust the height as needed
-                        colors = cardColors(
+                            .padding(10.dp),
+                        colors = CardDefaults.cardColors(
                             containerColor = Color(0xFF648FD6),
                         ),
                         elevation = CardDefaults.cardElevation(
@@ -682,10 +371,15 @@ fun MenuScreen(navController: NavController) {
                             focusedElevation = 8.dp
                         ),
                         shape = RoundedCornerShape(5.dp),
-                    ){
-                        Spacer(modifier = Modifier.height(10.dp))
-                        BannerAdView(false, AdSize.LARGE_BANNER)
-
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(10.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            BannerAdView(false, AdSize.LARGE_BANNER)
+                        }
                     }
                 }
             }
@@ -693,39 +387,99 @@ fun MenuScreen(navController: NavController) {
     }
 }
 
-
-@Preview(showBackground = true)
+// Reusable composable for menu options in the Duty Diary section
 @Composable
-fun MenuScreenPreview(){
-    //MenuScreen()
+fun MenuOption(
+    text: String,
+    iconRes: Int,
+    onClick: () -> Unit,
+    iconTint: Color = Color.White,
+    textSize: TextUnit = 17.sp
+) {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .padding(horizontal = 8.dp)
+            .clickable(onClick = onClick)
+    ) {
+        Text(
+            text = text,
+            color = Color.White,
+            fontSize = textSize,
+            textAlign = TextAlign.Center
+        )
+        IconButton(onClick = onClick) {
+            Icon(
+                painter = painterResource(id = iconRes),
+                contentDescription = text,
+                modifier = Modifier.size(28.dp),
+                tint = iconTint
+            )
+        }
+    }
 }
+
+// Reusable composable for schedule menu items
 @Composable
-fun TextShadow(text:String) {
+fun ScheduleMenuItem(
+    text: String,
+    iconRes: Int,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .padding(vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        IconButton(onClick = onClick) {
+            Icon(
+                painter = painterResource(id = iconRes),
+                contentDescription = text,
+                modifier = Modifier.size(30.dp),
+                tint = Color.White
+            )
+        }
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = text,
+            color = Color.White,
+            fontSize = 16.sp
+        )
+    }
+}
+
+@Composable
+fun TextShadow(text: String) {
     val offset = Offset(5.0f, 10.0f)
     Text(
         text = text,
-        color= Color.White,
+        color = Color.White,
         style = TextStyle(
             fontSize = 27.sp,
             shadow = Shadow(
-                color = Color.Blue, offset = offset, blurRadius = 3f
+                color = Color.Blue,
+                offset = offset,
+                blurRadius = 3f
             )
         )
     )
 }
 
-@Composable
-fun CircularButton(onClick: () -> Unit, buttonText: String="Click") {
-    Button(
-        onClick = onClick,
-        shape = CircleShape, // This ensures the button is shaped like a circle
-        modifier = Modifier
-            .size(35.dp), // Set size to be the same for width and height (this ensures it's a circle)
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFFFFFF00),
-            contentColor = Color.White // text color
-        )
-    ) {
-        Text(text = buttonText, color = Color.White, fontSize = 12.sp)
-    }
-}
+//@Composable
+//fun CircularButton(onClick: () -> Unit, buttonText: String="Click") {
+//    Button(
+//        onClick = onClick,
+//        shape = CircleShape, // This ensures the button is shaped like a circle
+//        modifier = Modifier
+//            .size(35.dp), // Set size to be the same for width and height (this ensures it's a circle)
+//        colors = ButtonDefaults.buttonColors(
+//            containerColor = Color(0xFFFFFF00),
+//            contentColor = Color.White // text color
+//        )
+//    ) {
+//        Text(text = buttonText, color = Color.White, fontSize = 12.sp)
+//    }
+//}

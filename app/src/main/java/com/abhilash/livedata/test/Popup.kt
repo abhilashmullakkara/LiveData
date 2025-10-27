@@ -1,13 +1,16 @@
 package com.abhilash.livedata.test
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.size
-
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.IconButton
@@ -16,90 +19,29 @@ import androidx.compose.material.Surface
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.abhilash.livedata.ui.theme.database.DepoData
 import com.abhilash.livedata.ui.theme.database.OriginalData
 import com.abhilash.livedata.ui.theme.schedule.fetchDatabase
 import com.google.firebase.database.FirebaseDatabase
-
-@Composable
-fun DepotSelectionScreen(depoList: List<DepoData>,color: Color=Color(0xFF2E7D32)):String {
-    var selectedDepo by remember { mutableStateOf(DepoData(depoId = 0, depoName = "", phone = "", email = "")) }
-    var manuallyEnteredDepoNo by remember { mutableStateOf("") }
-    var expanded by remember { mutableStateOf(false) }
-    Surface(color= Color.LightGray) {
-
-    Column(modifier = Modifier.padding(16.dp)) {
-
-        // Dropdown menu for selecting depot
-        DropdownMenu(
-            expanded = expanded,
-          onDismissRequest = { expanded = false }
-        ) {
-            depoList.forEach { depo ->
-                DropdownMenuItem(onClick = {
-                    expanded = false
-                    selectedDepo = depo
-                    manuallyEnteredDepoNo = depo.depoId.toString() // Update manually entered value
-                }) {
-                    Text(" [${depo.depoId}]", fontSize = 16.sp,color=Color.Black, fontWeight = FontWeight.SemiBold)
-                    Text(depo.depoName,color=Color.Black, fontSize = 14.sp)
-                }
-            }
-        }
-
-        // Manually entered depot number field
-        OutlinedTextField(
-            colors = TextFieldDefaults.textFieldColors(
-               textColor = Color(0xFFF48FB1)
-            ),
-            value = manuallyEnteredDepoNo,
-            onValueChange = { newValue ->
-                manuallyEnteredDepoNo = newValue
-                // You might want to validate the manually entered value here
-            },
-            label = { Text("Depo NO",color=Color(0xFFC62828)) },
-            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-            modifier = Modifier
-                .fillMaxWidth(0.35f)
-                .padding(vertical = 16.dp),
-                    trailingIcon = {
-                        IconButton(onClick = { expanded = !expanded }) {
-                            Icon(
-                                imageVector = Icons.Default.ArrowDropDown,
-                                contentDescription = "Dropdown",
-                                tint =color // Change the color here
-                            )
-                        }
-                // Icon representing a dropdown arrow
-//                IconButton(onClick = {  expanded = !expanded }) {
-//                    Icon(Icons.Filled.ArrowDropDown, contentDescription = null)
-//                }
-            }
-        )
-    }
-}
-    return manuallyEnteredDepoNo
-}
+//
 @Composable
 fun depoSchedule(depo: String = "",color: Color= Color.White,padd:Float=0.6f):String {
     var selectedSchedule by remember { mutableStateOf(emptyList<Pair<String, String>>()) }
@@ -125,7 +67,7 @@ fun depoSchedule(depo: String = "",color: Color= Color.White,padd:Float=0.6f):St
                     manuallyEnteredScheduleNo = scheduleNo
                     selectedSchedule = selectedSchedule + (scheduleNo to originalData)
                 }) {
-                    Text(scheduleNo + " :" + originalData)
+                    Text("$scheduleNo :$originalData")
                 }
             }
         }
@@ -150,6 +92,14 @@ fun depoSchedule(depo: String = "",color: Color= Color.White,padd:Float=0.6f):St
                     Icon(
                         imageVector = Icons.Default.ArrowDropDown,
                         contentDescription = "Dropdown",
+                        modifier = Modifier
+                            .size(32.dp) // ✅ Very compact
+                            .clickable { expanded = !expanded }
+                            .background(
+                                color = Color(0xFFFF6F00),
+                                shape = CircleShape
+                            )
+                            .padding(4.dp),
                         tint = color // Change the color here
                     )
                 }
@@ -166,71 +116,120 @@ fun depoSchedule(depo: String = "",color: Color= Color.White,padd:Float=0.6f):St
     return manuallyEnteredScheduleNo
 }
 
+
 @Composable
-fun NodepotSelectionScreen(depoList: List<DepoData>,color: Color=Color.White,padd:Float=0.35f):String {
-    var selectedDepo by remember { mutableStateOf(DepoData(depoId = 0, depoName = "", phone = "", email = "")) }
+fun NodepotSelectionScreen(
+    depoList: List<DepoData>,
+    color: Color = Color.White,
+    padd: Float = 0.35f
+): String {
+    var selectedDepo by remember {
+        mutableStateOf(DepoData(depoId = 0, depoName = "", phone = "", email = ""))
+    }
     var manuallyEnteredDepoNo by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
 
-
-Column(horizontalAlignment = Alignment.CenterHorizontally,
-    verticalArrangement = Arrangement.Center) {
-    // Dropdown menu for selecting depot
-
-
-    DropdownMenu(
-        expanded = expanded,
-        onDismissRequest = { expanded = false },
-
+    Box { // ✅ Wrap in Box for proper dropdown positioning
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-        depoList.forEach { depo ->
-            DropdownMenuItem(onClick = {
-                expanded = false
-                selectedDepo = depo
-                manuallyEnteredDepoNo = depo.depoId.toString() // Update manually entered value
-            }) {
-                Text(" [${depo.depoId}]", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
-                Text(depo.depoName, fontSize = 14.sp)
+            Text("DepoNo", color = color, fontSize = 14.sp)
+            OutlinedTextField(
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    textColor = Color(0xFFE10851),
+                    unfocusedLabelColor = color,
+                    focusedLabelColor = color
+                ),
+                value = manuallyEnteredDepoNo,
+                onValueChange = { newValue ->
+                    if (newValue.all { it.isDigit() }) {
+                        manuallyEnteredDepoNo = newValue
+                    }
+                },
+                label = {
+                    Text(
+                        "DepoNO",
+                        fontSize = 8.sp,
+                        color = color
+                    )
+                },
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = KeyboardType.Number
+                ),
+                modifier = Modifier
+                    .fillMaxWidth(padd)
+                    .padding(start = 5.dp),
+                singleLine = true,
+                trailingIcon = {
+                    Icon(
+                        imageVector = if (expanded)
+                            Icons.Default.ArrowDropUp
+                        else
+                            Icons.Default.ArrowDropDown,
+                        contentDescription = "Dropdown",
+                        modifier = Modifier
+                            .size(32.dp)
+                            .clickable { expanded = !expanded }
+                            .background(
+                                color = Color(0xFFFF6F00),
+                                shape = CircleShape
+                            )
+                            .padding(4.dp),
+                        tint = color
+                    )
+                }
+            )
+        }
+
+        // ✅ Dropdown menu - Now positioned better and wider
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier
+                .widthIn(min = 250.dp, max = 400.dp) // ✅ Set minimum and maximum width
+        ) {
+            depoList.forEach { depo ->
+                DropdownMenuItem(
+                    onClick = {
+                        expanded = false
+                        selectedDepo = depo
+                        manuallyEnteredDepoNo = depo.depoId.toString()
+                    },
+                    modifier = Modifier.fillMaxWidth() // ✅ Full width of dropdown
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "[${depo.depoId}]",
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFFE10851),
+                            modifier = Modifier.padding(end = 8.dp)
+                        )
+                        Text(
+                            text = depo.depoName,
+                            fontSize = 14.sp,
+                            modifier = Modifier.weight(1f),
+                            overflow = TextOverflow.Ellipsis,
+                            maxLines = 2
+                        )
+                    }
+                }
+                // Add divider between items
+                if (depo != depoList.last()) {
+                    HorizontalDivider(thickness = 1.dp, color = Color.LightGray)
+                }
             }
         }
     }
 
-    // Manually entered depot number field
-    OutlinedTextField(
-        colors = TextFieldDefaults.textFieldColors(
-            textColor = Color(0xFFE10851)
-        ),
-        value = manuallyEnteredDepoNo,
-        onValueChange = { newValue ->
-            manuallyEnteredDepoNo = newValue
-            // You might want to validate the manually entered value here
-        },
-        label = { Text("DepoNO", fontSize = 14.sp, modifier = Modifier
-            .fillMaxWidth(),color =color) },
-        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-        modifier = Modifier
-            .fillMaxWidth(padd)
-            .padding(start = 5.dp),
-        // .padding(vertical = 6.dp),
-        trailingIcon = {
-            Surface(color=Color(0xFFFF6F00)) {
-                IconButton(onClick = { expanded = !expanded },) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowDropDown,
-                        contentDescription = "Dropdown",
-                        modifier = Modifier.size(24.dp),
-                        tint = color // Change the color here
-                    )
-                }
-            }
-            // Icon representing a dropdown arrow
-
-        }
-    )
-}
-
     return manuallyEnteredDepoNo
 }
+
 
 @Composable
 fun researchAndStore(path: String = ""): List<Pair<String, String>> {
