@@ -58,7 +58,7 @@ fun AppendCloudScreen(navController: NavController) {
         mutableStateOf<List<Employee>>(emptyList())
     }
 
-    Surface(color = Color(0xFF651FFF)) {
+    Surface(color = Color(0xFFA595CC)) {
         Column {
             Row(modifier = Modifier
                 .fillMaxWidth()
@@ -135,6 +135,15 @@ fun AppendCloudScreen(navController: NavController) {
 
 val pas= verifyPassword(penNumberInput = newEmploy.value.penNumber, passwordInput =newEmploy.value.password )
             Text(pas.toString(),color=Color.White)
+            Text("For testing .....",
+                modifier=Modifier.fillMaxWidth().padding(start=90.dp,top=80.dp),
+                fontSize=20.sp,color=Color.DarkGray)
+            Text("Pen: G100",
+                modifier=Modifier.fillMaxWidth().padding(start=90.dp),
+                fontSize=18.sp,color=Color.DarkGray)
+            Text("Password: 'neofetch'",
+                modifier=Modifier.fillMaxWidth().padding(start=90.dp),
+                fontSize=18.sp,color=Color.DarkGray)
 
             if (pas){
                 OutlinedButton(

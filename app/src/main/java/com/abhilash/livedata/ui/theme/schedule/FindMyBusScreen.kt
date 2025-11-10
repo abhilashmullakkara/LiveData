@@ -80,7 +80,7 @@ fun FindMyBusScreen(navController: NavController) {
             )
             Row(  modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp)) {
+                .padding(5.dp)) {
                 depoNo=NodepotSelectionScreen(depoList,padd=0.5f)
                 Spacer(modifier = Modifier.width(10.dp))
                 OutlinedTextField(
@@ -162,7 +162,11 @@ fun searchAndStorePath(path: String = "", destination: String = ""): List<Pair<S
                             Text("From: ${originalData.startPlace}",
                                 color = Color(0xFFF30303), fontWeight = FontWeight.Bold, fontSize = 14.sp)
                         }
-                        Text("ArrTime: ${originalData.arrivalTime}", color = Color.White)
+          Row{
+              Text("ArrTime: ${originalData.arrivalTime} ", color = Color.White)
+                Text("      (at Destination time)...!",color=Color.DarkGray, fontSize = 12.sp)
+          }
+
                         Text("Destination: ${originalData.destinationPlace}", color = Color.White)
                         Text("Via: ${originalData.via}", color = Color.White)
                         Text("DutyNo${scheduleNo}", color = Color.White)

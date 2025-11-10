@@ -56,8 +56,8 @@ fun MenuScreen(navController: NavController) {
                     .padding(2.dp)
                     .height(148.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = Color(0xFF075E54),
-                    disabledContainerColor = Color(0xFF075E54),
+                    containerColor = Color(0xFF3F51B5),
+                    disabledContainerColor = Color(0xFF58608F),
                     disabledContentColor = Color.Transparent
                 ),
             ) {
@@ -163,7 +163,7 @@ fun MenuScreen(navController: NavController) {
                                     textSize = 14.sp
                                 )
                                 MenuOption(
-                                    text = "Append Cloud",
+                                    text = "Upload to Cloud",
                                     iconRes = R.drawable.cloud_upload_fill0_wght400_grad0_opsz24,
                                     onClick = { navController.navigate("AppendCloudScreen") },
                                     iconTint = Color.Green,
@@ -197,7 +197,14 @@ fun MenuScreen(navController: NavController) {
                         }
                     }
                 }
-
+item{
+//    Icon(
+//        painterResource(id =R.drawable.add_fill0_wght400_grad0_opsz24 ),
+//        "",
+//        Modifier.size(28.dp),
+//        Color.DarkGray
+//    )
+}
                 // SCHEDULE Section
                 item {
                     Spacer(modifier = Modifier.height(10.dp))

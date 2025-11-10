@@ -134,7 +134,7 @@ fun NodepotSelectionScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text("DepoNo", color = color, fontSize = 14.sp)
+            //Text("DepoNo", color = color, fontSize = 14.sp)
             OutlinedTextField(
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     textColor = Color(0xFFE10851),
